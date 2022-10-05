@@ -18,7 +18,11 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>
+				<section data-background-image="assets/share/sedes_t.png"
+						 data-background-size="55%"
+						 data-background-position="bottom -320px right -180px"
+						 data-background-repeat="no-repeat"
+						 data-background-opacity="0.45">
 					<h2>Real-time tracking of SARS-CoV-2 evolution in Belgium</h2>
 					<h4>Barney Isaksen Potter</h4>
 					<p style="font-size:0.6em">KU Leuven</p>
@@ -33,11 +37,20 @@
 					</aside>
 				</section>
 				<section>
-					<img class="r-stretch" src="assets/second-year-seminar/lineages.pdf" alt="Belgian circulating lineages" />
-						<aside class="notes">
-						<p>Some notes</p>
+					<section>
+						<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences.png" alt="Belgian circulating lineages" />
+							<aside class="notes">
+								<p>Some notes</p>
+							</aside>
 						</aside>
-					</aside>
+					</section>
+					<section>
+						<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences_prop.png" alt="Belgian circulating lineages" />
+							<aside class="notes">
+								<p>Some notes</p>
+							</aside>
+							</aside>
+					</section>
 				</section>
 			</div>
 		</div>
@@ -46,15 +59,18 @@
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+		<script src="node_modules/reveal-pdf/dist/reveal-pdf.js"></script>
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealPdf, ]
 			});
 		</script>
 	</body>

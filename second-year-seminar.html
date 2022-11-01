@@ -99,23 +99,126 @@
 						SARS-CoV-2 in Belgium at various spatiotemporal scales.
 					</blockquote>
 				</section>
-				<section>
-					<h3>What does phylogeography tell us?</h3>
+				<!-- Phylogeny explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogeography tell us?</h3>
 					<div id="left">
 						<ul>
-							<li class="fragment semi-fade-out" data-fragment-index="1">
-									Phylogeny
+							<li>
+								Phylogeny
 							</li>
-							<li class="fragment semi-fade-out" data-fragment-index="2">
+							<li style="opacity:.5">
 								Evolutionary rate
 							</li>
-							<li class="fragment semi-fade-out" data-fragment-index="3">
+							<li style="opacity:.5">
 								Substitution rates
 							</li>
-							<li class="fragment semi-fade-out" data-fragment-index="4">
+							<li style="opacity:.5">
 								Migration rates
 							</li>
-							<li class="fragment semi-fade-out" data-fragment-index="5">
+							<li style="opacity:.5">
+								Migraton timings
+							</li>
+							<li style="opacity:.5">
+								Demographic history
+							</li>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/phylogeny.png" width="100%">
+					</div>
+				</section>
+				<!-- Evolutionary rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogeography tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">
+									Phylogeny
+							</li>
+							<li>
+								Evolutionary rate
+							</li>
+							<li style="opacity:.5">
+								Substitution rates
+							</li>
+							<li style="opacity:.5">
+								Migration rates
+							</li>
+<li style="opacity:.5">
+								Migraton timings
+							</li>
+							<li style="opacity:.5">
+								Demographic history
+							</li>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/time_scale.png" width="100%">
+					</div>
+				</section>
+				<!-- Substitution rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogeography tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">
+									Phylogeny
+							</li>
+							<li style="opacity:.5">
+								Evolutionary rate
+							</li>
+							<li>
+								Substitution rates
+							</li>
+							<li style="opacity:.5">
+								Migration rates
+							</li>
+<li style="opacity:.5">
+								Migraton timings
+							</li>
+							<li style="opacity:.5">
+								Demographic history
+							</li>
+					</div>
+					<div id="right">
+						\[\tiny
+						Q_{JC69} =
+						\begin{bmatrix}
+						\cdot & \lambda & \lambda & \lambda \\
+						\lambda & \cdot & \lambda & \lambda \\
+						\lambda & \lambda & \cdot & \lambda \\
+						\lambda & \lambda & \lambda & \cdot \\
+						\end{bmatrix} \\[1em]
+						Q_{GTR} =
+						\begin{bmatrix}
+						\cdot & a\pi_C & b\pi_A & c\pi_G \\
+						a\pi_T & \cdot & d\pi_A & e\pi_G \\
+						b\pi_T & d\pi_C & \cdot & f\pi_G \\
+						c\pi_T & e\pi_C & f\pi_A & \cdot \\
+						\end{bmatrix}
+						\]
+					</div>
+				</section>
+				<!-- Migration rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogeography tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">
+									Phylogeny
+							</li>
+							<li style="opacity:.5">
+								Evolutionary rate
+							</li>
+							<li style="opacity:.5">
+								Substitution rates
+							</li>
+							<li>
+								Migration rates
+							</li>
+<li style="opacity:.5">
+								Migraton timings
+							</li>
+							<li style="opacity:.5">
 								Demographic history
 							</li>
 					</div>
@@ -123,6 +226,36 @@
 						- test a third thing
 						- are these in the wrong order?
 					</div>
+				</section>
+				<!-- Demographic history explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogeography tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">
+									Phylogeny
+							</li>
+							<li style="opacity:.5">
+								Evolutionary rate
+							</li>
+							<li style="opacity:.5">
+								Substitution rates
+							</li>
+							<li style="opacity:.5">
+								Migration rates
+							</li>
+							<li style="opacity:.5">
+								Migraton timings
+							</li>
+							<li>
+								Demographic history
+							</li>
+					</div>
+					<div id="right">
+						- test a third thing
+						- are these in the wrong order?
+					</div>
+
 				</section>
 				<section data-background-iframe="https://nextstrain.org/ncov/gisaid/global/6m" data-background-color="white" data-background-interactive>
 				</section>
@@ -133,6 +266,7 @@
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
@@ -143,7 +277,7 @@
 				hashOneBasedIndex: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
 			});
 		</script>
 	</body>

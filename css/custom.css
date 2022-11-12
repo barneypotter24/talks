@@ -24,3 +24,16 @@
   opacity: 50%;
   font-size: .45em;
 }
+
+.column {
+  float: left;
+  width: 33.33%;
+  font-size: 85%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

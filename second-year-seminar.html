@@ -45,6 +45,7 @@
 							<li style="opacity:.5">Migration rates</li>
 							<li style="opacity:.5">Migration history</li>
 							<li style="opacity:.5">Demographic parameters</li>
+						</ul>
 					</div>
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/phylogeny.png" width="100%">
@@ -61,6 +62,7 @@
 							<li style="opacity:.5">Migration rates</li>
 							<li style="opacity:.5">Migration history</li>
 							<li style="opacity:.5">Demographic parameters</li>
+						</ul>
 					</div>
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/time_scale.png" width="100%">
@@ -77,6 +79,7 @@
 							<li style="opacity:.5">Migration rates</li>
 							<li style="opacity:.5">Migration history</li>
 							<li style="opacity:.5">Demographic parameters</li>
+						</ul>
 					</div>
 					<div id="right">
 						\[\tiny
@@ -124,6 +127,7 @@
 							<li style="opacity:.5">Migration rates</li>
 							<li>Migration history</li>
 							<li style="opacity:.5">Demographic parameters</li>
+						</ul>
 					</div>
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/migration_history.png" width="100%">
@@ -140,6 +144,7 @@
 							<li style="opacity:.5">Migration rates</li>
 							<li style="opacity:.5">Migration history</li>
 							<li>Demographic parameters</li>
+						</ul>
 					</div>
 					<div id="right">
 						- test a third thing
@@ -174,18 +179,13 @@
 				</section>
 				<!-- GISAID genomes by country -->
 				<section>
-					<section>
-						<img class="r-stretch"
-							 src="assets/second-year-seminar/monthly_gisaid_counts.png"
+					<img class="r-stretch"			src="assets/second-year-seminar/monthly_gisaid_counts.png" alt="Counts of GISAID genomes by month--global and Belgium">
+					<div id="leftSource">Data source: GISAID</div>
+				</section>
+				<section>
+					<img class="r-stretch"				 src="assets/second-year-seminar/monthly_gisaid_counts_adj.png"
 							 alt="Counts of GISAID genomes by month--global and Belgium">
-						<div id=leftSource>Data source: GISAID</div>
-					</section>
-					<section>
-						<img class="r-stretch"
-							 src="assets/second-year-seminar/monthly_gisaid_counts_adj.png"
-							 alt="Counts of GISAID genomes by month--global and Belgium">
-						<div id="leftSource">Data source: GISAID</div>
-					</section>
+					<div id="leftSource">Data source: GISAID</div>
 				</section>
 				<!-- VOC Table -->
 				<section>
@@ -233,20 +233,155 @@
 				</section>
 				<!-- Belgian VOC frequency plot -->
 				<section>
-					<section>
-						<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences.png" alt="Belgian circulating lineages" />
-						<div id="leftSource">Data source: GISAID</div>
-					</section>
-					<section>
-						<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences_prop.png" alt="Belgian circulating lineages" />
-						<div id="leftSource">Data source: GISAID</div>
-					</section>
+					<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences.png" alt="Belgian circulating lineages" />
+					<div id="leftSource">Data source: GISAID</div>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences_prop.png" alt="Belgian circulating lineages" />
+					<div id="leftSource">Data source: GISAID</div>
 				</section>
 				<section data-background-iframe="https://nextstrain.org/ncov/gisaid/global/6m" data-background-color="white" data-background-interactive>
+				</section>
+				<section>
+					<blockquote>
+						High resolution geographic analysis of pre-VOC Belgian SARS-CoV-2 diversity.
+					</blockquote>
+				</section>
+				<!-- Hi-rez challenges -->
+				<section>
+					<h3>Primary challenges</h3>
+					<div id="left">
+						<ul>
+							<li>Dataset size (current size)</li>
+							<li>Vague location definitions</li>
+							<li>Privacy/identifiablity concern</li>
+							<li>Nonstandardized data formatting</li>
+							<li>Languages</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/zip_codes.png" height="400em">
+					</div>
+				</section>
+				<section>
+					<h3>Brussel vs. Bruxelles vs.</h3>
+					<h3>Brüssel v. Brussels</h3>
+				</section>
+				<section>
+					<h3>Solutions</h3>
+					<ol>
+						<li>Pre hoc (is this right) subsampling</li>
+						<li>Cast all locations to ZIP codes</li>
+						<li>Manually curated "synonym" lists</li>
+					</ol>
+				</section>
+				<section>
+					<section data-background-iframe="https://nextstrain.org/community/GuyBaele/sars-cov-2-belgium/wuhan?d=map&p=full" data-background-color="white" data-background-interactive>
+					</section>
+					<section>
+						<img class="r-stretch" src="assets/second-year-seminar/initial_belgian_build.png" alt="Belgian circulating lineages" />
+					</section>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/brussels_times.png" />
+				</section>
+				<section>
+					<blockquote>
+						Rapid reports inform public policy.
+					</blockquote>
 				</section>
 				<!-- Nextstrain process slide -->
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/nextstrain_process.png" alt="nextstrain" />
+				</section>
+				<!--- Variants that I've analyzed-->
+				<section>
+					<div id="left">
+						<ul>
+							<li>SARS-CoV-2 A/B</li>
+							<li>B.1.1.1 (Alpha)</li>
+							<li>B.1.351 (Beta)</li>
+							<li>P.1 (Gamma)</li>
+							<li>Delta</li>
+							<li>VOI-SI</li>
+							<li>Omicron</li>
+							<li>Omicron (BA.1)</li>
+							<li>Omicron (BA.2)</li>
+							<li>Omicron (BA.4)</li>
+						</ul>
+					</div>
+					<div id="right">
+						<ul>
+							<li>Eta (large-scale)</li>
+							<li>Eta (small-scale)</li>
+							<li>BA.2.12.1</li>
+							<li>AY.4.2</li>
+							<li>B.1.214</li>
+							<li>B.1.617</li>
+							<li>B.1.617.1</li>
+							<li>B.1.617.2</li>
+							<li>B.1.619 & B.1.620</li>
+							<li>B.1.620 (LT)</li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					What now?
+					New analyses can be set up, run, and shared publicly within days of a novel variant arising
+					Specific in-depth reports can be generated rapidly if there is public health demand.
+
+					Post hoc analyses of lineages can be contextualized quickly, with all upsstream steps subsubmed by the Nextstrain workflow
+				</section>
+				<section>
+					Pakistan slide
+				</section>
+				<section>
+					Finland slide
+				</section>
+				<section data-background="#ffffff">
+					<div class="row">
+					<div class="column">
+						<h4>KU/UZ Leuven</h4>
+						<ul style="color:#282828">
+							<li>Guy Baele</li>
+							<li>Piet Maes</li>
+							<li>Simon Dellicour</li>
+							<li>Lize Cuypers</li>
+							<li>Emmanuel André</li>
+							<li>Samuel Hong</li>
+							<li>Nena Bollen</li>
+						</ul>
+						<p></p>
+						<h4>GIGA Research Institute</h4>
+						<ul style="color:#282828">
+							<li>Keith Durkin</li>
+						</ul>
+					</div>
+					<div class="column">
+						<img class="r-stretch" src="assets/share/kul_logo.png" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/giga_logo.png" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/fred_hutch_logo.png" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/unibas_logo.jpeg" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/unibern_logo.png" alt="KU Leuven logo" width="50%"/>
+					</div>
+					<div class="column">
+						<h4>Fred Hutch</h4>
+						<ul style="color:#282828">
+							<li>Trevor Bedford</li>
+							<li>John Huddleston</li>
+							<li>Tom Sibley</li>
+						</ul>
+						<p></p>
+						<h4>University of Basel</h4>
+						<ul style="color:#282828">
+							<li>Richard Neher</li>
+						</ul>
+						<p></p>
+						<h4>University of Bern</h4>
+						<ul style="color:#282828">
+							<li>Emma Hodcroft</li>
+						</ul>
+					</div>
 				</section>
 			</div>
 		</div>

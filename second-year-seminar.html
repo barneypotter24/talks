@@ -18,6 +18,8 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Title slide -->
 				<section data-background-color="#ebdbb2" data-background-image="assets/share/sedes_t.png"
 						 data-background-size="35%"
 						 data-background-position="125% 125%"
@@ -30,7 +32,7 @@
 					<p style="font-size:0.6em;color:#282828">Promotors: Prof. Dr. Guy Baele and Prof. Dr. Mandev Gill</p>
 					<aside class="notes">
 						<ul>
-							<li>Thanks for being here</li>
+							<li>Thanks for being here!</li>
 						</ul>
 					</aside>
 				</section>
@@ -38,6 +40,13 @@
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/emerging-infectious-diseases-morens-fauci-2020.jpg" alt="EIDs" />
 						<div id="leftSource">Source: Morens & Fauci (2020)</div>
+						<aside class="notes">
+						<ul>
+							<li>Increasingly interconnected, population dense world leads to more EIDs</li>
+							<li>Range from isolated outbreaks (MRSA, MERS) to epidemics of regional scale (West African Ebola, Zika in the Americias) to pandemics of global scale (SARS-CoV-2)</li>
+							<li>As EIDs continue to increasingly affect global public health, we need to develop tools to characterize them and inform public health interventions in a timely manner</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<div class="r-stack">
@@ -50,6 +59,12 @@
 						<img class="fragment current-visible" src="assets/second-year-seminar/epi7.png">
 						<img class="fragment" src="assets/second-year-seminar/epi8.png">
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>walk through figure</li>
+							<li>phylogeny represents a hypothesis of the shared evolutionary, and therfore transmission, history</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Phylogeny explanation slide -->
 				<section data-transition="fade">
@@ -67,6 +82,12 @@
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/phylogeny.png" width="100%">
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Which things are most related to one another</li>
+							<li>How close or distant different taxa are</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Evolutionary rate explanation slide -->
 				<section data-transition="fade">
@@ -84,6 +105,11 @@
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/time_scale.png" width="100%">
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Leverage clock-like nature of mutation accumulation to date internal nodes</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Substitution rate explanation slide -->
 				<section data-transition="fade">
@@ -116,6 +142,12 @@
 						\end{bmatrix}
 						\]
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Nucleotide substitution rates</li>
+							<li>Variety of models</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Demographic parameters explanation slide -->
 				<section data-transition="fade">
@@ -133,8 +165,14 @@
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/demographic_history.png" width="100%">
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Not just evol. characteristics, but also epidemiological ones</li>
+							<li>Use the phylogeny to infer effective population size through time</li>
+							<li>proxy for basic reproductive rate</li>
+						</ul>
+					</aside>
 				</section>
-
 				<!-- Migration rate explanation slide -->
 				<section data-transition="fade">
 					<h3>What can phylogenetics tell us?</h3>
@@ -150,6 +188,12 @@
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/migration_rates.png" width="100%">
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Similar to substitution rates, we can infer migration rates</li>
+							<li>Help us understand which locations may be sources or sinks for viral spread</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Migration rate history slide -->
 				<section data-transition="fade">
@@ -167,6 +211,12 @@
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/migration_history.png" width="100%">
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Combine migration rates with a phylogenetic tree</li>
+							<li>Understand the number and timing of different migration events</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<h3>Goal:</h3>
@@ -174,12 +224,22 @@
 						Characterize the evolution and spread of
 						SARS-CoV-2 in Belgium at various spatiotemporal scales.
 					</blockquote>
+					<aside class="notes">
+						We set out to perform a characterization of the SARS-CoV-2 epidemic in Belgium
+					</aside>
 				</section>
 				<!-- Belgian cases by week -->
 				<section>
 					<section>
 						<img class="r-stretch" src="assets/second-year-seminar/be_cases_age.png">
 						<div id="leftSource">Data source: Sciensano</div>
+						<aside class="notes">
+							<ul>
+								<li>Belgium's epidemic has been characterized by a series of waves</li>
+								<li>They have varied not only in size, but in which portions of the population they have affected the most</li>
+								<li><em>POINT</em> at old people in the first wave and young in later waves</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<img class="r-stretch" src="assets/second-year-seminar/be_cases_prov.png">
@@ -198,19 +258,40 @@
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/monthly_gisaid_counts.png" alt="Counts of GISAID genomes by month--global and Belgium">
 					<div id="leftSource">Data source: GISAID</div>
+					<aside class="notes">
+						<ul>
+							<li>describe figure</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/monthly_gisaid_counts_adj.png"
 							 alt="Counts of GISAID genomes by month--global and Belgium">
 					<div id="leftSource">Data source: GISAID</div>
+					<aside class="notes">
+						<ul>
+							<li>describe figure</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Nextstrain explanation -->
 				<section data-background-iframe="https://nextstrain.org/ncov/gisaid/global/6m" data-background-color="white" data-background-interactive>
+					<aside class="notes">
+						<ul>
+							<li>Brief demo of why nextstrain is nice for such analyses</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<blockquote>
-						High resolution geographic analysis of pre-VOC Belgian SARS-CoV-2 diversity.
+						High resolution geographic analysis of pre-VOC/VOI Belgian SARS-CoV-2 diversity.
 					</blockquote>
+					<aside class="notes">
+						<ul>
+							<li>First goal: create a snapshot of the state of SARS-CoV-2 in Belgium</li>
+							<li><em>SAY</em> "Variant of Concern" and "Variant of Interest"</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Hi-rez challenges -->
 				<section>
@@ -231,40 +312,77 @@
 					<div id="right">
 						<img class="r-stretch" src="assets/second-year-seminar/zip_codes.png" height="400em">
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>From the onset...</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<h3>Brussel vs. Bruxelles vs.</h3>
 					<h3>Brüssel vs. Brussels</h3>
+					<aside class="notes">
+						<ul>
+							<li>Multiple languages</li>
+							<li>typos, spaces, diacritics</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Nextstrain process slide -->
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/nextstrain_process.png" alt="nextstrain" />
+					<aside class="notes">
+						<ul>
+							<li>Very quick overview of how the process works</li>
+							<li>ingest, canonicalize, downsample, Nextstrain, canonical output files</li>
+						</ul>
+					</aside>
 				</section>
-				<!-- <section>
-					 <h3>Solutions</h3>
-					 <ol>
-					 <li>Pre hoc (is this right) subsampling</li>
-					 <li>Cast all locations to ZIP codes</li>
-					 <li>Manually curated "synonym" lists</li>
-					 </ol>
-					 </section> -->
 				<section>
-					<section data-background-iframe="https://nextstrain.org/community/GuyBaele/sars-cov-2-belgium/wuhan?d=map&p=full" data-background-color="white" data-background-interactive>
+					<section data-background-iframe="https://nextstrain.org/community/GuyBaele/sars-cov-2-belgium/wuhan?c=clade_membership&f_country=Belgium" data-background-color="white" data-background-interactive>
+						<aside class="notes">
+							<ul>
+								<li>Snapshot in time</li>
+								<li>dot size, pie chart, etc</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<img class="r-stretch" src="assets/second-year-seminar/initial_belgian_build.png" alt="Belgian circulating lineages" />
+						<aside class="notes">
+							<ul>
+								<li>Snapshot in time</li>
+								<li>dot size, pie chart, etc</li>
+							</ul>
+						</aside>
 					</section>
 				</section>
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/brussels_times.png" />
+					<aside class="notes">
+						<ul>
+							<li>attention in the press and online</li>
+							<li>motivated a follow for the consultative committee</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<blockquote>
 						Inform public health interventions through twice-weekly reports to the consultative committee.
 					</blockquote>
+					<aside class="notes">
+						<ul>
+							<li>Rapid and clearly interpretable made this a good tool for informing public policy in real-time</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/be_sequence_count_map.png">
+					<aside class="notes">
+						<ul>
+							<li>Coincided with Belgium's genomic surveillance effort</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- VOC Table -->
 				<section>
@@ -309,17 +427,27 @@
 							</tr>
 						</tbody>
 					</table>
+					<aside class="notes">
+						<ul>
+							<li>Coincided with emergence of the VOCs</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Belgian VOC frequency plot -->
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences.png" alt="Belgian circulating lineages" />
 					<div id="leftSource">Data source: GISAID</div>
+					<aside class="notes">
+						<ul>
+							<li>describe figure</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences_prop.png" alt="Belgian circulating lineages" />
 					<div id="leftSource">Data source: GISAID</div>
 					<aside class="notes">
-						Fuzzy screenshots incoming
+						describe figure
 					</aside>
 				</section>
 				<section>
@@ -329,6 +457,11 @@
 						<li><strong>Characterize</strong> the emergence and spread of each VOI and VOC within Belgium in <strong>real-time</strong></li>
 						<li><strong>Produce semiweekly reports</strong> on the status of the SARS-CoV-2 epidemic in Belgium</li>
 					</ol>
+					<aside class="notes">
+						<ul>
+							<li>basically just read this slide</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- B.1.214 section -->
 				<!-- <section>
@@ -354,6 +487,11 @@
 					</aside>
 				</section>
 				<section data-background-iframe="https://nextstrain.org/community/GuyBaele/sars-cov-2-belgium/P.1?c=clade_membership" data-background-color="white" data-background-interactive>
+					<aside class="notes">
+						<ul>
+							<li>walk through the process</li>
+						</ul>
+					</aside>
 				</section>
 				<!--- Variants that I've analyzed-->
 				<section>
@@ -385,9 +523,22 @@
 							<li>B.1.620 (LT)</li>
 						</ul>
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Emphasize that this was a very highly repeated process</li>
+							<li>Primarily manifested through semiweekly reports</li>
+							<li>Also supported ongoing research efforts</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<img src="assets/second-year-seminar/papers.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Currently being written as a protocol manuscript so that others can take the lessons we learned for future analysis of varants or other viruses</li>
+							<li>Foundational to the other papers</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<h3>What now?</h3>
@@ -403,6 +554,13 @@
 						</li>
 						<li>Infrastructure exists for Belgian genomic epidemiology for future epidemics</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>seq labs: want to contextualize the sequences they generate</li>
+							<li>public: data sharing and transparency supports public trust</li>
+							<li>Set the stage for future directions</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Acknowledgements slide -->
 				<section data-background="#ffffff">
@@ -451,6 +609,12 @@
 						<p></p>
 						<h4>COVID-19 Genomics Belgium Consortium</h4>
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Thank Trevor and Richard</li>
+							<li>covid 19 genomics belgium cons.</li>
+						</ul>
+					</aside>
 				</section>
 			</div>
 		</div>

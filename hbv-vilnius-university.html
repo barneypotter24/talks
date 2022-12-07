@@ -1,0 +1,643 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Research Seminar - Barney Potter</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Real-time tracking of SARS-CoV-2 evolution in Belgium" />
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/gruvbox-dark.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Title slide -->
+				<section data-background-color="#ebdbb2" data-background-image="assets/share/sedes_t.png"
+						 data-background-size="35%"
+						 data-background-position="125% 125%"
+						 data-background-repeat="no-repeat"
+						 data-background-opacity="0.5">
+					<h2 style="color:#076678">Real-time tracking of SARS-CoV-2 evolution in Belgium</h2>
+					<h4 style="color:#076678">Barney Isaksen Potter</h4>
+					<p style="font-size:0.6em;color:#282828">KU Leuven</p>
+					<p style="font-size:0.6em;color:#282828">2022-12-02</p>
+					<p style="font-size:0.6em;color:#282828">Promotors: Prof. Dr. Guy Baele and Prof. Dr. Mandev Gill</p>
+					<aside class="notes">
+						<ul>
+							<li>Thanks for being here!</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- EID slide -->
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/emerging-infectious-diseases-morens-fauci-2020.jpg" alt="EIDs" />
+						<div id="leftSource">Source: Morens & Fauci (2020)</div>
+						<aside class="notes">
+						<ul>
+							<li>Increasingly interconnected, population dense world leads to more EIDs</li>
+							<li>Range from isolated outbreaks (MRSA, MERS) to epidemics of regional scale (West African Ebola, Zika in the Americias) to pandemics of global scale (SARS-CoV-2)</li>
+							<li>As EIDs continue to increasingly affect global public health, we need to develop tools to characterize them and inform public health interventions in a timely manner</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<div class="r-stack">
+						<img class="fragment current-visible" src="assets/second-year-seminar/epi1.png">
+						<img class="fragment current-visible" src="assets/second-year-seminar/epi2.png">
+						<img class="fragment current-visible" src="assets/second-year-seminar/epi3.png">
+						<img class="fragment current-visible" src="assets/second-year-seminar/epi4.png">
+						<img class="fragment current-visible" src="assets/second-year-seminar/epi5.png">
+						<img class="fragment current-visible" src="assets/second-year-seminar/epi6.png">
+						<img class="fragment current-visible" src="assets/second-year-seminar/epi7.png">
+						<img class="fragment" src="assets/second-year-seminar/epi8.png">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>walk through figure</li>
+							<li>phylogeny represents a hypothesis of the shared evolutionary, and therfore transmission, history</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Phylogeny explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogenetics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li>Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/phylogeny.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Which things are most related to one another</li>
+							<li>How close or distant different taxa are</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Evolutionary rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogenetics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li>Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/time_scale.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Leverage clock-like nature of mutation accumulation to date internal nodes</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Substitution rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogenetics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li>Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						\[\tiny
+						Q_{JC69} =
+						\begin{bmatrix}
+						\cdot & \lambda & \lambda & \lambda \\
+						\lambda & \cdot & \lambda & \lambda \\
+						\lambda & \lambda & \cdot & \lambda \\
+						\lambda & \lambda & \lambda & \cdot \\
+						\end{bmatrix} \\[1em]
+						Q_{GTR} =
+						\begin{bmatrix}
+						\cdot & a\pi_C & b\pi_A & c\pi_G \\
+						a\pi_T & \cdot & d\pi_A & e\pi_G \\
+						b\pi_T & d\pi_C & \cdot & f\pi_G \\
+						c\pi_T & e\pi_C & f\pi_A & \cdot \\
+						\end{bmatrix}
+						\]
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Nucleotide substitution rates</li>
+							<li>Variety of models</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Demographic parameters explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogenetics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li>Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/demographic_history.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Not just evol. characteristics, but also epidemiological ones</li>
+							<li>Use the phylogeny to infer effective population size through time</li>
+							<li>proxy for reproductive rate</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Migration rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylogenetics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li>Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/migration_rates.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Similar to substitution rates, we can infer migration rates</li>
+							<li>Help us understand which locations may be sources or sinks for viral spread</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Migration rate history slide -->
+				<section data-transition="fade">
+					<h3>What can phylogenetics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li>Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/what_can_phylogeo/migration_history.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Combine migration rates with a phylogenetic tree</li>
+							<li>Understand the number and timing of different migration events</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>Goal:</h3>
+					<blockquote>
+						Characterize the evolution and spread of
+						SARS-CoV-2 in Belgium at various spatiotemporal scales.
+					</blockquote>
+					<aside class="notes">
+						We set out to perform a characterization of the SARS-CoV-2 epidemic in Belgium
+					</aside>
+				</section>
+				<!-- Belgian cases by week -->
+				<section>
+					<section>
+						<img class="r-stretch" src="assets/second-year-seminar/be_cases_age.png">
+						<div id="leftSource">Data source: Sciensano</div>
+						<aside class="notes">
+							<ul>
+								<li>Belgium's epidemic has been characterized by a series of waves</li>
+								<li>They have varied not only in size, but in which portions of the population they have affected the most</li>
+								<li><em>POINT</em> at old people in the first wave and young in later waves</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<img class="r-stretch" src="assets/second-year-seminar/be_cases_prov.png">
+						<div id="leftSource">Data source: Sciensano</div>
+					</section>
+					<section>
+						<img class="r-stretch" src="assets/second-year-seminar/be_cases_region.png">
+						<div id="leftSource">Data source: Sciensano</div>
+					</section>
+					<section>
+						<img class="r-stretch" src="assets/second-year-seminar/be_cases_sex.png">
+						<div id="leftSource">Data source: Sciensano</div>
+					</section>
+				</section>
+				<!-- GISAID genomes by country -->
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/monthly_gisaid_counts.png" alt="Counts of GISAID genomes by month--global and Belgium">
+					<div id="leftSource">Data source: GISAID</div>
+					<aside class="notes">
+						<ul>
+							<li>describe figure</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/monthly_gisaid_counts_adj.png"
+							 alt="Counts of GISAID genomes by month--global and Belgium">
+					<div id="leftSource">Data source: GISAID</div>
+					<aside class="notes">
+						<ul>
+							<li>describe figure</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Nextstrain explanation -->
+				<section data-background-iframe="https://nextstrain.org/ncov/gisaid/global/6m" data-background-color="white" data-background-interactive data-preload>
+					<aside class="notes">
+						<ul>
+							<li>Brief demo of why nextstrain is nice for such analyses</li>
+							<li>open-source phylogenetics toolkit</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<blockquote>
+						High resolution geographic analysis of pre-VOC/VOI Belgian SARS-CoV-2 diversity.
+					</blockquote>
+					<aside class="notes">
+						<ul>
+							<li>First goal: create a snapshot of the state of SARS-CoV-2 in Belgium</li>
+							<li><em>SAY</em> "Variant of Concern" and "Variant of Interest"</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Hi-rez challenges -->
+				<section>
+					<h3>Primary challenges</h3>
+					<div id="left">
+						<ul>
+							<li>Dataset size
+								<ul>
+									<li>13,795,174 GISAID genomes</li>
+								</ul>
+							</li>
+							<!-- <li>Vague location definitions</li> -->
+							<li>Nonstandardized data formatting</li>
+							<li>Privacy/identifiablity concern</li>
+							<li>Languages</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/second-year-seminar/zip_codes.png" height="400em">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>From the onset...</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>Brussel vs. Bruxelles vs.</h3>
+					<h3>Brüssel vs. Brussels</h3>
+					<aside class="notes">
+						<ul>
+							<li>Multiple languages</li>
+							<li>typos, spaces, diacritics</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Nextstrain process slide -->
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/nextstrain_process.png" alt="nextstrain" />
+					<aside class="notes">
+						<ul>
+							<li>Very quick overview of how the process works</li>
+							<li>ingest, canonicalize, downsample, Nextstrain, canonical output files</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<section data-background-iframe="https://nextstrain.org/community/GuyBaele/sars-cov-2-belgium/wuhan?c=clade_membership&f_country=Belgium" data-background-color="white" data-background-interactive>
+						<aside class="notes">
+							<ul>
+								<li>Snapshot in time</li>
+								<li>dot size, pie chart, etc</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<img class="r-stretch" src="assets/second-year-seminar/initial_belgian_build.png" alt="Belgian circulating lineages" />
+						<aside class="notes">
+							<ul>
+								<li>Snapshot in time</li>
+								<li>dot size, pie chart, etc</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/brussels_times.png" />
+					<aside class="notes">
+						<ul>
+							<li>attention in the press and online</li>
+							<li>motivated a follow for the consultative committee</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<blockquote>
+						Inform public health interventions through twice-weekly reports to the consultative committee.
+					</blockquote>
+					<aside class="notes">
+						<ul>
+							<li>Rapid and clearly interpretable made this a good tool for informing public policy in real-time</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/be_sequence_count_map.png">
+					<aside class="notes">
+						<ul>
+							<li>Coincided with Belgium's genomic surveillance effort</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- VOC Table -->
+				<section>
+					<table>
+						<thead>
+							<tr>
+								<th>WHO</th>
+								<th>Pango designation</th>
+								<th>Time of origin</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Alpha</td>
+								<td>B.1.1.7</td>
+								<td>Sep-2020</td>
+							</tr>
+							<tr>
+								<td>Beta</td>
+								<td>B.1.351</td>
+								<td>Sep-2020</td>
+							</tr>
+							<tr>
+								<td>Gamma</td>
+								<td>P.1</td>
+								<td>Sep-2020</td>
+							</tr>
+							<tr>
+								<td>Delta</td>
+								<td>B.1.617.2/AY</td>
+								<td>Mar-2021</td>
+							</tr>
+							<tr>
+								<td>Eta*</td>
+								<td>B.1.525</td>
+								<td>Mar-2020</td>
+							</tr>
+							<tr>
+								<td>Omicron</td>
+								<td>B.1.1.529/BA</td>
+								<td>Sep-2021</td>
+							</tr>
+						</tbody>
+					</table>
+					<aside class="notes">
+						<ul>
+							<li>Coincided with emergence of the VOCs</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Belgian VOC frequency plot -->
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences.png" alt="Belgian circulating lineages" />
+					<div id="leftSource">Data source: GISAID</div>
+					<aside class="notes">
+						<ul>
+							<li>describe figure</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/second-year-seminar/belgium_voc_sequences_prop.png" alt="Belgian circulating lineages" />
+					<div id="leftSource">Data source: GISAID</div>
+					<aside class="notes">
+						describe figure
+					</aside>
+				</section>
+				<section>
+					<h3>Requests from the consultative committee</h3>
+					<ol>
+						<li><strong>Phylogenetically contextualize</strong> new genomes</li>
+						<li><strong>Characterize</strong> the emergence and spread of each VOI and VOC within Belgium in <strong>real-time</strong></li>
+						<li><strong>Produce semiweekly reports</strong> on the status of the SARS-CoV-2 epidemic in Belgium</li>
+					</ol>
+					<aside class="notes">
+						<ul>
+							<li>basically just read this slide</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- B.1.214 section -->
+				<!-- <section>
+					 <img class="r-stretch" src="assets/second-year-seminar/B1214_tree.png">
+					 </section>
+					 <section>
+					 <img class="r-stretch" src="assets/second-year-seminar/B1214.png">
+					 </section> -->
+				<!-- Gamma (P.1) slide -->
+				<section>
+					<div class="r-stack">
+						<img class="current-visible" src="assets/second-year-seminar/gamma-be.png">
+						<img class="fragment" src="assets/second-year-seminar/gamma-be-highlight.png">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>P.1 or 20J/N501Y.v3</li>
+							<li>First appearead alongside Alpha and Beta in early 2021 (BR origin)</li>
+							<li>By mid Feb: 8 Gamma sequences from BE, 5 of which were incorporated into a Nextstrain build</li>
+							<li>Sequences were clustered, however there weren't known epi links (long branches too)</li>
+							<li>Inference: Gamma is likely circulating cryptically through Belgium</li>
+						</ul>
+					</aside>
+				</section>
+				<section data-background-iframe="https://nextstrain.org/community/GuyBaele/sars-cov-2-belgium/P.1?c=clade_membership" data-background-color="white" data-background-interactive data-preload>
+					<aside class="notes">
+						<ul>
+							<li>walk through the process</li>
+						</ul>
+					</aside>
+				</section>
+				<!--- Variants that I've analyzed-->
+				<section>
+					<div id="left">
+						<ul>
+							<li>SARS-CoV-2 A/B</li>
+							<li>Alpha (B.1.1.7)</li>
+							<li>Beta (B.1.351)</li>
+							<li>Gamma (P.1)</li>
+							<li>Delta</li>
+							<li>VOI-SI</li>
+							<li>Omicron</li>
+							<li>Omicron (BA.1)</li>
+							<li>Omicron (BA.2)</li>
+							<li>Omicron (BA.4)</li>
+						</ul>
+					</div>
+					<div id="right">
+						<ul>
+							<li>Eta (large-scale)</li>
+							<li>Eta (small-scale)</li>
+							<li>BA.2.12.1</li>
+							<li>AY.4.2</li>
+							<li>B.1.214</li>
+							<li>B.1.617</li>
+							<li>B.1.617.1</li>
+							<li>B.1.617.2</li>
+							<li>B.1.619 & B.1.620</li>
+							<li>B.1.620 (LT)</li>
+						</ul>
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Emphasize that this was a very highly repeated process</li>
+							<li>Primarily manifested through semiweekly reports</li>
+							<li>Also supported concurrent research efforts</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img src="assets/second-year-seminar/papers.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Currently being written as a protocol manuscript so that others can take the lessons we learned for future analysis of varants or other viruses</li>
+							<li>Foundational to the other papers</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>What now?</h3>
+					<ul>
+						<li>Four day turn-around time from sequences to trees</li>
+						<li>Results can be disseminated rapidly to stakeholders
+							<ul>
+								<li>Sequencing labs</li>
+								<li>Consultative committee</li>
+								<li>Collaborators abroad</li>
+								<li>Public</li>
+							</ul>
+						</li>
+						<li>Infrastructure exists for Belgian genomic epidemiology for future epidemics</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>seq labs: want to contextualize the sequences they generate</li>
+							<li>public: data sharing and transparency supports public trust</li>
+							<li>Set the stage for future directions</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Acknowledgements slide -->
+				<section data-background="#ffffff">
+					<div class="row">
+					<div class="column">
+						<h4>KU/UZ Leuven</h4>
+						<ul style="color:#282828">
+							<li>Guy Baele</li>
+							<li>Piet Maes</li>
+							<li>Simon Dellicour</li>
+							<li>Lize Cuypers</li>
+							<li>Emmanuel André</li>
+							<li>Samuel Hong</li>
+							<li>Nena Bollen</li>
+						</ul>
+						<p></p>
+						<h4>GIGA Research Institute</h4>
+						<ul style="color:#282828">
+							<li>Keith Durkin</li>
+						</ul>
+					</div>
+					<div class="column">
+						<img class="r-stretch" src="assets/share/kul_logo.png" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/giga_logo.png" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/fred_hutch_logo.png" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/unibas_logo.jpeg" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/unibern_logo.png" alt="KU Leuven logo" width="50%"/>
+					</div>
+					<div class="column">
+						<h4>Fred Hutch</h4>
+						<ul style="color:#282828">
+							<li>Trevor Bedford</li>
+							<li>John Huddleston</li>
+							<li>Tom Sibley</li>
+						</ul>
+						<p></p>
+						<h4>University of Basel</h4>
+						<ul style="color:#282828">
+							<li>Richard Neher</li>
+						</ul>
+						<p></p>
+						<h4>University of Bern</h4>
+						<ul style="color:#282828">
+							<li>Emma Hodcroft</li>
+						</ul>
+						<p></p>
+						<h4>COVID-19 Genomics Belgium Consortium</h4>
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Thank Trevor and Richard</li>
+							<li>covid 19 genomics belgium cons.</li>
+						</ul>
+					</aside>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>

@@ -240,14 +240,36 @@
 						</ul>
 					</aside>
 				</section>
+				<!-- METHODS -->
                 <section>
                     <blockquote>
                         How can we infer phylogenies robustly from genomic sequence data and geographic metadata?
                     </blockquote>
                 </section>
-				<!-- RESULTS -->
+				<!-- Tree space size -->
 				<section>
-					<h3>HBV-A new sequences</h3>
+					<h3>Problem: tree space size</h3>
+					\[\tiny
+					\begin{array}{cc}
+					Num.~taxa & Num.~topologies \\ \hline
+					1 & 1 \\
+					2 & 1 \\
+					3 & 3 \\
+					4 & 15 \\
+					5 & 105 \\
+					6 & 945 \\
+					7 & 10,395 \\
+					8 & 135,135 \\
+					9 & 2,027,025 \\
+					\vdots & \vdots \\
+					769 & 3.753 \times 10^{2,110}
+					\end{array}
+					\]
+				</section>
+				<!-- RESULTS -->
+				<!-- HBV-A -->
+				<section>
+					<h4>ML sequence placement</h4>
 					<img class="r-stretch" src="assets/hbv-vilnius-university/HBV-A_new_sequences.png" width="100%">
 					<aside class="notes">
 						<ul>
@@ -256,6 +278,26 @@
 						</ul>
 					</aside>
 				</section>
+				<section>
+					<h4>Bayesian phylogeography</h4>
+					<img class="r-stretch" src="assets/hbv-vilnius-university/HBV-A_phylogeography_and_mcc_tree.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Combine migration rates with a phylogenetic tree</li>
+							<li>Understand the number and timing of different migration events</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h4>Markov jump analysis</h4>
+					<div id="left">
+						<img class="r-stretch" src="assets/hbv-vilnius-university/mj_hbva.png" width="100%" alt="hbv a markov jumps" />
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/hbv-vilnius-university/bf_hbva.png" width="100%" alt="hbv a bayes factors" />
+					</div>
+				</section>
+				<!-- HBV-D -->
 				<section>
 					<h3>HBV-D new sequences</h3>
 					<img class="r-stretch" src="assets/hbv-vilnius-university/HBV-D_new_sequences.png" width="100%">
@@ -266,29 +308,30 @@
 						</ul>
 					</aside>
 				</section>
-				<section>
-					<h3>HBV-E new sequences</h3>
-					<img class="r-stretch" src="assets/hbv-vilnius-university/HBV-E_new_sequences.png" width="100%">
-					<aside class="notes">
-						<ul>
-							<li>Combine migration rates with a phylogenetic tree</li>
-							<li>Understand the number and timing of different migration events</li>
-						</ul>
-					</aside>
-				</section>
-				<section>
-					<h3>HBV-A evolutionary history</h3>
-					<img class="r-stretch" src="assets/hbv-vilnius-university/HBV-A_phylogeography_and_mcc_tree.png" width="100%">
-					<aside class="notes">
-						<ul>
-							<li>Combine migration rates with a phylogenetic tree</li>
-							<li>Understand the number and timing of different migration events</li>
-						</ul>
-					</aside>
-				</section>
+
 				<section>
 					<h3>HBV-D evolutionary history</h3>
 					<img class="r-stretch" src="assets/hbv-vilnius-university/HBV-D_phylogeography_and_mcc_tree.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Combine migration rates with a phylogenetic tree</li>
+							<li>Understand the number and timing of different migration events</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h4>Markov jump analysis</h4>
+					<div id="left">
+						<img class="r-stretch" src="assets/hbv-vilnius-university/mj_hbvd.png" width="100%" alt="hbv d markov jumps" />
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/hbv-vilnius-university/bf_hbvd.png" width="100%" alt="hbv d bayes factors" />
+					</div>
+				</section>
+				<!-- HBV-E -->
+				<section>
+					<h3>HBV-E new sequences</h3>
+					<img class="r-stretch" src="assets/hbv-vilnius-university/HBV-E_new_sequences.png" width="100%">
 					<aside class="notes">
 						<ul>
 							<li>Combine migration rates with a phylogenetic tree</li>
@@ -307,16 +350,13 @@
 					</aside>
 				</section>
 				<section>
-					<img class="r-stretch" src="assets/hbv-vilnius-university/bayes_factors.png" width="100%">
-					<aside class="notes">
-						<ul>
-							<li>Combine migration rates with a phylogenetic tree</li>
-							<li>Understand the number and timing of different migration events</li>
-						</ul>
-					</aside>
-				</section>
-				<section>
-					<img class="r-stretch" src="assets/hbv-vilnius-university/markov_jumps.png" width="100%">
+					<h4>Markov jump analysis</h4>
+					<div id="left">
+						<img class="r-stretch" src="assets/hbv-vilnius-university/mj_hbve.png" width="100%" alt="hbv e markov jumps" />
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/hbv-vilnius-university/bf_hbve.png" width="100%" alt="hbv e bayes factors" />
+					</div>
 				</section>
 				<!-- Acknowledgements slide -->
 				<section data-background="#ffffff">

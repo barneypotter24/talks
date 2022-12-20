@@ -25,6 +25,16 @@
   font-size: .45em;
 }
 
+#rightSource {
+  right:-8.33%;
+  text-align: right;
+  float: right;
+  width:50%;
+  z-index:-10;
+  opacity: 50%;
+  font-size: .45em;
+}
+
 .column {
   float: left;
   width: 33.33%;

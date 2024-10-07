@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>MCMC Lecture</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Bayesian Phylogenetics & MCMC" />
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Title slide -->
+				<section data-background-color="#5f712d" data-background-image="assets/share/sedes_t.png"
+						 data-background-size="35%"
+						 data-background-position="125% 125%"
+						 data-background-repeat="no-repeat"
+						 data-background-opacity="0.5">
+					<h2 style="color:#00356b">Bayesian Phylogenetics and Markov chain Monte Carlo</h2>
+					<h4 style="color:#00356b">Barney Isaksen Potter</h4>
+					<p style="font-size:0.6em;color:#dddddd">KU Leuven</p>
+					<p style="font-size:0.6em;color:#dddddd">2024-10-09</p>
+					<p style="font-size:0.6em;color:#dddddd">Rega Institute, Dept. of Microbiology and Immunology</p>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h2>Overview</h2>
+					<ul>
+						<li>Bayesian statistics</li>
+						<li>Bayesian phylogenetics</li>
+						<li>Markov chain Monte Carlo</li>
+						<li>Interpretation and diagnostics</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Models of evolution</h2>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/models_of_evolution.png" width="100%">
+				</section>
+				<section>
+					<h2>One Tree to rule them all, One Tree to find them, One Tree to bring them all and in the darkness bind them</h2>
+					<ul>
+						<li>The (maximum likelihood) method's we've learned so far try to get a single tree</li>
+						<li>The one they find is likely not the "best"</li>
+						<li>Are we doing a good job of reporting a single tree?</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Frequentist statistical framework</h2>
+					<ul>
+						<li>Probabilities refer to the outcome of experiments (i.e. data)</li>
+						<li>Probabilities are objectively real in the same way that physical objects are real</li>
+						<li>"Likelihood" referes to the degree to which data support a hypothesis</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Bayesian statistical framework</h2>
+					<ul>
+						<li>BOTH data and model parameters are described by probabilities</li>
+						<li>Probability represents the <em>degree to which we believe a hypothesis</em></li>
+						<li>Hypotheses can have probabilities in the absence of data</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Bayesian inference</h1>
+				</section>
+				<section>
+					<h2>Fundamentals of Bayesian inference</h2>
+					<ul>
+						<li>Bayesian inference produces a <em>posterior probability distribution</em> instead of a single MLE</li>
+						<li>The posterior combines information from both <em>data</em> and <em>prior knowledge</em></li>
+						<li>Each parameter in the model has a <em>prior probability distribution</em> representing known knowledge about that parameter</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Example: weak prior</h2>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/weakprior.png" width="100%">
+					<p>"Human heights follow a uniform (flat) distribution between 1 angstrom and the width of the universe."</p>
+				</section>
+				<section>
+					<h2>Example: informative prior</h2>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/strongprior1.png" width="100%">
+					<p>"Human heights follow a normal distribution with mean 170cm and standard deviation 5cm."</p>
+				</section>
+				<section>
+					<h2>Example: informative prior</h2>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/strongprior2.png" width="100%">
+					<p>"Human heights follow a normal distribution with mean 170cm and standard deviation 5cm."</p>
+				</section>
+				<section>
+					<h2>Example: informative prior</h2>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/strongprior3.png" width="100%">
+					<p>"Human heights follow a normal distribution with mean 170cm and standard deviation 5cm."</p>
+				</section>
+				<section>
+					<h3>Bayes' Theorem</h3>
+					\[
+					P(H_1|\textbf{D}) = \frac{P(\textbf{D} |H_1) \times P(H_1 )}{P(\textbf{D})}
+					\]
+				</section>
+				<section>
+					<p>How can observing <em>data</em> (<b>D</b>) change our belief in a <em>hypothesis</em> (<b>H<sub>1</sub></sub></b>)?</p>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/bayestheorem1.png" width="100%">
+				</section>
+				<section>
+					<p>How can observing <em>data</em> (<b>D</b>) change our belief in a <em>hypothesis</em> (<b>H<sub>1</sub></sub></b>)?</p>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/bayestheorem2.png" width="100%">
+				</section>
+				<section>
+					<h1>How can we apply this model to phylogenetic inference?</h1>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/monke.png" width="100%">
+				</section>
+				<section>
+					<!-- <h3>Bayes' Theorem</h3> -->
+					\[
+					P(H_1|\textbf{D}) = \frac{P(\textbf{D} |H_1) \times P(H_1 )}{P(\textbf{D})}
+					\]
+				</section>
+				<section>
+					<!-- <h3>Bayes' Theorem for phylogenies</h3> -->
+					 <p>The posterior probability of a phylogenetic tree, $\tau$:</p>
+					 <br>
+					\[
+					P(\tau|\textbf{X}) = \frac{P(\textbf{X} |\tau) \times P(\tau )}{P(\textbf{X})}
+					\]
+					<br>
+					<p>$\tau = $ phylogenetic hyopthesis (tree)</p>
+					<p>$\textbf{X} =$ genomic sequence data</p>
+				</section>
+				<section>
+					<h4>Likelihood calculation</h4>
+					 <br>
+					\[
+					P(\tau|\textbf{X}) = 
+					\frac{\begingroup \color{teal} P(\textbf{X} |\tau) \endgroup \times P(\tau )}{P(\textbf{X})}
+					\]
+
+					\[
+					\begingroup \color{teal} L(\tau,\eta,\Theta | y_1 \mathellipsis x_n) \endgroup
+					= 
+					\prod_{i=1}^n Pr(x_i | \begingroup \color{darkmagenta} \tau \endgroup , \begingroup \color{darkblue} \eta \endgroup , \begingroup \color{mediumseagreen} \Theta \endgroup)
+					\]
+					<p>$\begingroup \color{darkmagenta} \tau = \text{tree topology} \endgroup, \begingroup \color{darkblue} \eta = \text{branch lengths} \endgroup, \atop \begingroup \color{mediumseagreen} \Theta = \text{model parameters} \endgroup, i \in \text{sites in genome}$</p>
+				</section>
+				<section>
+					<h4>Prior calculation</h4>
+					 <br>
+					\[
+					P(\tau|\textbf{X}) = 
+					\frac{P(\textbf{X} |\tau) \times \begingroup \color{chocolate} P(\tau ) \endgroup}{P(\textbf{X})}
+					\]
+
+					\[
+					\begingroup \color{chocolate} P(\tau) \endgroup
+					= \frac{1}{\begingroup \color{crimson} B(s) \endgroup}
+					\]
+					<p>$\begingroup \color{crimson} B(s) = \text{number of possible topologies} \endgroup$</p>
+				</section>
+				<section>
+					<h4>Marginal term calculation</h4>
+					 <br>
+					\[
+					P(\tau|\textbf{X}) = 
+					\frac{P(\textbf{X} |\tau) \times P(\tau )}{\begingroup \color{goldenrod} P(\textbf{X}) \endgroup}
+					\]
+
+					\[
+					\begingroup \color{goldenrod} P(\textbf{X}) \endgroup
+					= \sum_{j=1}^{\begingroup \color{crimson} B(s) \endgroup} P(\textbf{X} | \tau_j) \times P(\tau_j)
+					\]
+					<p>To calculate this we need to sum the density across every possible tree...</p>
+				</section>
+				<section>
+					<p>... but tree topology space is too big!</p>
+					\[\tiny
+					\begin{array}{cc}
+					\text{Num.~taxa} & \text{Num.~topologies:} \begingroup \color{crimson} B(s) \endgroup \\ \hline
+					1 & 1 \\
+					2 & 1 \\
+					3 & 3 \\
+					4 & 15 \\
+					5 & 105 \\
+					6 & 945 \\
+					7 & 10,395 \\
+					8 & 135,135 \\
+					9 & 2,027,025 \\
+					\vdots & \vdots \\
+					20 & 8,200,794,532,637,891,559,375 \\
+					\end{array}
+					\]
+				</section>
+				<section>
+					<h2>Markov chain Monte Carlo (MCMC) Sampling</h2>
+					<p>Posterior probabilities are difficult to calculate analytically. However, we can sample values from the posterior distribution with a frequency proportional to thir posterior probability by using MCMC.</p>
+				</section>
+				<section>
+					<h2>Recall: ML optimization</h2>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/ml.png" width="100%">
+				</section>
+				<section>
+					<h2>MCMC leverages randomness</h2>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mlvsmcmc.png" width="100%">
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc1.png" width="100%">
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc2.png" width="100%">
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc3.png" width="100%">
+				</section>
+				<section data-background-iframe="https://chi-feng.github.io/mcmc-demo/app.html" data-background-color="white" data-background-interactive data-preload>
+					<aside class="notes">
+						<ul>
+							<li>ORIENT WITH THE INTERFACE</li>
+							<li>RandomWalkMH</li>
+							<li>normal</li>
+							<li>autoplay off</li>
+							<li>autoplay delay 500</li>
+							<li>animate proposal</li>
+							<li>walk through how it works for a few steps, then animate, then speed up</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc4.png" width="100%">
+				</section>
+				<section>
+					<h3>Proposal mechanisms, transition kernels, operators</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc5.png" width="100%">
+				</section>
+				<section>
+					<h3>Tuning and mixing</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/tuningandmixing.png" width="100%">
+				</section>
+				<section data-background-iframe="https://chi-feng.github.io/mcmc-demo/app.html" data-background-color="white" data-background-interactive data-preload></section>
+					<aside class="notes">
+						<ul>
+							<li>mess with sigma on multimodal</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>Proposal mechanisms, transition kernels, operators</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc6.png" width="100%">
+				</section>
+				<section>
+					<h2>MCMC diagnostics, summaries, and interpretation</h2>
+					<p>(after a 5 minute break)</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>

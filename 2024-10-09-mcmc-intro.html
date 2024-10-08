@@ -84,7 +84,7 @@
 				</section>
 				<!-- Frequentist philosophy -->
 				<section>
-					<h2>Frequentist statistical framework</h2>
+					<h2>Frequentist philosophy</h2>
 					<ul>
 						<li>Probabilities refer to the outcome of experiments (i.e. data)</li>
 						<li>Probabilities are objectively real in the same way that physical objects are real</li>
@@ -103,7 +103,7 @@
 						 data-background-position="125% 125%"
 						 data-background-repeat="no-repeat"
 						 data-background-opacity="0.5">
-					<h2>Bayesian statistical framework</h2>
+					<h2>Bayesian philosophy</h2>
 					<ul>
 						<li>BOTH data and model parameters are described by probabilities</li>
 						<li>Probability represents the <em>degree to which we believe a hypothesis</em></li>
@@ -193,7 +193,7 @@
 				<section>
 					<p>How can observing <em>data</em> (<b>D</b>) change our belief in a <em>hypothesis</em> (<b>H<sub>1</sub></sub></b>)?</p>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/bayestheorem1.png" width="100%">
-					<aside>
+					<aside class="notes">
 						Talk through posterior, model, prior, then marginal
 					</aside>
 				</section>
@@ -491,7 +491,7 @@
 					</aside>
 				</section>
 				<!-- Second live example -->
-				<section data-background-iframe="https://chi-feng.github.io/mcmc-demo/app.html" data-background-color="white" data-background-interactive data-preload></section>
+				<section data-background-iframe="https://chi-feng.github.io/mcmc-demo/app.html" data-background-color="white" data-background-interactive data-preload>
 					<aside class="notes">
 						<ul>
 							<li>mess with sigma on multimodal</li>
@@ -546,67 +546,148 @@
 						Compare left with right
 					</aside>
 				</section>
+				<!-- ESS -->
 				<section>
 					<h3>Effective sample size</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/ess.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>It is helpful to have an objective statistic for measuring how well the chain represents the posterior</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Autocorrelation -->
 				<section>
 					<h3>Autocorrelation within a chain</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation1.png" width="100%">
+					<aside class="notes">
+						Autocorrelation in a chain is calculated using a "sliding window" approach, where values of the chain are compared across a window of a fixed length. This gets repeated across the whole chain.
+					</aside>
 				</section>
+				<!-- Variable window sizes -->
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation2.png" width="100%">
+					<aside class="notes">
+						Autocorrelation in the chain can be measured using windows of varying widths
+					</aside>
 				</section>
+				<!-- Short windows -->
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation3.png" width="100%">
+					<aside class="notes"></aside>
 				</section>
+				<!-- Wide windows -->
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation4.png" width="100%">
+					<aside class="notes"></aside>
 				</section>
+				<!-- ESS calculation -->
 				<section>
 					<h3>ESS Calculation</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelationtime.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Recall: we thin chains because two adjacent samples are extremely correlated</li>
+							<li>In general, we expect an inverse correlation between chain window lengh and degree of correlation</li>
+							<li>We can define the chain window length for which the autocorrelation drops below a given threshold as the "autocorrelation time"</li>
+							<li>ESS is calculated as total/a.c.t.</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- How to we summarize and interpret? -->
 				<section>
 					<blockquote>How do we <em>summarize</em> and <em>interpret</em> the results of our Bayesian phylogenetic analysis?</blockquote>
+					<aside class="notes"></aside>
 				</section>
+				<!-- Cont. parameters -->
 				<section>
 					<h3>Summary of continuous parameters</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/wellmixedchain.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>For a well mixed chain we see that most of the samples (shown by density) lie closer to the mean and fewer are further away</li>
+							<li>We can imagine looking at this chain sideways and "collapsing" it</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Posterior for cont. parameter -->
 				<section>
 					<h3>Posterior distribution</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/posteriordensity.png" width="100%">
+					<aside class="notes">
+						When we do this, we get a posterior probability distribution for the parameter. The mean will often be close to the MLE estimate, but we also get a full distribution
+					</aside>
 				</section>
+				<!-- HPD -->
 				<section>
 					<h3>Credible intervals</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/hpd.png" width="100%">
+					<aside class="notes">
+						We usually report not only the parameter mean, but also the 95% HPD
+					</aside>
 				</section>
+				<!-- HPD calculation -->
 				<section>
 					<h3>Credible intervals</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/hpd2.png" width="100%">
+					<aside class="notes">
+						This is once again calculated using a sliding window approach
+					</aside>
 				</section>
+				<!-- Forest -->
 				<section>
 					<img src="assets/2024-10-09-mcmc-intro/forest.png" class="r-stretch" width="100%">
+					<aside class="notes">
+						We've discussed how to summarize continuous parameters, however we also want a way to summarize a posterior distribusion of <em>many discrete</em> trees.
+					</aside>
 				</section>
+				<!-- Consensus options -->
 				<section>
 					<h3>How do we choose a consensus?</h3>
 					<img src="assets/2024-10-09-mcmc-intro/consensustrees.png" class="r-stretch" width="100%">
+					<aside class="notes">
+						There are many ways of generating a consensus tree from a sample, with each having its own pros and cons.
+					</aside>
 				</section>
+				<!-- MCC -->
 				<section>
 					<h3>Maximum clade credibility (MCC) trees</h3>
 					<img src="assets/2024-10-09-mcmc-intro/trees.png" class="r-stretch" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>We frequently use MCC trees to represent a posterior distribution</li>
+							<li>MCC tree is a <em>tree from the posterior</em> that best represents the posterior (kind of like a mean)</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- MCC calculation -->
 				<section>
 					<h3>MCC calculation</h3>
 					<img src="assets/2024-10-09-mcmc-intro/mcctrees.png" class="r-stretch" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>We consider each clade (monophyletic subtree) that we observe</li>
+							<li>Calculate the proportion of posterior trees that clade appears in</li>
+							<li>We then take the product of all clade frequencies for all trees</li>
+							<li>The tree with the highest score is the MCC tree</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Convergence problems -->
 				<section>
 					<blockquote>My chain won't converge and I am confused and angry and a little bit scared. What can I do?</blockquote>
+					<aside class="notes">
+						In the course of running Bayesian phylogenetic analyses we are frequently frustrated by slow convergence and poor mixing.
+					</aside>
 				</section>
+				<!-- DON'T PANIC -->
 				<section>
 					<h1>DON'T PANIC</h1>
+					<aside class="notes">
+						DON'T PANIC
+					</aside>
 				</section>
+				<!-- Convergence solutions -->
 				<section>
 					<p>Some things might help:</p>
 					<ul>
@@ -616,7 +697,11 @@
 						<li>Use different operators</li>
 						<li>Simplify or make the model more realistic (stronger priors)</li>
 					</ul>
+					<aside class="notes">
+						For this class we will focus on the first, but in research phylogenetics we have many tools in our toolbelt
+					</aside>
 				</section>
+				<!-- On deck: BEAST -->
 				<section>
 					<h2>Next time: Bayesian phylogenetics in practice</h2>
 					<img src="assets/share/phylogeo_intro/beast_main.png" class="r-stretch" width="100%">

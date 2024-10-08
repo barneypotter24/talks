@@ -1,0 +1,492 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Rega Friday Seminar</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Bayesian phylodynamics of HBV and SARS-CoV-2" />
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Title slide -->
+				<section data-background-color="#5f712d" data-background-image="assets/share/sedes_t.png"
+						 data-background-size="35%"
+						 data-background-position="125% 125%"
+						 data-background-repeat="no-repeat"
+						 data-background-opacity="0.5">
+					<h2 style="color:#00356b">Molecular epideimiology of Pakistan's fifth Covid wave</h2>
+					<h4 style="color:#00356b">Barney Isaksen Potter</h4>
+					<p style="font-size:0.6em;color:#dddddd">KU Leuven</p>
+					<p style="font-size:0.6em;color:#dddddd">2024-06-21</p>
+					<p style="font-size:0.6em;color:#dddddd">Rega Institute Friday Seminar</p>
+					<aside class="notes">
+						<ul>
+							<li>Thanks for being here!</li>
+							<li>I'm going to talk about how what Bayesian phylogeography is, and how we've applied it to a difficult dataset</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Start with an overview of Pakistan's covid epidemic -->
+				<!-- Use Belgium as a foil to PK -->
+				<section>
+					<div id="left">
+						<ul>
+							<li>~241.5 million residents</li>
+							<li>$338 billion GDP (nominal; 43rd)</li>
+							<li></li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					<div class="r-stack">
+						<img src="assets/2024-06-21-rega-friday-seminar/daily-cases.png" alt="likelihood calculation" width="100%"/>
+						<img class="fragment" src="assets/2024-06-21-rega-friday-seminar/daily-cases-sharey.png" alt="likelihood calculation" width="100%"/>
+					</div>
+					<div id="leftSource">Source: ourworldindata.org</div>
+				</section>
+				<section>
+					<img src="assets/2024-06-21-rega-friday-seminar/excess-deaths.png" alt="likelihood calculation" width="100%"/>
+					<div id="leftSource">Source: ourworldindata.org</div>
+				</section>
+				<section>
+					<img src="assets/2024-06-21-rega-friday-seminar/excess-deaths-combined.png" alt="likelihood calculation" width="100%"/>
+					<div id="leftSource">Source: ourworldindata.org</div>
+				</section>
+				<section>
+					<div class="r-stack">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi1.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi2.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi3.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi4.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi5.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi6.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi7.png">
+						<img class="fragment" src="assets/share/phylogeo_intro/gruvbox_dark/epi8.png">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>First: how epidemic process leads to phylogenetic trees</li>
+							<li>walk through figure</li>
+							<li>on first transmission mention possibility of vector intermediary</li>
+							<li>phylogeny represents a hypothesis of the shared evolutionary, and therefore transmission, history</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Phylogeny explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylodynamics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li>Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/phylogeny.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Which things are most related to one another</li>
+							<li>What are the patterns of shared ancestry?</li>
+							<li>How diverged two different taxa are (genetic distance)</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Evolutionary rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylodynamics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li>Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/time_scale.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>From genetic distance to clock distance</li>
+							<li>How long ago did two taxa share a common ancestor (and how long ago did they diverge)?</li>
+							<li>Leverage clock-like nature of mutation accumulation to date internal nodes</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Substitution rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylodynamics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li>Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						\[\tiny
+						Q_{JC69} =
+						\begin{bmatrix}
+						\cdot & \lambda & \lambda & \lambda \\
+						\lambda & \cdot & \lambda & \lambda \\
+						\lambda & \lambda & \cdot & \lambda \\
+						\lambda & \lambda & \lambda & \cdot \\
+						\end{bmatrix} \\[1em]
+						Q_{GTR} =
+						\begin{bmatrix}
+						\cdot & a\pi_C & b\pi_A & c\pi_G \\
+						a\pi_T & \cdot & d\pi_A & e\pi_G \\
+						b\pi_T & d\pi_C & \cdot & f\pi_G \\
+						c\pi_T & e\pi_C & f\pi_A & \cdot \\
+						\end{bmatrix}
+						\]
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Nucleotide substitution rates</li>
+							<li>Variety of models</li>
+							<li>Form the backbone of phylogenetic inference because they inform the likelihood function</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Demographic parameters explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylodynamics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li>Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/demographic_history.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Not just evol. characteristics, but also demographic and epidemiological ones</li>
+							<li>Use the phylogeny to infer effective population size through time</li>
+							<li>proxy for reproductive rate</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Migration rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can phylodynamics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li>Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/migration_rates.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Similar to substitution rates, we can infer migration rates</li>
+							<li>Here we treat location as discrete</li>
+							<li>Help us understand which locations may be sources or sinks for viral spread</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Migration rate history slide -->
+				<section data-transition="fade">
+					<h3>What can phylodynamics tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Substitution rates</li>
+							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li>Migration history</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/migration_history.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Combine migration rates with a phylogenetic tree</li>
+							<li>Understand the number and timing of different migration events</li>
+							<ul>
+								<li>Short term: understand the drivers of a local epidemic</li>
+								<li>Long term: understand the complete evolutionary history of a virus in space and time</li>
+							</ul>
+						</ul>
+					</aside>
+				</section>
+				<!-- METHODS -->
+				<section>
+					<blockquote>
+						How can we infer phylogenies robustly from genomic sequence data and geographic metadata?
+					</blockquote>
+					<aside class="notes">
+						How can we go about this? How can we...
+					</aside>
+				</section>
+				<!-- Tree space size -->
+				<section>
+					<h3>Problem: parameter space size</h3>
+					\[\tiny
+					\begin{array}{cc}
+					Num.~taxa & Num.~topologies \\ \hline
+					1 & 1 \\
+					2 & 1 \\
+					3 & 3 \\
+					4 & 15 \\
+					5 & 105 \\
+					6 & 945 \\
+					7 & 10,395 \\
+					8 & 135,135 \\
+					9 & 2,027,025 \\
+					10 & 34,459,425 \\
+					11 & 654,729,075 \\
+					\vdots & \vdots \\
+					1,690 & 1.01 \times 10^{5,223} \\
+					\end{array}
+					\]
+					<aside class="notes">
+						<ul>
+							<li>Computationally burdensome</li>
+							<li>Super-exponential growth of labeled, rooted, bifurcating trees</li>
+							<li>Context: 10^80 atoms in universe, 27x universe-in-atom</li>
+							<li>This is only the tree topologies</li>
+							<li>Takeaway: exhaustive search is impossible</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/share/phylogeo_intro/stamatakis2020_tree_space.png" width="100%">
+					<div id="leftSource">Source: Stamatakis & Kozlov (2020)</div>
+					<aside class="notes">
+						<ul>
+							<li>We want to efficiently:</li>
+							<ul>
+								<li>find starting trees that explain the observed sequence data well</li>
+								<li>throw out trees that don't</li>
+								<li>refine those trees in a principled way</li>
+							</ul>
+							<li>For this, we need a good metric of "goodness" of phylogeny</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>Enter: Bayes' Theorem</h3>
+					\[
+					P(\theta|\textbf{D}) = \frac{P(\textbf{D} |\theta) \times P(\theta )}{P(\textbf{D})}
+					\]
+					<aside class="notes">
+						<ul>
+							<li>Thinking about this problem in a Bayesian manner affords us three main benefits:</li>
+							<ul>
+								<li>Gives us an objective way to compare two phylogenetic hypotheses (tree + parameters)</li>
+								<li>Lets us understand distribution of posterior parameters (unlike ML)</li>
+								<li>Allows us to inject prior knowledge about certain parameters</li>
+							</ul>
+							<li>Third is crucially important in highly dimensional models that may be pathological</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- <section data-auto-animate>
+					\[\footnotesize
+					P(Tree, Parameters | \textbf{Data}) = \frac{P(\textbf{Data} | Tree, Parameters) \times P(Tree, Parameters)}{P(\textbf{Data})}
+					\]
+				</section> -->
+				<section>
+					<img class="r-stretch" src="assets/share/phylogeo_intro/beast_likelihood.png" alt="likelihood calculation" width="100%"/>
+					<aside class="notes">
+						<ul>
+							<li>Expand and apply to our application</li>
+							<li>Probability of a given ..... is proportional to the joint probability of .....</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/share/phylogeo_intro/likelihood_surface.png" alt="likelihood calculation" width="100%"/>
+					<aside class="notes">
+						The result of this is a highly dimensional likelihood surface:
+						<ul>
+							<li>We want to characterize it</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/hbv-vilnius-university/mcmc_illustration.png" alt="likelihood calculation" width="100%"/>
+					<div id="leftSource">Source: Jin, Ju, & Jung (2019)</div>
+					<aside class="notes">
+						<ul>
+							<li>We do this using MCMC</li>
+							<ul>
+								<li>Start with a random guess</li>
+								<li>Change it a little</li>
+								<li>If the new guess is better, accept</li>
+								<li>If it is worse, accept proportional the likelihood ratio</li>
+							</ul>
+							<li>As we log the state of the chain over time we recover a distribution for each parameter</li>
+						</ul>
+					</aside>
+				</section>
+				<section data-background="https://revolution-computing.typepad.com/.a/6a010534b1db25970b019aff4a7bbc970d-pi" data-background-size="30em">
+					<aside class="notes">
+						<ul>
+							<li>Visually, this is what the process looks like in 2 dimensions</li>
+							<li>Note: by replicating this process multiple times, we can be more confident in results if parallel replicates converge to the same thing</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/share/phylogeo_intro/beast_main.png" alt="likelihood calculation" width="70%"/>
+					<aside class="notes">
+						<ul>
+							<li>All of the Bayesian phylogeography is performed in Beast 1.0</li>
+							<li>The group that I'm in is primarily concerned with developing new functionality and implementing new models in BEAST</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h2>BA.1 Phylogeography in Pakistan</h2>
+				</section>
+				<section>
+					<div id="left" style="font-size:80%">
+						<ul>
+							<li>1690 global Omicron (BA.1) genomes</li>
+							<ul>
+								<li>63 from Pakistan</li>
+								<li>15 with travel-histories</li>
+							</ul>
+							<li>32 discrete geographic areas</li>
+							<ul>
+								<li>Pakistan and neighboring countries</li>
+								<li>Regions of China</li>
+								<li>UN Geogregions</li>
+							</ul>
+							<li>Roughly one third of Pakistan's fifth wave</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/pie.png" width="100%" alt="" />
+					</div>
+				</section>
+				<section>
+					<div id="left">
+						<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/repsampling.png" width="100%" alt="" />
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/biasedsampling.png" width="100%" alt="" />
+					</div>
+					<div id="leftSource">Source: Layan et al (2023)</div>
+				</section>
+				<section>
+					<img src="assets/2024-02-12-grubaugh-lab-meeting/travelhistory.png" alt="">
+					<div id="leftSource">Source: Lemey et al (2020)</div>
+				</section>
+				<section>
+					<img src="assets/2024-06-21-rega-friday-seminar/BA.1_reduced_tree.png" alt="BA.1 general results">
+				</section>
+				<section>
+					<img src="assets/2024-02-12-grubaugh-lab-meeting/posterior_routes_to_pk.png" alt="">
+				</section>
+				<section>
+					<div class="p_iframe">
+						<iframe frameborder="0" seamless="seamless" scrolling=no src="assets/2024-02-12-grubaugh-lab-meeting/sankey.html"></iframe>
+					</div>
+				</section>
+				<!-- Acknowledgements slide -->
+				<section data-background="#ffffff">
+					<div class="row">
+					<div class="column">
+						<h4>ECV-KU Leuven</h4>
+						<ul style="color:#282828">
+							<li>Guy Baele</li>
+							<li>Mandev Gill</li>
+							<li>Philippe Lemey</li>
+							<li>Samuel Hong</li>
+						</ul>
+						<p></p>
+						<h4>Fogarty International Center</h4>
+						<ul style="color:#282828">
+							<li>Nídia Sequeira Trovão</li>
+						</ul>
+						<p></p>
+						<h4>Vilnius University</h4>
+						<ul style="color:#282828">
+							<li>Gytis Dudas</li>
+						</ul>
+					</div>
+					<div class="column">
+						<img class="r-stretch" src="assets/share/kul_logo.png" alt="KU Leuven logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/ecv_logo.png" alt="ecv logo" width="40%"/>
+						<img class="r-stretch" src="assets/share/fogarty_logo.png" alt="Fogarty logo" width="60%"/>
+						<img class="r-stretch" src="assets/share/vilnius_university_logo.png" alt="nih pk logo" width="70%"/>
+						<img class="r-stretch" src="assets/share/nih_pk.png" alt="baef logo" width="60%"/>
+					</div>
+					<div class="column">
+						<h4>Rega Institute</h4>
+						<ul style="color:#282828">
+							<li>Mahmoud Reza Pourkarim</li>
+							<li>Marijn Thijssen</li>
+						</ul>
+						<h4>NIH Pakistan</h4>
+						<ul style="color:#282828">
+							<li>Massab Umair</li>
+							<li>Zaira Rehman</li>
+							<li>Aamer Ikram</li>
+							<li>Muhammad Salman</li>
+						</ul>
+						<p></p>
+						<h4>Belgian American Education Foundation</h4>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>

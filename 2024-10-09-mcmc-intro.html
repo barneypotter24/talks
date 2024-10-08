@@ -68,7 +68,11 @@
 						<li>"Likelihood" referes to the degree to which data support a hypothesis</li>
 					</ul>
 				</section>
-				<section>
+				<section data-background-color="#ffffff" data-background-image="assets/share/Thomas_Bayes.png"
+						 data-background-size="35%"
+						 data-background-position="125% 125%"
+						 data-background-repeat="no-repeat"
+						 data-background-opacity="0.5">
 					<h2>Bayesian statistical framework</h2>
 					<ul>
 						<li>BOTH data and model parameters are described by probabilities</li>
@@ -122,7 +126,7 @@
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/bayestheorem2.png" width="100%">
 				</section>
 				<section data-background-color="#116E8A">
-					<h1 style="color:#dddddd">How can we apply this model to phylogenetic inference?</h1>
+					<h1 style="color:#dddddd">How can we apply this framework to phylogenetic inference?</h1>
 				</section>
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/monke.png" width="100%">
@@ -268,6 +272,94 @@
 				<section data-background-color="#116E8A">
 					<h1 style="color:#dddddd">MCMC diagnostics, summaries, and interpretation</h1>
 					<p style="color: #dddddd;">(after a 5 minute break)</p>
+				</section>
+				<section>
+					<h3>Downsampling</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/downsampling.png" width="100%">
+				</section>
+				<section>
+					<h3>Stationarity</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/stationarity.png" width="100%">
+				</section>
+				<section data-background="https://revolution-computing.typepad.com/.a/6a010534b1db25970b019aff4a7bbc970d-pi" data-background-size="25em"></section>
+				<section>
+					<h3>Convergence in multiple chains</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/coconvergence.png" width="100%">
+				</section>
+				<section>
+					<h3>Effective sample size</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/ess.png" width="100%">
+				</section>
+				<section>
+					<h3>Autocorrelation within a chain</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation1.png" width="100%">
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation2.png" width="100%">
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation3.png" width="100%">
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation4.png" width="100%">
+				</section>
+				<section>
+					<h3>ESS Calculation</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelationtime.png" width="100%">
+				</section>
+				<section>
+					<blockquote>How do we <em>summarize</em> and <em>interpret</em> the results of our Bayesian phylogenetic analysis?</blockquote>
+				</section>
+				<section>
+					<h3>Summary of continuous parameters</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/wellmixedchain.png" width="100%">
+				</section>
+				<section>
+					<h3>Posterior distribution</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/posteriordensity.png" width="100%">
+				</section>
+				<section>
+					<h3>Credible intervals</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/hpd.png" width="100%">
+				</section>
+				<section>
+					<h3>Credible intervals</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/hpd2.png" width="100%">
+				</section>
+				<section>
+					<img src="assets/2024-10-09-mcmc-intro/forest.png" class="r-stretch" width="100%">
+				</section>
+				<section>
+					<h3>How do we choose a consensus?</h3>
+					<img src="assets/2024-10-09-mcmc-intro/consensustrees.png" class="r-stretch" width="100%">
+				</section>
+				<section>
+					<h3>Maximum clade credibility (MCC) trees</h3>
+					<img src="assets/2024-10-09-mcmc-intro/trees.png" class="r-stretch" width="100%">
+				</section>
+				<section>
+					<h3>MCC calculation</h3>
+					<img src="assets/2024-10-09-mcmc-intro/mcctrees.png" class="r-stretch" width="100%">
+				</section>
+				<section>
+					<blockquote>My chain won't converge and I am confused and angry and a little bit scared. What can I do?</blockquote>
+				</section>
+				<section>
+					<h1>DON'T PANIC</h1>
+				</section>
+				<section>
+					<p>Some things might help:</p>
+					<ul>
+						<li>Wait; run more parallel chains (different seeds)</li>
+						<li>Retune parameters (target $10 \text{--} 70\%$ acceptance)</li>
+						<li>Propose changes to "difficult" parameters more often (operator weights)</li>
+						<li>Use different operators</li>
+						<li>Simplify or make the model more realistic (stronger priors)</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Next time: Bayesian phylogenetics in practice</h2>
+					<img src="assets/share/phylogeo_intro/beast_main.png" class="r-stretch" width="100%">
 				</section>
 			</div>
 		</div>

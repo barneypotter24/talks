@@ -29,16 +29,21 @@
 					<h4 style="color:#dddddd">Barney Isaksen Potter</h4>
 					<p style="font-size:0.6em;color:#dddddd">KU Leuven</p>
 					<p style="font-size:0.6em;color:#dddddd">2024-10-09</p>
-					<p style="font-size:0.6em;color:#dddddd">Rega Institute, Dept. of Microbiology and Immunology</p>
+					<p style="font-size:0.6em;color:#dddddd">I0D53A: Evolutionary and quantitative genetics</p>
 					<aside class="notes">
 					</aside>
 				</section>
+				<!-- QR Code -->
 				<section>
 					<h3>Slides available online:</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/qr.png" width="100%">
 					<br>
 					<a href="https://barneypotter24.github.io/talks/2024-10-09-mcmc-intro.html">https://barneypotter24.github.io/talks/2024-10-09-mcmc-intro.html</a>
+					<aside class="notes">
+						Priority indicators for slides won't be here, but when the PDF is posted to Toledo they will be added
+					</aside>
 				</section>
+				<!-- Overview -->
 				<section>
 					<h2>Overview</h2>
 					<ul>
@@ -47,19 +52,37 @@
 						<li><a href="#/25" style="color: #000000;">Markov chain Monte Carlo</a></li>
 						<li><a href="#/38" style="color: #000000;">Interpretation and diagnostics</a></li>
 					</ul>
+					<aside class="notes"></aside>
 				</section>
+				<!-- Models of evolution -->
 				<section>
 					<h2>Models of evolution</h2>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/models_of_evolution.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Today we will talk about a Tree evaluation method</li>
+							<li>Some similarities to ML, but still very different</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- One tree -->
 				<section>
 					<h2>One Tree to rule them all, One Tree to find them, One Tree to bring them all and in the darkness bind them</h2>
 					<ul>
-						<li>The (maximum likelihood) method's we've learned so far try to get a single tree</li>
+						<li>The (maximum likelihood) methods we've learned so far try to get a single tree</li>
 						<li>The one they find is likely not the "best"</li>
 						<li>Are we doing a good job of reporting a single tree?</li>
 					</ul>
+					<aside class="notes">
+						ML produces a "point estimate" or a single inference of parameters:
+						<ul>
+							<li>Tree</li>
+							<li>Branch lengths</li>
+							<li>Model parameters</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Frequentist philosophy -->
 				<section>
 					<h2>Frequentist statistical framework</h2>
 					<ul>
@@ -67,7 +90,14 @@
 						<li>Probabilities are objectively real in the same way that physical objects are real</li>
 						<li>"Likelihood" referes to the degree to which data support a hypothesis</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Frequentist = ML</li>
+							<li>Probabilities cannot exist without data/experiments</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Bayesian philosophy -->
 				<section data-background-color="#ffffff" data-background-image="assets/share/Thomas_Bayes.png"
 						 data-background-size="35%"
 						 data-background-position="125% 125%"
@@ -79,10 +109,21 @@
 						<li>Probability represents the <em>degree to which we believe a hypothesis</em></li>
 						<li>Hypotheses can have probabilities in the absence of data</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>We already know things about reality</li>
+							<li>We are interested in quantifying uncertainty</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- SEC: Bayesian inference -->
 				<section data-background-color="#116E8A">
 					<h1 style="color:#dddddd">Bayesian inference</h1>
+					<aside class="notes">
+						First, we will discuss Bayesian inference generally
+					</aside>
 				</section>
+				<!-- Fundamentals of Bayesian inf. -->
 				<section>
 					<h2>Fundamentals of Bayesian inference</h2>
 					<ul>
@@ -90,55 +131,108 @@
 						<li>The posterior combines information from both <em>data</em> and <em>prior knowledge</em></li>
 						<li>Each parameter in the model has a <em>prior probability distribution</em> representing known knowledge about that parameter</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Combine prior knowledge with data</li>
+							<li>Create a posterior distribution</li>
+							<li>Distribuion (rather than point estimate) helps us quantify uncertainty</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Ex: weak prior -->
 				<section>
 					<h2>Example: weak prior</h2>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/weakprior.png" width="100%">
 					<p>"Human heights follow a uniform (flat) distribution between 1 angstrom and the width of the universe."</p>
+					<aside class="notes">
+						Technically proper, but extremely uninformative prior means that the data provide all the information
+					</aside>
 				</section>
+				<!-- Ex: strong 1 -->
 				<section>
 					<h2>Example: informative prior</h2>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/strongprior1.png" width="100%">
 					<p>"Human heights follow a normal distribution with mean 170cm and standard deviation 5cm."</p>
+					<aside class="notes">
+						<ul>
+							<li>We can wikipedia some facts about humans</li>
+							<li>Same data as before</li>
+							<li>Now there are two distributions that we need to combine</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Ex: strong 2 -->
 				<section>
 					<h2>Example: informative prior</h2>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/strongprior2.png" width="100%">
 					<p>"Human heights follow a normal distribution with mean 170cm and standard deviation 5cm."</p>
+					<aside class="notes">
+						Only two data -> posterior is similar to the prior
+					</aside>
 				</section>
+				<!-- Ex: strong 3 -->
 				<section>
 					<h2>Example: informative prior</h2>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/strongprior3.png" width="100%">
 					<p>"Human heights follow a normal distribution with mean 170cm and standard deviation 5cm."</p>
+					<aside class="notes">
+						Lots of data -> posterior is driven by the data. Maybe we aren't sampling from <em>all</em> humans
+					</aside>
 				</section>
+				<!-- Bayes' Theorem -->
 				<section>
 					<h3>Bayes' Theorem</h3>
 					\[
 					P(H_1|\textbf{D}) = \frac{P(\textbf{D} |H_1) \times P(H_1 )}{P(\textbf{D})}
 					\]
+					<aside class="notes">
+						Posterior is derived from the likelihood, the prior, and a marginal term
+					</aside>
 				</section>
+				<!-- Bayes' breakdown 1 -->
 				<section>
 					<p>How can observing <em>data</em> (<b>D</b>) change our belief in a <em>hypothesis</em> (<b>H<sub>1</sub></sub></b>)?</p>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/bayestheorem1.png" width="100%">
+					<aside>
+						Talk through posterior, model, prior, then marginal
+					</aside>
 				</section>
+				<!-- Bayes' marginal explanation -->
 				<section>
 					<p>How can observing <em>data</em> (<b>D</b>) change our belief in a <em>hypothesis</em> (<b>H<sub>1</sub></sub></b>)?</p>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/bayestheorem2.png" width="100%">
+					<aside class="notes">
+						This term is a constant, represents the probability of the data if we integrate over all possible hypotheses
+					</aside>
 				</section>
+				<!-- SEC: Bayesian phylogenetics -->
 				<section data-background-color="#116E8A">
 					<h1 style="color:#dddddd">How can we apply this framework to phylogenetic inference?</h1>
+					<aside class="notes"></aside>
 				</section>
+				<!-- Overview of the idea of Bayesian phylogenetics -->
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/monke.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>We have multiple competing hypotheses for how four organisms could be related</li>
+							<li>No reason to favor one over the other -> uninformative prior</li>
+							<li>We apply data in the form of sequence data in tree likelihood calculations</li>
+							<li>We end up with aposterior distribution of trees that is informed by the data</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Bayes' theorem reprise -->
 				<section>
-					<!-- <h3>Bayes' Theorem</h3> -->
 					\[
 					P(H_1|\textbf{D}) = \frac{P(\textbf{D} |H_1) \times P(H_1 )}{P(\textbf{D})}
 					\]
+					<aside class="notes">
+						We are now going to just change the symbols we use to fit our purpose
+					</aside>
 				</section>
+				<!-- Bayes' theorem for phylogenies -->
 				<section>
-					<!-- <h3>Bayes' Theorem for phylogenies</h3> -->
 					 <p>The posterior probability of a phylogenetic tree, $\tau$:</p>
 					 <br>
 					\[
@@ -147,7 +241,18 @@
 					<br>
 					<p>$\tau = $ phylogenetic hyopthesis (tree)</p>
 					<p>$\textbf{X} =$ genomic sequence data</p>
+					<aside class="notes">
+						Important! This is the same as before but we've just renamed the symbols
+						<ul>
+							<li>Interested in probability of a tree given sequence data</li>
+							<li>Likelihood: probability of data given the tree</li>
+							<li>Prior for the tree</li>
+							<li>Marginal is the probability of observing the data</li>
+						</ul>
+						<p>We will break down each of these parts</p>
+					</aside>
 				</section>
+				<!-- Likelihood calculation breakdown -->
 				<section>
 					<h4>Likelihood calculation</h4>
 					 <br>
@@ -157,12 +262,27 @@
 					\]
 
 					\[
-					\begingroup \color{teal} L(\tau,\eta,\Theta | y_1 \mathellipsis x_n) \endgroup
+					\begingroup \color{teal} L(\tau,\nu,\Theta | x_1 \mathellipsis x_N) \endgroup
 					= 
-					\prod_{i=1}^n Pr(x_i | \begingroup \color{darkmagenta} \tau \endgroup , \begingroup \color{darkblue} \eta \endgroup , \begingroup \color{mediumseagreen} \Theta \endgroup)
+					\prod_{i=1}^N Pr(x_i | \begingroup \color{darkmagenta} \tau \endgroup , \begingroup \color{darkblue} \nu \endgroup , \begingroup \color{mediumseagreen} \Theta \endgroup)
 					\]
-					<p>$\begingroup \color{darkmagenta} \tau = \text{tree topology} \endgroup, \begingroup \color{darkblue} \eta = \text{branch lengths} \endgroup, \atop \begingroup \color{mediumseagreen} \Theta = \text{model parameters} \endgroup, i \in \text{sites in genome}$</p>
+					<p>$\begingroup \color{darkmagenta} \tau = \text{tree topology} \endgroup, \begingroup \color{darkblue} \nu = \text{branch lengths} \endgroup, \atop \begingroup \color{mediumseagreen} \Theta = \text{model parameters} \endgroup, i \in \text{sites in genome}$</p>
+					<aside class="notes">
+						Let's break down the first term
+						<ul>
+							<li>Expand the likelihood to consist of four parts</li>
+							<ul>
+								<li>Tree topology (shape)</li>
+								<li>Branch lengths</li>
+								<li>Model parameters</li>
+								<li>Data observations at each of the N sites in the genome</li>
+							</ul>
+							<li>Because we assume sites are independent we can take the product of probabilities across all N sites</li>
+							<li>Calculated the same way as in ML</li>	
+						</ul>
+					</aside>
 				</section>
+				<!-- Prior breakdown -->
 				<section>
 					<h4>Prior calculation</h4>
 					 <br>
@@ -176,7 +296,14 @@
 					= \frac{1}{\begingroup \color{crimson} B(s) \endgroup}
 					\]
 					<p>$\begingroup \color{crimson} B(s) = \text{number of possible topologies} \endgroup$</p>
+					<aside class="notes">
+						<ul>
+							<li>Uniform prior on tree shapes</li>
+							<li>If we have other parameters, they will also have priors that get multiplied here</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Marginal term breakdown -->
 				<section>
 					<h4>Marginal term calculation</h4>
 					 <br>
@@ -190,8 +317,14 @@
 					= \sum_{j=1}^{\begingroup \color{crimson} B(s) \endgroup} P(\textbf{X} | \tau_j) \times P(\tau_j)
 					\]
 					<p>To calculate this we need to sum the density across every possible tree...</p>
+					<aside class="notes">
+						<p>Recall: we are calculating the average probability of the data across all possible hypotheses.</p>
+						<p>This means we are essentially performing a discrete integral over every possible tree topology.</p>
+					</aside>
 				</section>
+				<!-- Topology space size with two subslides -->
 				<section>
+					<section>
 					<p>... but tree topology space is too big!</p>
 					\[\tiny
 					\begin{array}{cc}
@@ -207,36 +340,116 @@
 					9 & 2,027,025 \\
 					\vdots & \vdots \\
 					20 & 8,200,794,532,637,891,559,375 \\
+					\vdots & \vdots \\
+					769 & 3.753 \times 10^{2,110} \\
 					\end{array}
 					\]
+					<aside class="notes">
+						<ul>
+							<li>This should be familiar already</li>
+							<li>Number of topologies scales superfactorially with number of taxa</li>
+							<li>Number is intractable for even relatively small datasets</li>
+							<li>8 sextillion: on the same order as the number of grains of sand or number of possible udoku grids</li>
+						</ul>
+					</aside>
+					</section>
+					<section>
+						\[
+						3 \times 5 \times 7 \times \mathellipsis \times (2n-3)
+						=
+						\frac{(2n-3)!}{2^{n-1} \times (n-1)!}
+						\]
+						<aside class="notes">
+							We derive this by considering, for each topology of n-1 taxa, how many places we could add a new branch along a prexisting one
+						</aside>
+					</section>
+					<aside class="notes"></aside>
 				</section>
+				<!-- SEC: MCMC -->
 				<section data-background-color="#116E8A">
 					<h1 style="color:#dddddd">Markov chain Monte Carlo (MCMC)</h1>
+					<aside class="notes">We need a clever algorithm to perform these computations</aside>
 				</section>
+				<!-- Goal of MCMC -->
 				<section>
 					<h2>Markov chain Monte Carlo (MCMC) Sampling</h2>
 					<p>Posterior probabilities are difficult to calculate analytically. However, we can sample values from the posterior distribution with a frequency proportional to thir posterior probability by using MCMC.</p>
+					<aside class="notes">
+						We can numerically approximate the full calculation by taking samples from the posterior distribution. If those samples are taken proportional to their posterior probability then we can summarize the samples to summarize the posterior.
+					</aside>
 				</section>
+				<!-- ML hill climbing -->
 				<section>
 					<h2>Recall: ML optimization</h2>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/ml.png" width="100%">
+					<aside class="notes">
+						ML uses a "hill climbing" algorithm to find the maximum likelihood, and only ever steps uphill. Downside: we don't know the shape of the distribution, and we may get caught in a local optimum
+					</aside>
 				</section>
+				<!-- MCMC leverages randomness -->
 				<section>
 					<h2>MCMC leverages randomness</h2>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mlvsmcmc.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Consider the black dots now</li>
+							<li>Use randomness cleverly to allow steps "downhill", in such a way that we end up with samples that cover the distribution proportional to its height</li>
+							<li>Green: we can have many steps downhill, though it is unlikely</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- General idea of metropolis hastings algorithm -->
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc1.png" width="100%">
+					<aside class="notes">
+						Core idea of the MH algorithm:
+						<ul>
+							<li>Start with a random state (calculate its likelihood)</li>
+							<li>Propose a random step from that state</li>
+							<li>Based on the likelihood at the new state, either accept or reject</li>
+							<li>Repeat (a lot)</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Metropolis hastings acceptance ratio -->
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc2.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Recall: our state tau=tree, nu=branch lengths, Theta=model parameters</li>
+							<li>The algorithm proposes a new, modified state Psi star</li>
+							<li>Calculate a ratio R:</li>
+							<ul>
+								<li>Ratio of posterior probabilities</li>
+								<li>Term "Hastings ratio" that accounts for potential asymmetry in proposals (ignore)</li>
+								<li>Expand posterior probabilities according to Bayes' theorem</li>
+								<li>Same problem as earlier, except that the marginal terms (B(s)) cancels out!</li>
+								<li>This is the crux of MCMC, because it allows us to never calculate the marginal term</li>
+								<li>The end result is a value between 0 and 1 that is proportional to the ratio of the likelihoods between Psi and Psi star</li>
+							</ul>
+							<li>Generate a random number uniformly between 0 and 1</li>
+							<li>If that value is less than the ratio R, we accept the new proposal</li>
+							<li>Takeaway: we always take a step up, we often take small steps down, we rarely (but sometimes) take big steps down</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Some bookkeeping -->
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc3.png" width="100%">
+					<aside class="notes">
+						Let's catch our breath for a minute
+						<ul>
+							<li>This process is repeated many many many times</li>
+							<li>All the samples that we keep describe the posterior distribution</li>
+							<li>EXPLAIN the trace plot</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- First live example -->
 				<section data-background-iframe="https://chi-feng.github.io/mcmc-demo/app.html" data-background-color="white" data-background-interactive data-preload>
 					<aside class="notes">
 						<ul>
+							<li>apologize for no Tom and Jerry</li>
 							<li>ORIENT WITH THE INTERFACE</li>
 							<li>RandomWalkMH</li>
 							<li>normal</li>
@@ -247,17 +460,37 @@
 						</ul>
 					</aside>
 				</section>
+				<!-- Transition kernels -->
 				<section>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc4.png" width="100%">
+					<aside class="notes">
+						Now we can talk about how the new states get proposed. Many names, a couple major categories.
+					</aside>
 				</section>
+				<!-- Operators -->
 				<section>
-					<h3>Proposal mechanisms, transition kernels, operators</h3>
+					<h3>Operators</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc5.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Many ways to make new continuous proposals</li>
+							<li>Simplest example: uniform pick from a window</li>
+							<li>Tuning prameters are useful!</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Tuning and mixing -->
 				<section>
 					<h3>Tuning and mixing</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/tuningandmixing.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>We use the word "mixing" to describe how efficiently we are sampling from the posterior</li>
+							<li>We can look at the acceptance rate for the operator to see if our proposals are good</li>
+						</ul>
+					</aside>
 				</section>
+				<!-- Second live example -->
 				<section data-background-iframe="https://chi-feng.github.io/mcmc-demo/app.html" data-background-color="white" data-background-interactive data-preload></section>
 					<aside class="notes">
 						<ul>
@@ -265,26 +498,53 @@
 						</ul>
 					</aside>
 				</section>
+				<!-- Operators on trees -->
 				<section>
-					<h3>Proposal mechanisms, transition kernels, operators</h3>
+					<h3>Operators on trees</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc6.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Narrow moves propose swaps between branches in a local area</li>
+							<li>Wide moves propose more global swaps</li>
+							<li>Important! These are the same moves used by ML optimization</li>	
+						</ul>
+					</aside>
 				</section>
+				<!-- Break before looking into diagnostics -->
 				<section data-background-color="#116E8A">
 					<h1 style="color:#dddddd">MCMC diagnostics, summaries, and interpretation</h1>
 					<p style="color: #dddddd;">(after a 5 minute break)</p>
+					<aside class="notes"></aside>
 				</section>
+				<!-- Downsampling -->
 				<section>
 					<h3>Downsampling</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/downsampling.png" width="100%">
+					<aside class="notes">
+						We downsample chains both because of the correlation between states and because of data storage practicality
+					</aside>
 				</section>
+				<!-- Stationarity -->
 				<section>
 					<h3>Stationarity</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/stationarity.png" width="100%">
+					<aside class="notes">
+						Burn in vs fuzzy caterpillar
+					</aside>
 				</section>
-				<section data-background="https://revolution-computing.typepad.com/.a/6a010534b1db25970b019aff4a7bbc970d-pi" data-background-size="25em"></section>
+				<!-- Multiple chain gif -->
+				<section data-background="https://revolution-computing.typepad.com/.a/6a010534b1db25970b019aff4a7bbc970d-pi" data-background-size="25em">
+					<aside class="notes">
+						Multiple chains help us determine if we've reached a local or global optimum
+					</aside>
+				</section>
+				<!-- Multiple chain convergence in traces -->
 				<section>
 					<h3>Convergence in multiple chains</h3>
 					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/coconvergence.png" width="100%">
+					<aside class="notes">
+						Compare left with right
+					</aside>
 				</section>
 				<section>
 					<h3>Effective sample size</h3>

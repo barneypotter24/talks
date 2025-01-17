@@ -37,6 +37,51 @@
 						</ul>
 					</aside>
 				</section>
+				<section>
+					<h3>PhD goal:</h3>
+					<h3>Use phylodynamic tools to characterize epidemics at various time-scales</h3>
+					<ul>
+						<li>Real-time genomic epidemiology</li>
+						<li><em>Post hoc</em> phylodynamics</li>
+						<li>Paleogenomic epidemiology</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>First: Belgium's ongoing SARS-CoV-2 epidemic</li>
+							<li>Second: Drivers of an epidemic wave of SARS-CoV-2 in PK</li>
+							<li>Third: Hepatitis B throughout thousands of years</li>
+							<li>This talk will focus on the latter two</li>	
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<table style="font-size: 75%;">
+						<tr>
+							<th>virus</th>
+							<th>causes</th>
+							<th>spread through</th>
+							<th>genome</th>
+							<th>time in humans</th>
+						</tr>
+						<tr>
+							<th>SARS-CoV-2</th>
+							<td>COVID-19</td>
+							<td>exhaled droplets</td>
+							<td>large +ssRNA</td>
+							<td>since 2019</td>
+						</tr>
+						<tr>
+							<th>HBV</th>
+							<td>hepatitis B</td>
+							<td>blood and bodily fluids</td>
+							<td>compact dsDNA</td>
+							<td>over ten thousand years</td>
+						</tr>
+					</table>
+					<aside class="notes">
+						Explain table.. But why do we care...?
+					</aside>
+				</section>
 				<!-- EID slide -->
 				<section>
 					<img class="r-stretch" src="assets/doctoral-defense/eid.jpg" alt="EIDs" />
@@ -63,24 +108,23 @@
 					</div>
 					<aside class="notes">
 						<ul>
+							<li>"I'm gong to walk through how an idealized epidemic happens, and how phylogenetic trees are a natural way to describe them"</li>
 							<li>First: how epidemic process leads to phylogenetic trees</li>
 							<li>walk through figure</li>
-							<li>on first transmission mention possibility of vector intermediary</li>
 							<li>phylogeny represents a hypothesis of the shared evolutionary, and therefore transmission, history</li>
 						</ul>
 					</aside>
 				</section>
 				<!-- Phylogeny explanation slide -->
 				<section data-transition="fade">
-					<h3>What can we learn via phylodynamics?</h3>
+					<h3>What can this tell us?</h3>
 					<div id="left">
 						<ul>
-							<li>Phylogeny</li>
+							<li>Topology</li>
 							<li style="opacity:.5">Evolutionary rate</li>
-							<li style="opacity:.5">Substitution rates</li>
 							<li style="opacity:.5">Migration rates</li>
 							<li style="opacity:.5">Migration history</li>
-							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Population size</li>
 						</ul>
 					</div>
 					<div id="right">
@@ -96,15 +140,14 @@
 				</section>
 				<!-- Evolutionary rate explanation slide -->
 				<section data-transition="fade">
-					<h3>What can we learn via phylodynamics?</h3>
+					<h3>What can this tell us?</h3>
 					<div id="left">
 						<ul>
-							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Topology</li>
 							<li>Evolutionary rate</li>
-							<li style="opacity:.5">Substitution rates</li>
 							<li style="opacity:.5">Migration rates</li>
 							<li style="opacity:.5">Migration history</li>
-							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Population size</li>
 						</ul>
 					</div>
 					<div id="right">
@@ -118,56 +161,16 @@
 						</ul>
 					</aside>
 				</section>
-				<!-- Substitution rate explanation slide -->
-				<section data-transition="fade">
-					<h3>What can we learn via phylodynamics?</h3>
-					<div id="left">
-						<ul>
-							<li style="opacity:.5">Phylogeny</li>
-							<li style="opacity:.5">Evolutionary rate</li>
-							<li>Substitution rates</li>
-							<li style="opacity:.5">Migration rates</li>
-							<li style="opacity:.5">Migration history</li>
-							<li style="opacity:.5">Demographic parameters</li>
-						</ul>
-					</div>
-					<div id="right">
-						\[\tiny
-						Q_{JC69} =
-						\begin{bmatrix}
-						\cdot & \lambda & \lambda & \lambda \\
-						\lambda & \cdot & \lambda & \lambda \\
-						\lambda & \lambda & \cdot & \lambda \\
-						\lambda & \lambda & \lambda & \cdot \\
-						\end{bmatrix} \\[1em]
-						Q_{GTR} =
-						\begin{bmatrix}
-						\cdot & a\pi_C & b\pi_A & c\pi_G \\
-						a\pi_T & \cdot & d\pi_A & e\pi_G \\
-						b\pi_T & d\pi_C & \cdot & f\pi_G \\
-						c\pi_T & e\pi_C & f\pi_A & \cdot \\
-						\end{bmatrix}
-						\]
-					</div>
-					<aside class="notes">
-						<ul>
-							<li>Nucleotide substitution rates</li>
-							<li>Variety of models</li>
-							<li>Form the backbone of phylogenetic inference because they inform the likelihood function</li>
-						</ul>
-					</aside>
-				</section>
 				<!-- Migration rate explanation slide -->
 				<section data-transition="fade">
-					<h3>What can we learn via phylodynamics?</h3>
+					<h3>What can this tell us?</h3>
 					<div id="left">
 						<ul>
-							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Topology</li>
 							<li style="opacity:.5">Evolutionary rate</li>
-							<li style="opacity:.5">Substitution rates</li>
 							<li>Migration rates</li>
 							<li style="opacity:.5">Migration history</li>
-							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Population size</li>
 					</div>
 					<div id="right">
 						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/migration_rates.png" width="100%">
@@ -182,15 +185,14 @@
 				</section>
 				<!-- Migration rate history slide -->
 				<section data-transition="fade">
-					<h3>What can we learn via phylodynamics?</h3>
+					<h3>What can this tell us?</h3>
 					<div id="left">
 						<ul>
-							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Topology</li>
 							<li style="opacity:.5">Evolutionary rate</li>
-							<li style="opacity:.5">Substitution rates</li>
 							<li style="opacity:.5">Migration rates</li>
 							<li>Migration history</li>
-							<li style="opacity:.5">Demographic parameters</li>
+							<li style="opacity:.5">Population size</li>
 						</ul>
 					</div>
 					<div id="right">
@@ -209,15 +211,14 @@
 				</section>
 				<!-- Demographic parameters explanation slide -->
 				<section data-transition="fade">
-					<h3>What can we learn via phylodynamics?</h3>
+					<h3>What can this tell us?</h3>
 					<div id="left">
 						<ul>
-							<li style="opacity:.5">Phylogeny</li>
+							<li style="opacity:.5">Topology</li>
 							<li style="opacity:.5">Evolutionary rate</li>
-							<li style="opacity:.5">Substitution rates</li>
 							<li style="opacity:.5">Migration rates</li>
 							<li style="opacity:.5">Migration history</li>
-							<li>Demographic parameters</li>
+							<li>Population size</li>
 						</ul>
 					</div>
 					<div id="right">
@@ -241,6 +242,7 @@
 				</section>
 				<!-- Demographic parameters explanation slide -->
 				<section>
+					<h3>Which tree is better?</h3>
 					<div id="left">
 						<img src="assets/doctoral-defense/tre1.png" alt="tre1" class="r-stretch" width="100%">
 					</div>
@@ -250,8 +252,32 @@
 					<aside class="notes">tmp</aside>
 				</section>
 				<section>
-					<blockquote><b>Tree likelihood function:</b> a function that computes how probable a tree is under a certain model given some sequence data at its tips.</blockquote>
-					<aside class="notes">tmp</aside>
+					<blockquote><b>Tree likelihood:</b> a value that quantifies how well a tree describes data under a given model.</blockquote>
+					<aside class="notes"></aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/share/phylogeo_intro/beast_likelihood.png" alt="likelihood calculation" width="100%"/>
+					<aside class="notes">
+						<ul>
+							<li>Expand and apply to our application</li>
+							<li>Probability of a given ..... is proportional to the joint probability of .....</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/share/phylogeo_intro/stamatakis2020_tree_space.png" width="100%">
+					<div id="leftSource">Source: Stamatakis & Kozlov (2020)</div>
+					<aside class="notes">
+						<ul>
+							<li>We want to efficiently:</li>
+							<ul>
+								<li>find starting trees that explain the observed sequence data well</li>
+								<li>throw out trees that don't</li>
+								<li>refine those trees in a principled way</li>
+							</ul>
+							<li>For this, we need a good metric of "goodness" of phylogeny</li>
+						</ul>
+					</aside>
 				</section>
 				<!-- Tree space size -->
 				<section>
@@ -283,145 +309,173 @@
 					</aside>
 				</section>
 				<section>
-					<img class="r-stretch" src="assets/share/phylogeo_intro/stamatakis2020_tree_space.png" width="100%">
-					<div id="leftSource">Source: Stamatakis & Kozlov (2020)</div>
-					<aside class="notes">
-						<ul>
-							<li>We want to efficiently:</li>
+					<section>
+						<h3>Enter: Bayes' Theorem</h3>
+						\[
+						P(\theta|\textbf{X}) = \frac{P(\textbf{X} |\theta) \times P(\theta )}{P(\textbf{X})}
+						\]
+						<aside class="notes">
 							<ul>
-								<li>find starting trees that explain the observed sequence data well</li>
-								<li>throw out trees that don't</li>
-								<li>refine those trees in a principled way</li>
+								<li>Thinking about this problem in a Bayesian manner affords us three main benefits:</li>
+								<ul>
+									<li>Gives us an objective way to compare two phylogenetic hypotheses (tree + parameters)</li>
+									<li>Lets us understand distribution of posterior parameters (unlike ML)</li>
+									<li>Allows us to inject prior knowledge about certain parameters</li>
+								</ul>
+								<li>Third is crucially important in highly dimensional models that may be pathological</li>
 							</ul>
-							<li>For this, we need a good metric of "goodness" of phylogeny</li>
-						</ul>
-					</aside>
-				</section>
-				<section>
-					<h3>Enter: Bayes' Theorem</h3>
+						</aside>
+					</section>
+									<!-- Bayes' theorem for phylogenies -->
+					<section>
+						<p>The posterior probability of a phylogenetic tree, $\tau$:</p>
+						<br>
 					\[
-					P(\theta|\textbf{D}) = \frac{P(\textbf{D} |\theta) \times P(\theta )}{P(\textbf{D})}
+					P(\tau|\textbf{X}) = \frac{P(\textbf{X} |\tau) \times P(\tau )}{P(\textbf{X})}
 					\]
+					<br>
+					<p>$\tau = $ phylogenetic hyopthesis (tree)</p>
+					<p>$\textbf{X} =$ genomic sequence data</p>
 					<aside class="notes">
+						Important! This is the same as before but we've just renamed the symbols
 						<ul>
-							<li>Thinking about this problem in a Bayesian manner affords us three main benefits:</li>
-							<ul>
-								<li>Gives us an objective way to compare two phylogenetic hypotheses (tree + parameters)</li>
-								<li>Lets us understand distribution of posterior parameters (unlike ML)</li>
-								<li>Allows us to inject prior knowledge about certain parameters</li>
-							</ul>
-							<li>Third is crucially important in highly dimensional models that may be pathological</li>
+							<li>Interested in probability of a tree given sequence data</li>
+							<li>Likelihood: probability of data given the tree</li>
+							<li>Prior for the tree</li>
+							<li>Marginal is the probability of observing the data</li>
 						</ul>
+						<p>We will break down each of these parts</p>
 					</aside>
 				</section>
-				<!-- <section data-auto-animate>
-					\[\footnotesize
-					P(Tree, Parameters | \textbf{Data}) = \frac{P(\textbf{Data} | Tree, Parameters) \times P(Tree, Parameters)}{P(\textbf{Data})}
+				<!-- Likelihood calculation breakdown -->
+				<section>
+					<h4>Likelihood calculation</h4>
+						<br>
+					\[
+					P(\tau|\textbf{X}) = 
+					\frac{\begingroup \color{teal} P(\textbf{X} |\tau) \endgroup \times P(\tau )}{P(\textbf{X})}
 					\]
-				</section> -->
-				<section>
-					<img class="r-stretch" src="assets/share/phylogeo_intro/beast_likelihood.png" alt="likelihood calculation" width="100%"/>
+
+					\[
+					\begingroup \color{teal} L(\tau,\nu,\Theta | x_1 \mathellipsis x_N) \endgroup
+					= 
+					\prod_{i=1}^N Pr(x_i | \begingroup \color{darkmagenta} \tau \endgroup , \begingroup \color{darkblue} \nu \endgroup , \begingroup \color{mediumseagreen} \Theta \endgroup)
+					\]
+					<p>$\begingroup \color{darkmagenta} \tau = \text{tree topology} \endgroup, \begingroup \color{darkblue} \nu = \text{branch lengths} \endgroup, \atop \begingroup \color{mediumseagreen} \Theta = \text{model parameters} \endgroup, i \in \text{sites in genome}$</p>
 					<aside class="notes">
+						Let's break down the first term
 						<ul>
-							<li>Expand and apply to our application</li>
-							<li>Probability of a given ..... is proportional to the joint probability of .....</li>
+							<li>Expand the likelihood to consist of four parts</li>
+							<ul>
+								<li>Tree topology (shape)</li>
+								<li>Branch lengths</li>
+								<li>Model parameters</li>
+								<li>Data observations at each of the N sites in the genome</li>
+							</ul>
+							<li>Because we assume sites are independent we can take the product of probabilities across all N sites</li>
+							<li>Calculated the same way as in ML</li>	
 						</ul>
 					</aside>
 				</section>
+				<!-- Prior breakdown -->
 				<section>
-					<img class="r-stretch" src="assets/hbv-vilnius-university/mcmc_illustration.png" alt="likelihood calculation" width="100%"/>
-					<h2>Barney: remake this on your own!</h2>
-					<div id="leftSource">Source: Jin, Ju, & Jung (2019)</div>
+					<h4>Prior calculation</h4>
+						<br>
+					\[
+					P(\tau|\textbf{X}) = 
+					\frac{P(\textbf{X} |\tau) \times \begingroup \color{chocolate} P(\tau ) \endgroup}{P(\textbf{X})}
+					\]
+
+					\[
+					\begingroup \color{chocolate} P(\tau) \endgroup
+					= \frac{1}{\begingroup \color{crimson} B(s) \endgroup}
+					\]
+					<p>$\begingroup \color{crimson} B(s) = \text{number of possible topologies} \endgroup$</p>
 					<aside class="notes">
 						<ul>
-							<li>We do this using MCMC</li>
-							<ul>
-								<li>Start with a random guess</li>
-								<li>Change it a little</li>
-								<li>If the new guess is better, accept</li>
-								<li>If it is worse, accept proportional the likelihood ratio</li>
-							</ul>
-							<li>As we log the state of the chain over time we recover a distribution for each parameter</li>
+							<li>Uniform prior on tree shapes</li>
+							<li>If we have other parameters, they will also have priors that get multiplied here</li>
 						</ul>
 					</aside>
 				</section>
+				<!-- Marginal term breakdown -->
 				<section>
-					<h3>SARS-CoV-2 vs. HBV</h3>
-					<div id="left" style="font-size:82%">
-						<ul>
-							<li>Causes COVID-19</li>
-							<li>Spread through exhaled droplets</li>
-							<ul>
-								<li>Caused the COVID-19 pandemic</li>
-								<li>Seasonal and endemic</li>
-							</ul>
-							<li>Large +ssRNA virus</li>
-							<li>Emerged in 2019</li>
-						</ul>
-					</div>
-					<div id="right" style="font-size:82%">
-						<ul>
-							<li>Causative agent of hepatitis B</li>
-							<ul>
-								<li>Cirrhosis</li>
-								<li>Hepatocellular carcinoma</li>
-							</ul>
-							<li>Spread through blood and bodily fluids</li>
-							<li>Compact dsDNA genome</li>
-							<li>In humans for millennia</li>
-						</ul>
-					</div>
+					<h4>Marginal term calculation</h4>
+						<br>
+					\[
+					P(\tau|\textbf{X}) = 
+					\frac{P(\textbf{X} |\tau) \times P(\tau )}{\begingroup \color{goldenrod} P(\textbf{X}) \endgroup}
+					\]
+
+					\[
+					\begingroup \color{goldenrod} P(\textbf{X}) \endgroup
+					= \sum_{j=1}^{\begingroup \color{crimson} B(s) \endgroup} P(\textbf{X} | \tau_j) \times P(\tau_j)
+					\]
+					<p>To calculate this we need to sum the density across every possible tree...</p>
+					<aside class="notes">
+						<p>Recall: we are calculating the average probability of the data across all possible hypotheses.</p>
+						<p>This means we are essentially performing a discrete integral over every possible tree topology.</p>
+					</aside>
+				</section>
+				</section>
+				<section data-background="https://revolution-computing.typepad.com/.a/6a010534b1db25970b019aff4a7bbc970d-pi" data-background-size="30em">
 					<aside class="notes">
 						<ul>
-							<li>Orthohepadnavirus</li>
-							<li>reverse-transcribing partially dsDNA genome</li>
-							<li>circular (-) sense strand, partial ()+ sense strand</li>
-							<li>overlapping reading frames</li>
-							<li>highly compact genome, with little room for mutation</li>
+							<li>Visually, this is what the process looks like in 2 dimensions</li>
+							<li>Note: by replicating this process multiple times, we can be more confident in results if parallel replicates converge to the same thing</li>
 						</ul>
 					</aside>
 				</section>
 				<!-- BA.1 Pakistan -->
 				<section>
-					<h2>BA.1 (Omicron) in Pakistan</h2>
+					<h2>BA.1 in Pakistan</h2>
+					<h4>A recent epidemic withing a global pandemic</h4>
 					<aside class="notes">tmp</aside>
 				</section>
 				<section>
 					<h3>Driving questions</h3>
 					<ol>
-						<li>How does a pathogen initally enter a country and influence local epidemics?</li>
+						<li>How does a pathogen initially enter a country and influence local epidemics?</li>
 						<li>How can we use phylodynamic methods to overcome global disparities in sequencing?</li>
 					</ol>
 					<aside class="notes">tmp</aside>
 				</section>
 				<section>
-					<div id="left" style="font-size:80%">
-						<ul>
-							<li>1690 global BA.1 genomes</li>
+					<section>
+						<h3>Data in this analysis</h3>
+						<div id="left" style="font-size:80%">
 							<ul>
-								<li>63 from Pakistan</li>
-								<li>15 with travel-histories</li>
+								<li>1690 global BA.1 genomes</li>
+								<ul>
+									<li>63 from Pakistan</li>
+									<li>15 with travel-histories</li>
+								</ul>
+								<li>32 discrete geographic areas</li>
+								<ul>
+									<li>Pakistan and neighboring countries</li>
+									<li>Regions of China</li>
+									<li>UN Georegions</li>
+								</ul>
+								<li>Roughly one third of Pakistan's fifth wave</li>
 							</ul>
-							<li>32 discrete geographic areas</li>
-							<ul>
-								<li>Pakistan and neighboring countries</li>
-								<li>Regions of China</li>
-								<li>UN Geogregions</li>
-							</ul>
-							<li>Roughly one third of Pakistan's fifth wave</li>
-						</ul>
-					</div>
-					<div id="right">
+						</div>
+						<div id="right">
+							<img class="r-stretch" src="assets/doctoral-defense/pie_pk.png" width="100%" alt="" />
+						</div>
+					</section>
+					<section>
 						<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/pie.png" width="100%" alt="" />
+					</section>
+				</section>
+				<section>
+					<h3>Pakistan's Omicron epidemic</h3>
+					<div id="left" style="font-size:80%">
+						<img src="assets/doctoral-defense/pk_cases.png" alt="alt" width="100%" class="r-stretch">
 					</div>
-				</section>
-				<section>
-					<img src="assets/doctoral-defense/pk_cases.png" alt="alt" width="100%" class="r-stretch">
-					<aside class="notes">tmp</aside>
-				</section>
-				<section>
-					<img src="assets/doctoral-defense/pk_sequences.png" alt="alt" width="100%" class="r-stretch">
-					<aside class="notes">tmp</aside>
+					<div id="right" style="font-size:80%">
+						<img src="assets/doctoral-defense/pk_sequences.png" alt="alt" width="100%" class="r-stretch">
+					</div>
+					<aside class="notes">Quick overview of the Omicron epidemic in Pakistan in late '21/early '22</aside>
 				</section>
 				<section data-transition="slide-in fade-out">
 					<img src="assets/doctoral-defense/pk_main1.png" alt="alt" width="100%" class="r-stretch">
@@ -448,11 +502,11 @@
 					<aside class="notes">tmp</aside>
 				</section>
 				<section>
-					<h3>Takeaways and next steps</h3>
+					<h3>Key Takeaways</h3>
 					<ul>
 						<li>BA.1 was the primary driver of the beginning of Pakistan's Omicron epidemic.</li>
-						<li>Air traffic from Northern Europe was the primary dirver of BA.1 in Pakistan.</li>
-						<li>Global disparities in sequencing make analysis of underserved regions difficult.</li>
+						<li>Air traffic from Northern Europe caused most importations.</li>
+						<li>Disparities in sequencing made analysis difficult and potentially biased.</li>
 					</ul>
 					<aside class="notes">
 						just read this slide
@@ -461,14 +515,7 @@
 				<!-- HBV SPECIFIC STUFF -->
 				<section>
 					<h2>Phylogeography of Hepatitis B Virus</h2>
-				</section>
-				<section>
-					<h3>Driving questions</h3>
-					<ol>
-						<li>How do human movement patterns shape viral spread?</li>
-						<li>How can we use novel data sources to infer the timing of events in the distant past?</li>
-					</ol>
-					<aside class="notes">tmp</aside>
+					<h4>A virus that has co-evolved with humans for millennia</h4>
 				</section>
 				<section>
 					<h3>This study</h3>
@@ -477,7 +524,7 @@
 						<li>118 full genome sequences:</li>
 						<ul>
 							<li>47 HBV-A;</li>
-							<li>7 HBV-D;</li>
+							<li><em>7 HBV-D;</em></li>
 							<li><em>64 HBV-E</em>.</li>
 						</ul>
 					<li>Supplemented with all available high quality GenBank HBV genomes</li>
@@ -490,27 +537,26 @@
 					</aside>
 				</section>
 				<section>
+					<img class="r-stretch" src="assets/hbv-vilnius-university/hbv_genome_schematic.png" alt="hbv genome" />
+					<div id="leftSource">Source: Wikimedia Commons</div>
+					<aside class="notes">
+						<ul>
+							<li>Orthohepadnavirus</li>
+							<li>reverse-transcribing partially dsDNA genome</li>
+							<li>circular (-) sense strand, partial ()+ sense strand</li>
+							<li>overlapping reading frames</li>
+							<li>highly compact genome, with little room for mutation</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
 					<img src="assets/hbv-vilnius-university/full-hbv-tree.jpg" alt="alt" class="r-stretch" width="100%">
 					<aside class="notes">tmp</aside>
 					<div id="leftSource">Source: Kocher et al. (2021)</div>
 				</section>
 				<section>
-					<img class="r-stretch" src="assets/hbv-vilnius-university/hbv_genome_schematic.png" alt="hbv genome" />
-					<div id="leftSource">Source: Wikimedia Commons</div>
-						<aside class="notes">
-						<ul>
-							<li>HBV has coevolved with humans for thousands of years</li>
-							<li>Categorized into genotypes; focus:</li>
-							<li>HBV A, D, E</li>
-						</ul>
-					</aside>
-				</section>
-				<section>
-					<img src="assets/doctoral-defense/tempSignal1.png" alt="alt" width="100%" class="r-stretch">
-					<aside class="notes">tmp</aside>
-				</section>
-				<section>
-					<img src="assets/doctoral-defense/tempSignal2.png" alt="alt" width="100%" class="r-stretch">
+					<h4>Estimating evolutionary rate from trees</h4>
+					<img src="assets/doctoral-defense/tempSignal.png" alt="alt" width="100%" class="r-stretch">
 					<aside class="notes">tmp</aside>
 				</section>
 				<section>
@@ -528,18 +574,13 @@
 					\textrm{Rise386} & \textrm{HBV-A} & \textrm{Russia}^* & 4,114 \textrm{(2100 BCE)} \\
 					\textrm{Rise387} & \textrm{HBV-A} & \textrm{Russia}^* & 4,278 \textrm{(2264 BCE)} \\
 					\textrm{DA119} & \textrm{HBV-A} & \textrm{Slovakia} & 1,563 \textrm{(451 CE)} \\
-					\textrm{DA195} & \textrm{HBV-A} & \textrm{Hungary} & 2,641 \textrm{(627 BCE)} \\ \hline
-					\textrm{DA27} & \textrm{HBV-D} & \textrm{Kazakhstan} & 1,610 \textrm{(409 CE)} \\
-					\textrm{DA29} & \textrm{HBV-D} & \textrm{Kazakhstan} & 822 \textrm{(1197 CE)} \\
-					\textrm{DA51} & \textrm{HBV-D} & \textrm{Kyrgyzstan} & 2,297 \textrm{(278 BCE)} \\
-					\textrm{DA222} & \textrm{HBV-D} & \textrm{Kazakhstan} & 1,167 \textrm{(852 CE)} \\
-					\textrm{NASD24SEQ} & \textrm{HBV-D} & \textrm{Italy} & 427 \textrm{(1587 CE)}
+					\textrm{DA195} & \textrm{HBV-A} & \textrm{Hungary} & 2,641 \textrm{(627 BCE)} \\
 					\end{array}
 					\]
 
 					<p style="font-size:50%">Clock rate prior: $1.18 \times 10^{-5}$ [95% HPD: $8.04 \times 10^{-6} \textrm{--} 1.51 \times 10^{-5}$] subs./site/year</p>
 
-					<div id="leftSource">Source: Mülemann et al. (2018), Ross et al. (2018)</div>
+					<div id="leftSource">Source: Mülemann et al. (2018)</div>
 
 					<aside class="notes">
 						<ul>
@@ -547,15 +588,17 @@
 							<li>4 HBV-A, 5 HBV-D</li>
 							<li>None for HBV-E</li>
 							<li>*Russian sequences are given a Central Asia location instead of Europe; proximal to Kazakhstan</li>
+							<li>583 + 4 ancient</li>
 						</ul>
 					</aside>
 				</section>
-				<!-- HBV-A -->
 				<section>
-					<h2>HBV-A</h2>
-					<aside class="notes">
-						583 + 4 ancient
-					</aside>
+					<h3>Driving questions</h3>
+					<ol>
+						<li>How do human movement patterns shape viral spread?</li>
+						<li>Do ancient genomes help us to infer the timing of events in the distant past?</li>
+					</ol>
+					<aside class="notes">tmp</aside>
 				</section>
 				<section>
 					<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/hbv/Figure4.png" width="100%">
@@ -574,6 +617,7 @@
 					</aside>
 				</section>
 				<section>
+					<h4>Migration counts and support</h4>
 					<div id="left">
 						<img class="r-stretch" src="assets/hbv-vilnius-university/mj_hbva.png" width="100%" alt="hbv a markov jumps" />
 					</div>
@@ -590,62 +634,24 @@
 				</section>
 				<!-- HBV-D -->
 				<section>
-					<h2>HBV-D</h2>
-					<aside class="notes">
-						764 + 5 ancient
-					</aside>
-				</section>
-				<section>
-					<div class="">
-
-					</div>
-					<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/hbv/Figure5.png" width="100%">
-					<aside class="notes">
-						<ul>
-							<li>1800 BCE tMRCA</li>
-							<li>92 total jumps</li>
-							<ul>
-								<li>more distributed throughout the evol histoyr</li>
-								<li>matches: no geographic isolation allows continuous movement</li>
-							</ul>
-							<li>Large introduction to Africa ca. 550 CE</li>
-							<li>Mixed European/American clade w/ tMRCA 1100 CE</li>
-						</ul>
-					</aside>
-				</section>
-				<section>
-					<div id="left">
-						<img class="r-stretch" src="assets/hbv-vilnius-university/mj_hbvd.png" width="100%" alt="hbv d markov jumps" />
-					</div>
-					<div id="right">
-						<img class="r-stretch" src="assets/hbv-vilnius-university/bf_hbvd.png" width="100%" alt="hbv d bayes factors" />
-					</div>
-					<aside class="notes">
-						<ul>
-							<li>Central Asia, and to a smaller degree Europe drove spread</li>
-							<li>makes sense given its known distribution</li>
-						</ul>
-					</aside>
-				</section>
-				<section>
 					<h3>Takeaways and next steps</h3>
 					<ul>
 						<li>Large-scale human movements drives HBV globalization.</li>
 						<li>More global genomic surveillance of HBV is necessary to understand the diversity and potential impact of each genotype.</li>
-						<li>Ancient genomes may refine inferences of future HBV datasets.</li>
+						<li>Find more mummies.</li>
 					</ul>
 					<aside class="notes">
 						just read this slide
 					</aside>
 				</section>
 				<section>
-					<h3>Overall conclusions and next steps (reword)</h3>
+					<h3>Overall conclusions</h3>
 					<ul>
-						<li>Seqeuncing is disparate which complicates analysis</li>
-						<li>Undersampling in regions makes hard to understand the drivers of epidemics.</li>
-						<li>Computational burden is massive</li>
-						<li>Extensions to other complicated pathogens?</li>
+						<li>(Bayesian) phylodynamics can help us understand both recent and ancient patterns of viral dispersal.</li>
+						<li>Disparities in sequencing complicate the analysis of epidemics.</li>
+						<li>We need more efficient ways to analyze increasingly large datasets.</li>
 					</ul>
+					<aside class="notes"></aside>
 				</section>
 				<!-- Acknowledgements slide -->
 				<section data-background="#ffffff">
@@ -692,6 +698,52 @@
 						<p></p>
 						<h4>Belgian American Education Foundation</h4>
 					</div>
+				</section>
+				<section>
+					<div id="left">
+						<img src="assets/doctoral-defense/old_tree.png" class="r-stretch" width="80%">
+					</div>
+					<div id="right">
+						<h3><br/><br/><br/><br/>Questions?</h3>
+					</div>
+				</section>
+				<section>
+					<h2>HBV-D</h2>
+					<aside class="notes">
+						764 + 5 ancient
+					</aside>
+				</section>
+				<section>
+					<div class="">
+
+					</div>
+					<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/hbv/Figure5.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>1800 BCE tMRCA</li>
+							<li>92 total jumps</li>
+							<ul>
+								<li>more distributed throughout the evol histoyr</li>
+								<li>matches: no geographic isolation allows continuous movement</li>
+							</ul>
+							<li>Large introduction to Africa ca. 550 CE</li>
+							<li>Mixed European/American clade w/ tMRCA 1100 CE</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<div id="left">
+						<img class="r-stretch" src="assets/hbv-vilnius-university/mj_hbvd.png" width="100%" alt="hbv d markov jumps" />
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/hbv-vilnius-university/bf_hbvd.png" width="100%" alt="hbv d bayes factors" />
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Central Asia, and to a smaller degree Europe drove spread</li>
+							<li>makes sense given its known distribution</li>
+						</ul>
+					</aside>
 				</section>
 			</div>
 		</div>

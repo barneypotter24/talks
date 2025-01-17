@@ -88,9 +88,10 @@
 						<div id="leftSource">Source: Morens & Fauci (2019)</div>
 						<aside class="notes">
 						<ul>
-							<li>HBV stands in interesting contrast to most viral pathogens, because it is not recently emerged</li>
-							<li>Diseases such as West African Ebola, Zika in the Americias, SARS-CoV-3 have all emerged very recently</li>
-							<li>Even the influenza viruses that affect global health today have emerged in the last 99 years</li>
+							<li>Infectious diseases can be caused by all sorts of pathogens: parasites (Malaria), bacteria (TB), viruses</li>
+							<li>Many diseases have emerged recently</li>
+							<li>Diseases such as West African Ebola, Zika in the Americias, SARS-CoV-2 have all emerged very recently</li>
+							<li>Even the influenza viruses that affect global health today have emerged in the last hundred years</li>
 						</ul>
 					</aside>
 				</section>
@@ -236,7 +237,9 @@
 					<img src="assets/doctoral-defense/treeDiagram.png" alt="treeDiagram" class="r-stretch" width="100%">
 					<aside class="notes">
 						<ul>
-							<li>notes</li>
+							<li>read from right to left</li>
+							<li>tips/taxa/sequences</li>
+							<li>internal nodes represent shared common ancestors</li>
 						</ul>
 					</aside>
 				</section>
@@ -249,21 +252,13 @@
 					<div id="right">
 						<img src="assets/doctoral-defense/tre2.png" alt="tre2" class="r-stretch" width="100%">
 					</div>
-					<aside class="notes">tmp</aside>
+					<aside class="notes">We might think purple and yellow are closer, but which tree is better? It is helpful to have some principled way of comparing trees.</aside>
 				</section>
 				<section>
 					<blockquote><b>Tree likelihood:</b> a value that quantifies how well a tree describes data under a given model.</blockquote>
-					<aside class="notes"></aside>
+					<aside class="notes">This allows us to define a space of trees</aside>
 				</section>
-				<section>
-					<img class="r-stretch" src="assets/share/phylogeo_intro/beast_likelihood.png" alt="likelihood calculation" width="100%"/>
-					<aside class="notes">
-						<ul>
-							<li>Expand and apply to our application</li>
-							<li>Probability of a given ..... is proportional to the joint probability of .....</li>
-						</ul>
-					</aside>
-				</section>
+
 				<section>
 					<img class="r-stretch" src="assets/share/phylogeo_intro/stamatakis2020_tree_space.png" width="100%">
 					<div id="leftSource">Source: Stamatakis & Kozlov (2020)</div>
@@ -309,6 +304,16 @@
 					</aside>
 				</section>
 				<section>
+					<img class="r-stretch" src="assets/share/phylogeo_intro/beast_likelihood.png" alt="likelihood calculation" width="100%"/>
+					<aside class="notes">
+						<ul>
+							<li>We are interested in how well a model describes data, but it is easier to calculate how probable data is given a model.</li>
+							<li>Expand and apply to our application</li>
+							<li>Probability of a given ..... is proportional to the joint probability of .....</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
 					<section>
 						<h3>Bayes' Theorem</h3>
 						\[
@@ -323,7 +328,7 @@
 									<li>Lets us understand distribution of posterior parameters (unlike ML)</li>
 									<li>Allows us to inject prior knowledge about certain parameters</li>
 								</ul>
-								<li>Third is crucially important in highly dimensional models that may be pathological</li>
+								<li>HIT B and briefly say we want to walk through high likelihood space and construct a distribution of likely trees</li>
 							</ul>
 						</aside>
 					</section>
@@ -463,9 +468,12 @@
 						<div id="right">
 							<img class="r-stretch" src="assets/doctoral-defense/pie_pk.png" width="100%" alt="" />
 						</div>
+						<aside class="notes">tmp</aside>
 					</section>
 					<section>
+						<h3>Breakdown of GISAID sequences by location</h3>
 						<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/pie.png" width="100%" alt="" />
+						<aside class="notes">Actual breakdown of GISAID Sequences</aside>
 					</section>
 				</section>
 				<section>
@@ -480,7 +488,17 @@
 				</section>
 				<section data-transition="slide-in fade-out">
 					<img src="assets/doctoral-defense/pk_main1.png" alt="alt" width="100%" class="r-stretch">
-					<aside class="notes">tmp</aside>
+					<aside class="notes">
+						<ul>
+							<li>Orient along time axis</li>
+							<li>Colors: red vs other</li>
+							<li>Grey boxes:</li>
+							<ul>
+								<li>first global detection</li>
+								<li>first PK case of Omicron</li>
+							</ul>
+						</ul>
+					</aside>
 				</section>
 				<section data-transition="fade">
 					<img src="assets/doctoral-defense/pk_main2.png" alt="alt" width="100%" class="r-stretch">
@@ -488,19 +506,25 @@
 				</section>
 				<section data-transition="fade">
 					<img src="assets/doctoral-defense/pk_main3.png" alt="alt" width="100%" class="r-stretch">
-					<aside class="notes">tmp</aside>
+					<aside class="notes">Earlier from Europe, later from Asia/Africa</aside>
 				</section>
 				<section data-transition="fade-in slide-out">
 					<img src="assets/doctoral-defense/pk_main4.png" alt="alt" width="100%" class="r-stretch">
-					<aside class="notes">tmp</aside>
+					<aside class="notes">
+						<ul>
+							<li>About half of cases are from big clades, and half are from one-offs</li>
+							<li>Recall: we are building a distribution of trees</li>
+							<li>Point out walking through tree: top taxon, top clade through Asia</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<img src="assets/doctoral-defense/pk_map.png" alt="alt" width="100%" class="r-stretch">
-					<aside class="notes">tmp</aside>
+					<aside class="notes">Pause to explain the figure</aside>
 				</section>
 				<section>
 					<img src="assets/doctoral-defense/pk_sankey.png" alt="alt" width="100%" class="r-stretch">
-					<aside class="notes">tmp</aside>
+					<aside class="notes">More granular breakdown of sources. Pakistan has more diaspora in N.Europe, so returning travelers were a main source.</aside>
 				</section>
 				<section>
 					<h3>Key Takeaways</h3>
@@ -517,6 +541,7 @@
 				<section>
 					<h2>Phylogeography of Hepatitis B Virus</h2>
 					<h4>A virus that has co-evolved with humans for millennia</h4>
+					<aside class="notes">Shifting gears to a very different virus that we can analyze using similar tools.</aside>
 				</section>
 				<section>
 					<h3>This study</h3>
@@ -618,7 +643,7 @@
 					</aside>
 				</section>
 				<section>
-					<h4>Migration counts and support</h4>
+					<h4>Jump counts and support</h4>
 					<div id="left">
 						<img class="r-stretch" src="assets/hbv-vilnius-university/mj_hbva.png" width="100%" alt="hbv a markov jumps" />
 					</div>
@@ -652,7 +677,7 @@
 						<li>Disparities in sequencing complicate the analysis of epidemics.</li>
 						<li>We need more efficient ways to analyze increasingly large datasets.</li>
 					</ul>
-					<aside class="notes"></aside>
+					<aside class="notes">read</aside>
 				</section>
 				<!-- Acknowledgements slide -->
 				<section data-background="#ffffff">
@@ -699,6 +724,7 @@
 						<p></p>
 						<h4>Belgian American Education Foundation</h4>
 					</div>
+					<aside class="notes">thank everyone</aside>
 				</section>
 				<section>
 					<div id="left">
@@ -707,6 +733,7 @@
 					<div id="right">
 						<h3><br/><br/><br/><br/>Questions?</h3>
 					</div>
+					<aside class="notes">questions?</aside>
 				</section>
 				<section>
 					<h2>HBV-D</h2>

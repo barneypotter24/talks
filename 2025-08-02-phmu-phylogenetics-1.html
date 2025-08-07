@@ -1,0 +1,473 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Phylogenetics I</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Phylogenetics I"/>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/solarized.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Chapter 0: title -->
+				<section data-background-color="#073642">
+					<h2 style="color:#cb4b16">Phylogenetics I</h2>
+					<h4 style="color:#cb4b16">Trees, tree likelihoods, and models of evolution</h4>
+					<p style="font-size:0.6em;color:#93a1a1">Public Health Modeling Unit</p>
+					<p style="font-size:0.6em;color:#93a1a1">2025-08-05</p>
+					<p style="font-size:0.6em;color:#93a1a1">Barney Isaksen Potter</p>
+					<aside class="notes">
+						thanks all
+					</aside>
+				</section>
+				<section>
+					<h3>Series overview</h3>
+					<ol>
+						<li>Trees, tree likelihoods, and models of evolution</li>
+						<li>Rate heterogeneity and maximum likelihood</li>
+						<li>Bayesian phylogenetics, Markov chain Monte Carlo, and summary trees</li>
+						<li>Phylogeography and Kingman's coalescent</li>
+					</ol>
+					<aside class="notes">
+						please bear with me, timing may be off
+					</aside>
+				</section>
+				<!-- Chapter 1: Tree intro -->
+				<section>
+					<aside class="notes">
+						this slide left intentionally blank
+						phylogenetic trees seek to relate a set of taxa by inferring their shared evol. history
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0000_1drawFirstTree.mp4"></video>
+					<aside class="notes">
+						trees are fundamentally graphs
+						<ul>
+							<li>assume bifurcating</li>
+							<li>assume rooted</li>
+							<li>edge lengths represent some notion of evol. distance</li>
+						</ul>
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0001_2boxTips.mp4"></video>
+					<aside class="notes">
+						tips/leaves represent taxonomically important units
+						e.g. consensus genomes from an infected indiv. or members of a species
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0002_3unboxTips.mp4"></video>
+					<aside class="notes">
+						unbox
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0003_4boxNodes.mp4"></video>
+					<aside class="notes">
+						nodes represent shared common ancestors
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0004_5unboxNodes.mp4"></video>
+					<aside class="notes">
+						unbox
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0005_6labelRoot.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0006_7unlabelRoot.mp4"></video>
+					<aside class="notes">
+						unlabel
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0007_8convertToUnrooted.mp4"></video>
+					<aside class="notes">
+						rooting can be arbitrary (IQ tree)
+						models today don't care where the root is placed
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0008_9convertToRooted.mp4"></video>
+					<aside class="notes">
+						reroot
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0009_10labelTipsAndBranches.mp4"></video>
+					<aside class="notes">
+						let's add some taxon labels
+						length of branch represents distance
+
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0010_11timeCalibrate.mp4"></video>
+					<aside class="notes">
+						project branches into time-space by rescaling branches
+						Orangutan to homininae (African hominids)
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0011_12fadeOutTree.mp4"></video>
+					<aside class="notes">
+						pause
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0012_13meaninglessY.mp4"></video>
+					<aside class="notes">
+						the Y axis doesn't carry information
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0013_14rectangularTree.mp4"></video>
+					<aside class="notes">
+						some convention, rectangular tree
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TreeIntro_0014_15labelRectBranches.mp4"></video>
+					<aside class="notes">
+						note distances
+					</aside>
+				</section>
+				<!-- Chapter 2: multiple sequence alignment -->
+				<section>
+					<h3>What do the data look like?</h3>
+					<aside class="notes">
+						Multiple sequence alignment section
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0000_1drawAlignment.mp4"></video>
+					<aside class="notes">
+						Multiple sequence alignment
+						rows: taxa
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0001_2boxSites.mp4"></video>
+					<aside class="notes">
+						columns: loci
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0002_3invariantSite.mp4"></video>
+					<aside class="notes">
+						invariant
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0003_4variableSite.mp4"></video>
+					<aside class="notes">
+						variable
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0004_5snp.mp4"></video>
+					<aside class="notes">
+						snp
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0005_6insertionSite.mp4"></video>
+					<aside class="notes">
+						insertion
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0006_7missingDataSites.mp4"></video>
+					<aside class="notes">
+						missing and ambiguous bases (ignored)
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0007_8siteIndependence.mp4"></video>
+					<aside class="notes">
+						Key assumption!
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0008_9defineSitePatterns.mp4"></video>
+					<aside class="notes">
+						define site patterns
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0009_10firstSitePattern.mp4"></video>
+					<aside class="notes">
+						first
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/MultipleSequenceAlignment_0010_11secondSitePattern.mp4"></video>
+					<aside class="notes">
+						second
+					</aside>
+				</section>
+				<!-- Chapter 3: nomenclature & a tree probability -->
+				<section>
+					<h3>Probability vs. likelihood</h3>
+					<aside class="notes">
+						notation
+					</aside>
+				</section>
+				<section>
+					<h3>Some notation</h3>
+					<ul>
+						<li>$P(X)$: probability of $X$</li>
+						<li class="fragment">$P(X|Y)$: conditional probability of $X$ given $Y$</li>
+						<li class="fragment">$\theta$: model parameters</li>
+						<li class="fragment">$\mathcal{L}(\theta|X)$: likelihood of $\theta$ given data $X$</li>
+					</ul>
+					<br>
+					<br>
+					<h4 class="fragment">$\mathcal{L}(\theta | X) = P(X | \theta)$</h4>
+					<aside class="notes">
+						define terms
+						will go into detail on the Likelihood term
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/ProbabilityVsLikelihood_0000_0drawProbTable.mp4"></video>
+					<aside class="notes">
+						simple example: flipping a coin
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/ProbabilityVsLikelihood_0001_1addBiasedModel.mp4"></video>
+					<aside class="notes">
+						add biased model
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/ProbabilityVsLikelihood_0002_2twoFlips.mp4"></video>
+					<aside class="notes">
+						expand our result space to two flips
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/ProbabilityVsLikelihood_0003_3likelihoodComparison.mp4"></video>
+					<aside class="notes">
+						a notion of which model is better, and by how much
+					</aside>
+				</section>
+				<section>
+					<h3>So what is the probability of a tree?</h3>
+					<aside class="notes">lets calculate!</aside>
+				</section>
+				<section>
+					<h3>Two key assumptions:</h3>
+					<ol>
+						<li>Each site evolves independently.</li>
+						<li>Each lineage evolves independently.</li>
+					</ol>
+					<aside class="notes">
+						already mentioned 1, branches evolve independently
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/SingleTreeLikelihood_0000_0drawTree.mp4"></video>
+					<aside class="notes">
+						draw tree
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/SingleTreeLikelihood_0001_1treeProb0.mp4"></video>
+					<aside class="notes">
+						tree probability is product of root and branch probabilities
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay
+						src="assets/share/tree_intro/solarized/SingleTreeLikelihood_0002_2treeProb1.mp4"></video>
+					<aside class="notes">
+						expand probability
+					</aside>
+				</section>
+				<!-- Chapter 4: CTMC model -->
+				<section>
+					<h3>Continuous Time Markov Chain model of nucleotide evolution</h3>
+					<aside class="notes">
+						CTMC
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0000_0ctmcDots.mp4"></video>
+					<aside class="notes">
+						model: the nucleotide at a given site can be ACGT, lets say A
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0001_1exponentialRates.mp4"></video>
+					<aside class="notes">
+						exponential wait time to a transition with parameter beta
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0002_2allRates.mp4"></video>
+					<aside class="notes">
+						we can encode these instantaneous rates as a matrix, called Q
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0003_3qMatrix.mp4"></video>
+					<aside class="notes">
+						Q
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0004_4equilibriumFreqs.mp4"></video>
+					<aside class="notes">
+						calculate pi, the equilibrium frequencies of the nucleotides
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0005_5braceForLinAlg.mp4"></video>
+					<aside class="notes">
+						brace: math coming
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0006_6pt.mp4"></video>
+					<aside class="notes">
+						Probability of transitions over time t is P(t), exponential of Q * t
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0007_7ptnext.mp4"></video>
+					<aside class="notes">
+						diagonalizable: eigenvector decomposition
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0008_8lambdaMatrix.mp4"></video>
+					<aside class="notes">
+						lambda is a diagonal matrix of eigenvalues
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0009_9derivePt.mp4"></video>
+					<aside class="notes">
+						derivation
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0010_10elt.mp4"></video>
+					<aside class="notes">
+						e to the lambda t
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/CTMC_0011_11takeaway.mp4"></video>
+					<aside class="notes">
+						this is calculable!
+						however, this is the time-consuming step of the process
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TotalTreeLikelihood_0000_0drawTree.mp4"></video>
+					<aside class="notes">
+						redraw tree with x,y,z
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TotalTreeLikelihood_0001_1totalLikelihoodSimple0.mp4"></video>
+					<aside class="notes">
+						total likelihood simple
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/share/tree_intro/solarized/TotalTreeLikelihood_0002_2totalLikelihoodExpansion.mp4"></video>
+					<aside class="notes">
+						total likelihood expanded
+					</aside>
+				</section>
+				<!-- Chapter 5: substitution models -->
+				<section>
+					<h3>Substitution models</h3>
+					<aside class="notes">
+						JC69, HKY, and GTR
+					</aside>
+				</section>
+				<section>
+					<p>JC69: Jukes and Cantor (1969)</p>
+					<img class= "r-stretch" src="assets/share/tree_intro/solarized/JC69_ManimCE_v0.19.0.png" alt="">
+					<aside class="notes">
+						Most simplistic; not realistic
+					</aside>
+				</section>
+				<section>
+					<p>HKY: Hasegawa, Kishino, and Yano (1985)</p>
+					<img class="r-stretch" src="assets/share/tree_intro/solarized/HKY_ManimCE_v0.19.0.png" alt="">
+					<aside class="notes">
+						Typically the best balance of complexity for applications we use
+					</aside>
+				</section>
+				<section>
+					<p>GTR: Tavaré (1986)</p>
+					<img class="r-stretch" src="assets/share/tree_intro/solarized/GTR_ManimCE_v0.19.0.png" alt="">
+					<aside class="notes">
+						Good, but often slow to infer
+					</aside>
+				</section>
+				<section>
+					<h3>FIN</h3>
+					<aside class="notes">
+						Thanks!
+					</aside>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>

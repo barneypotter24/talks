@@ -1,0 +1,333 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Cohen Group Meeting</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Cohen Group meeting" />
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Title slide -->
+				<section data-background-color="#586e75">
+					<h2 style="color:#859900">Who is Barney?</h2>
+					<h4 style="color:#859900">And what is he good for?</h4>
+					<p style="font-size:0.6em;color:#fdf6e3">Cohen Group Meeting</p>
+					<p style="font-size:0.6em;color:#fdf6e3">2025-03-25</p>
+					<aside class="notes">
+						<ul>
+							<li>Thanks for being here!</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>Research focus:</h3>
+					<h3>Use phylodynamic tools to characterize epidemics at various time-scales</h3>
+					<aside class="notes">
+					</aside>
+				</section>
+				<!-- Phylogeny explanation slide -->
+				<section data-transition="fade">
+					<h3>Phylodynamic insights</h3>
+					<div id="left">
+						<ul>
+							<li>Topology</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+							<li style="opacity:.5">Population size</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/phylogeny.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Which things are most related to one another</li>
+							<li>What are the patterns of shared ancestry?</li>
+							<li>How diverged two different taxa are (genetic distance)</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Evolutionary rate explanation slide -->
+				<section data-transition="fade">
+					<h3>Phylodynamic insights</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Topology</li>
+							<li>Evolutionary rate</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+							<li style="opacity:.5">Population size</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/time_scale.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>From genetic distance to clock distance</li>
+							<li>How long ago did two taxa share a common ancestor (and how long ago did they diverge)?</li>
+							<li>Leverage clock-like nature of mutation accumulation to date internal nodes</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Migration rate explanation slide -->
+				<section data-transition="fade">
+					<h3>Phylodynamic insights</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Topology</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li>Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+							<li style="opacity:.5">Population size</li>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/migration_rates.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Similar to substitution rates, we can infer migration rates</li>
+							<li>Here we treat location as discrete</li>
+							<li>Help us understand which locations may be sources or sinks for viral spread</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Migration rate history slide -->
+				<section data-transition="fade">
+					<h3>Phylodynamic insights</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Topology</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li>Migration history</li>
+							<li style="opacity:.5">Population size</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/migration_history.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Combine migration rates with a phylogenetic tree</li>
+							<li>Understand the number and timing of different migration events</li>
+							<ul>
+								<li>Short term: understand the drivers of a local epidemic</li>
+								<li>Long term: understand the complete evolutionary history of a virus in space and time</li>
+							</ul>
+						</ul>
+					</aside>
+				</section>
+				<!-- Demographic parameters explanation slide -->
+				<section data-transition="fade">
+					<h3>Phylodynamic insights</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Topology</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+							<li>Population size</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/demographic_history.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Not just evol. characteristics, but also demographic and epidemiological ones</li>
+							<li>Use the phylogeny to infer effective population size through time</li>
+							<li>proxy for reproductive rate</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- BA.1 Pakistan -->
+				<section>
+                    <p>In review*:</p>
+					<h2>BA.1 in Pakistan</h2>
+					<h4>A recent epidemic withing a global pandemic</h4>
+					<aside class="notes">tmp</aside>
+				</section>
+				<section>
+					<h3>Driving questions</h3>
+					<ol>
+						<li>How does a pathogen initially enter a country and influence local epidemics?</li>
+						<li>How can we use phylodynamic methods to overcome global disparities in sequencing?</li>
+					</ol>
+					<aside class="notes">tmp</aside>
+				</section>
+				<section>
+					<section>
+						<h3>Data in this analysis</h3>
+						<div id="left" style="font-size:80%">
+							<ul>
+								<li>1690 global BA.1 genomes</li>
+								<ul>
+									<li>63 from Pakistan</li>
+									<li>15 with travel-histories</li>
+								</ul>
+								<li>32 discrete geographic areas</li>
+								<ul>
+									<li>Pakistan and neighboring countries</li>
+									<li>Regions of China</li>
+									<li>UN Georegions</li>
+								</ul>
+								<li>Roughly one third of Pakistan's fifth wave</li>
+							</ul>
+						</div>
+						<div id="right">
+							<img class="r-stretch" src="assets/doctoral-defense/pie_pk.png" width="100%" alt="" />
+						</div>
+						<aside class="notes">tmp</aside>
+					</section>
+					<section>
+						<h3>Breakdown of GISAID sequences by location</h3>
+						<img class="r-stretch" src="assets/2024-02-12-grubaugh-lab-meeting/pie.png" width="100%" alt="" />
+						<aside class="notes">Actual breakdown of GISAID Sequences</aside>
+					</section>
+				</section>
+				<section>
+					<h3>Pakistan's Omicron epidemic</h3>
+					<div id="left" style="font-size:80%">
+						<img src="assets/doctoral-defense/pk_cases.png" alt="alt" width="100%" class="r-stretch">
+					</div>
+					<div id="right" style="font-size:80%">
+						<img src="assets/doctoral-defense/pk_sequences.png" alt="alt" width="100%" class="r-stretch">
+					</div>
+					<aside class="notes">Quick overview of the Omicron epidemic in Pakistan in late '21/early '22</aside>
+				</section>
+				<section data-transition="slide-in fade-out">
+					<img src="assets/doctoral-defense/pk_main1.png" alt="alt" width="100%" class="r-stretch">
+					<aside class="notes">
+						<ul>
+							<li>Orient along time axis</li>
+							<li>Colors: red vs other</li>
+							<li>Grey boxes:</li>
+							<ul>
+								<li>first global detection</li>
+								<li>first PK case of Omicron</li>
+							</ul>
+						</ul>
+					</aside>
+				</section>
+				<section data-transition="fade">
+					<img src="assets/doctoral-defense/pk_main2.png" alt="alt" width="100%" class="r-stretch">
+					<aside class="notes">tmp</aside>
+				</section>
+				<section data-transition="fade">
+					<img src="assets/doctoral-defense/pk_main3.png" alt="alt" width="100%" class="r-stretch">
+					<aside class="notes">Earlier from Europe, later from Asia/Africa</aside>
+				</section>
+				<section data-transition="fade-in slide-out">
+					<img src="assets/doctoral-defense/pk_main4.png" alt="alt" width="100%" class="r-stretch">
+					<aside class="notes">
+						<ul>
+							<li>About half of cases are from big clades, and half are from one-offs</li>
+							<li>Recall: we are building a distribution of trees</li>
+							<li>Point out walking through tree: top taxon, top clade through Asia</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img src="assets/doctoral-defense/pk_map.png" alt="alt" width="100%" class="r-stretch">
+					<aside class="notes">Pause to explain the figure</aside>
+				</section>
+				<section>
+					<img src="assets/doctoral-defense/pk_sankey.png" alt="alt" width="100%" class="r-stretch">
+					<aside class="notes">More granular breakdown of sources. Pakistan has more diaspora in N.Europe, so returning travelers were a main source.</aside>
+				</section>
+				<section>
+					<h3>Key Takeaways</h3>
+					<ul>
+						<li>BA.1 was the primary driver of the beginning of Pakistan's Omicron epidemic.</li>
+						<li>Air traffic from Northern Europe caused most importations.</li>
+						<li>Disparities in sequencing made analysis difficult and potentially biased.</li>
+					</ul>
+					<aside class="notes">
+						just read this slide
+					</aside>
+				</section>
+                <!-- BALTIC -->
+                <section>
+                    <p>Pet project:</p>
+                    <h2>BALTIC</h2>
+                    <h4>Backronymed Adaptable Lightweight Tree Import Code</h4>
+                </section>
+                <section>
+                    <img src="assets/share/gytis_dudas.jpg" width="100%" alt="">
+                </section>
+                <section>
+                    <h3>Guiding goals:</h3>
+                    <ul>
+                        <li>Python/matplotlib library for publication-quality figures;</li>
+                        <li>Handle BEAST annotations;</li>
+                        <li>Flexibly handle time/divergence calibrated phylogenies;</li>
+                        <li>I/O for most common tree formats;</li>
+                        <li>Visualization submodule:</li>
+                        <ul>
+                            <li>Figure design;</li>
+                            <li>Map integration;</li>
+                            <li>Derived tree visualization.</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section>
+                    <p>figtree</p>
+                    <img src="assets/2025-03-25-cohen-group-meeting/figtree.png" width="60%">
+                </section>
+                <section>
+                    <p>ggtree</p>
+                    <img src="assets/2025-03-25-cohen-group-meeting/ggtree.png" width="65%">
+                </section>
+                <section>
+                    <p>ete 3</p>
+                    <img src="assets/2025-03-25-cohen-group-meeting/ete3.jpeg" width="60%">
+                </section>
+				<section data-background-iframe="https://github.com/evogytis/baltic/blob/master/docs/notebooks/austechia.ipynb" data-background-color="white" data-background-interactive data-preload></section>
+				<section data-background-iframe="https://www.youtube.com/watch?v=j4Ut4krp8GQ" data-background-color="white" data-background-interactive data-preload></section>
+				<section>
+					<div id="left">
+						<img src="assets/doctoral-defense/old_tree.png" class="r-stretch" width="80%">
+					</div>
+					<div id="right">
+						<h3><br/><br/><br/><br/>Questions?</h3>
+					</div>
+					<aside class="notes">questions?</aside>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Phylogenetics II</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Phylogenetics II"/>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/solarized.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Chapter 0: title -->
+				<section data-background-color="#002b36">
+					<h2 style="color:#268bd2">Phylogenetics II</h2>
+					<h4 style="color:#268bd2">Maximum likelihood and tree topologies</h4>
+					<p style="font-size:0.6em;color:#93a1a1">Public Health Modeling Unit</p>
+					<p style="font-size:0.6em;color:#93a1a1">2025-08-12</p>
+					<p style="font-size:0.6em;color:#93a1a1">Barney Isaksen Potter</p>
+					<aside class="notes">
+						thanks all
+					</aside>
+				</section>
+				<section>
+					<h3>Series overview</h3>
+					<ol>
+						<li>Trees, tree likelihoods, and models of evolution</li>
+						<li><em>Rate heterogeneity and maximum likelihood</em></li>
+						<li>Bayesian phylogenetics, Markov chain Monte Carlo, and summary trees</li>
+						<li>Phylogeography and Kingman's coalescent</li>
+					</ol>
+					<p class="fragment"><b>We will move rate heterogeneity to the final session</b></p>
+					<aside class="notes">
+						please bear with me, timing may be off
+					</aside>
+				</section>
+				<section>
+					<h3>Textbooks</h3>
+					<div class="row">
+						<div class="column">
+							<img src="assets/phylo-intro/inferring_phylogenies_cover.jpg" alt="Snow" style="width:100%">
+						</div>
+						<div class="column">
+							<img src="assets/phylo-intro/phylogenetic_handbook_cover.jpg" alt="Forest" style="width:100%">
+						</div>
+						<div class="column">
+							<img src="assets/phylo-intro/mol_evol_cover.jpg" alt="Mountains" style="width:100%">
+						</div>
+					</div>
+				</section>
+				<section>
+					<h3>Exercise 1:</h3>
+					<img class="r-stretch" src="assets/phylo-intro/Homework_ManimCE_v0.19.0.png">
+					<a href="https://www.overleaf.com/read/ygswtwnxhdny#519bdc">solution</a>
+				</section>
+				<!-- Chapter 1: Pruning algorithm -->
+				<section>
+					<h3>Kind of sucks, doesn't it?</h3>
+				</section>
+				<section data-transition="none">
+					<h3>Felsenstein's pruning algorithm</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/FelsensteinPruning_0000_0drawAxes.mp4"></video>
+					<aside class="notes">
+						tips/leaves represent taxonomically important units
+						e.g. consensus genomes from an infected indiv. or members of a species
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Felsenstein's pruning algorithm</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/FelsensteinPruning_0001_1writeEVs.mp4"></video>
+					<aside class="notes">
+						unbox
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Felsenstein's pruning algorithm</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/FelsensteinPruning_0002_2firstConditional.mp4"></video>
+					<aside class="notes">
+						nodes represent shared common ancestors
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Felsenstein's pruning algorithm</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/FelsensteinPruning_0003_3secondConditional.mp4"></video>
+					<aside class="notes">
+						unbox
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Felsenstein's pruning algorithm</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/FelsensteinPruning_0004_4rootConditional.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Felsenstein's pruning algorithm</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/FelsensteinPruning_0005_5totalLikelihood.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<!-- Chapter 2: Maximum likelihood estimation -->
+				<section>
+					<h2>Now we will pivot into inferring phylogenies</h2>
+					<aside class="notes">
+						get ready for mle
+					</aside>
+				</section>
+				<section>
+					<h3>From now on we will be using log-likelihoods instead of regular likelihoods</h3>
+					<ul>
+						<li class="fragment">Extremely small numbers can cause numerical errors because floating point arithmetic treats them as zeroes</li>
+						<li class="fragment">Adding a bunch of negative numbers is <em>far</em> easier than multiplying a bunch of extremely small numbers</li>
+					</ul>
+					<aside class="notes">
+						the log of a product is equal to the sum of logs
+					</aside>
+				</section>
+				<section>
+					<h3>Recall: Substitution models</h3>
+					<aside class="notes">
+						JC69, HKY, and GTR
+					</aside>
+				</section>
+				<section>
+					<p>HKY: Hasegawa, Kishino, and Yano (1985)</p>
+					<img class="r-stretch" src="assets/share/tree_intro/solarized/HKY_ManimCE_v0.19.0.png" alt="">
+					<aside class="notes">
+						Typically the best balance of complexity for applications we use
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Maximum likelihood (evol. rate)</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/MaximumLikelihood_0000_0drawAxes.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Maximum likelihood (evol. rate)</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/MaximumLikelihood_0001_1annotateLikelihood.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Maximum likelihood (evol. rate)</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/MaximumLikelihood_0002_2traceToBest.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Maximum likelihood (evol. rate)</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/MaximumLikelihood_0003_3traceToEnd.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Maximum likelihood (evol. rate)</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/MaximumLikelihood_0004_4fadeInFxn.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Maximum likelihood (evol. rate)</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/MaximumLikelihood_0005_5retraceToBest.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Maximum likelihood (evol. rate)</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/MaximumLikelihood_0006_6annotateMaximumLikelihood.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section>
+					<h3>What might we try to modify to get a more likely tree?</h3>
+					<aside class="notes">a question for the group</aside>
+				</section>
+				<section>
+					<ul>
+						<li>Evolutionary rate ($\mu$)</li>
+						<li>Substitution model parameters (e.g. $\kappa$)</li>
+						<li>Equlibrium base frequencies ($\pi$)</li>
+						<li>Branch lengths</li>
+						<li>Tree topology</li>
+					</ul>
+					<aside class="notes">notes</aside>
+				</section>
+				<!-- Chapter 3: tree topologies -->
+				<section data-transition="none">
+					<h3>Tree topologies</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/Topology_0000_0drawTrees.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Tree topologies</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/Topology_0001_1equal.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Tree topologies</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/Topology_0002_2tre2.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Tree topologies</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/Topology_0003_3edgeArrows.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Tree topologies</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/Topology_0004_4rootArrow.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Tree topologies</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/Topology_0005_5threeTreeTops.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section>
+					<h3>How can we modify trees?</h3>
+					<aside class="notes">
+						I'll show one example
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Prune and regraft</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/PruneRegraft_0000_0drawTree.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Prune and regraft</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/PruneRegraft_0001_1cut.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Prune and regraft</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/PruneRegraft_0002_2regraft.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h3>Prune and regraft</h3>
+					<video data-autoplay src="assets/phylo-intro/videos/2/PruneRegraft_0003_3regraft2.mp4"></video>
+					<aside class="notes">
+						root is a special node: represents the inferred most recent common ancestor
+					</aside>
+				</section>
+				<!-- Chapter Exercise and outro: tree topology -->
+				<section>
+					<h3>Exercise 2</h3>
+					<p>On a piece of paper, draw all rooted, bifurcating tree topologies with five taxa.</p>
+					<p>Bonus: do it for six taxa</p>
+					<aside class="notes">exercise</aside>
+				</section>
+				<section>
+					<h3>Check out phyloseminar!</h3>
+					<ul>
+						<li><a href="phyloseminar.org">phyloseminar.org</a></li>
+						<li>Primers: 76-79 by Paul Lewis (UConn)</li>
+					</ul>
+					<aside class="notes">He stole my color scheme 7 years in advance!</aside>
+				</section>
+				<section>
+					<h3>FIN</h3>
+					<aside class="notes">
+						Thanks!
+					</aside>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>

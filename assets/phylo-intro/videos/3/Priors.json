@@ -1,0 +1,74 @@
+[
+    {
+        "name": "0drawAxes",
+        "type": "default.normal",
+        "video": "Priors_0000_0drawAxes.mp4",
+        "width": 1280,
+        "height": 720,
+        "nb_frames": "30",
+        "duration": "1.000000",
+        "avg_frame_rate": "30/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "1drawWeakPrior",
+        "type": "default.normal",
+        "video": "Priors_0001_1drawWeakPrior.mp4",
+        "width": 1280,
+        "height": 720,
+        "nb_frames": "30",
+        "duration": "1.000000",
+        "avg_frame_rate": "30/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "2addLittleData",
+        "type": "default.normal",
+        "video": "Priors_0002_2addLittleData.mp4",
+        "width": 1280,
+        "height": 720,
+        "nb_frames": "60",
+        "duration": "2.000000",
+        "avg_frame_rate": "30/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "3firstPosterior",
+        "type": "default.normal",
+        "video": "Priors_0003_3firstPosterior.mp4",
+        "width": 1280,
+        "height": 720,
+        "nb_frames": "30",
+        "duration": "1.000000",
+        "avg_frame_rate": "30/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "4updatePrior",
+        "type": "default.normal",
+        "video": "Priors_0004_4updatePrior.mp4",
+        "width": 1280,
+        "height": 720,
+        "nb_frames": "30",
+        "duration": "1.000000",
+        "avg_frame_rate": "30/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "5updateLikelihood",
+        "type": "default.normal",
+        "video": "Priors_0005_5updateLikelihood.mp4",
+        "width": 1280,
+        "height": 720,
+        "nb_frames": "90",
+        "duration": "3.000000",
+        "avg_frame_rate": "30/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    }
+]

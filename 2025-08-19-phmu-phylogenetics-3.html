@@ -1,0 +1,792 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>MCMC Lecture</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Bayesian Phylogenetics & MCMC" />
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/solarized.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Chapter 0: title -->
+				<section data-background-color="#eee8d5">
+					<h2 style="color:#859900">Phylogenetics III</h2>
+					<h4 style="color:#859900">Bayesian phylogenetics</h4>
+					<p style="font-size:0.6em;color:#93a1a1">Public Health Modeling Unit</p>
+					<p style="font-size:0.6em;color:#93a1a1">2025-08-19</p>
+					<p style="font-size:0.6em;color:#93a1a1">Barney Isaksen Potter</p>
+					<aside class="notes">
+						thanks all
+					</aside>
+				</section>
+				<section>
+					<h3>Series overview</h3>
+					<ol>
+						<li>Trees, tree likelihoods, and models of evolution</li>
+						<li>Rate heterogeneity and maximum likelihood</li>
+						<li>Bayesian phylogenetics, Markov chain Monte Carlo, and summary trees</li>
+						<li>Phylogeography and Kingman's coalescent</li>
+					</ol>
+					<aside class="notes">
+						please bear with me, timing may be off
+					</aside>
+				</section>
+				<section>
+					<h2>Thank you Philippe</h2>
+					<img class="r-stretch" src="assets/phylo-intro/philippe.jpg">
+					<p>"the global workhorse of genomic epidemiology"</p>
+					<aside class="notes">thanks philippe!</aside>
+				</section>
+				<!-- One tree -->
+				<section>
+					<h2>One Tree to rule them all, One Tree to find them, One Tree to bring them all and in the darkness bind them</h2>
+					<ul>
+						<li>The (maximum likelihood) method we've learned so far gets a single tree</li>
+						<li>The one it finds is likely not the "best"</li>
+						<li>Are we doing a good job of reporting a single tree?</li>
+					</ul>
+					<aside class="notes">
+						ML produces a "point estimate" or a single inference of parameters:
+						<ul>
+							<li>Tree</li>
+							<li>Branch lengths</li>
+							<li>Model parameters</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Frequentist philosophy -->
+				<section>
+					<h2>Frequentist philosophy</h2>
+					<ul>
+						<li>Probabilities refer to the outcome of experiments (i.e. data)</li>
+						<li>Probabilities are objectively real in the same way that physical objects are real</li>
+						<li>"Likelihood" referes to the degree to which data support a hypothesis</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Frequentist = ML</li>
+							<li>Probabilities cannot exist without data/experiments</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Bayesian philosophy -->
+				<section data-background-image="assets/share/Thomas_Bayes.png"
+						 data-background-size="35%"
+						 data-background-position="125% 125%"
+						 data-background-repeat="no-repeat"
+						 data-background-opacity="0.5">
+					<h2>Bayesian philosophy</h2>
+					<ul>
+						<li>BOTH data and model parameters are described by probabilities</li>
+						<li>Probability represents the <em>degree to which we believe a hypothesis</em></li>
+						<li>Hypotheses can have probabilities in the absence of data</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>We already know things about reality</li>
+							<li>We are interested in quantifying uncertainty</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- SEC: Bayesian inference -->
+				<section data-background-color="#268bd2">
+					<h1 style="color:#fdf6e3">Bayesian inference</h1>
+					<aside class="notes">
+						First, we will discuss Bayesian inference generally
+					</aside>
+				</section>
+				<!-- Fundamentals of Bayesian inf. -->
+				<section>
+					<h2>Fundamentals of Bayesian inference</h2>
+					<ul>
+						<li>Bayesian inference produces a <em>posterior probability distribution</em> instead of a single MLE</li>
+						<li>The posterior combines information from both <em>data</em> and <em>prior knowledge</em></li>
+						<li>Each parameter in the model has a <em>prior probability distribution</em> representing known knowledge about that parameter</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Combine prior knowledge with data</li>
+							<li>Create a posterior distribution</li>
+							<li>Distribuion (rather than point estimate) helps us quantify uncertainty</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Ex: weak prior -->
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/3/Priors_0000_0drawAxes.mp4"></video>
+					<p>"Human heights follow a uniform (flat) distribution between 1 angstrom and the width of the universe."</p>
+					<aside class="notes">
+						Technically proper, but extremely uninformative prior means that the data provide all the information
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/3/Priors_0001_1drawWeakPrior.mp4"></video>
+					<p>"Human heights follow a uniform (flat) distribution between 1 angstrom and the width of the universe."</p>
+					<aside class="notes">
+						Technically proper, but extremely uninformative prior means that the data provide all the information
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/3/Priors_0002_2addLittleData.mp4"></video>
+					<p>"Human heights follow a uniform (flat) distribution between 1 angstrom and the width of the universe."</p>
+					<aside class="notes">
+						Technically proper, but extremely uninformative prior means that the data provide all the information
+					</aside>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/3/Priors_0003_3firstPosterior.mp4"></video>
+					<p>"Human heights follow a uniform (flat) distribution between 1 angstrom and the width of the universe."</p>
+					<aside class="notes">
+						Technically proper, but extremely uninformative prior means that the data provide all the information
+					</aside>
+				</section>
+				<!-- Ex: strong 1 -->
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/3/Priors_0004_4updatePrior.mp4"></video>
+					<p>"Human heights follow a normal distribution with mean 170cm and standard deviation 5cm."</p>
+					<aside class="notes">
+						<ul>
+							<li>We can wikipedia some facts about humans</li>
+							<li>Same data as before</li>
+							<li>Now there are two distributions that we need to combine</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Ex: strong 2 -->
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/3/Priors_0005_5updateLikelihood.mp4"></video>
+					<p>"Human heights follow a normal distribution with mean 170cm and standard deviation 5cm."</p>
+					<aside class="notes">
+						Only two data -> posterior is similar to the prior
+						Lots of data -> posterior is driven by the data. Maybe we aren't sampling from <em>all</em> humans
+					</aside>
+				</section>
+				<!-- Bayes' Theorem -->
+				<!-- <section>
+					<h3>Bayes' Theorem</h3>
+					\[
+					P(\theta|\textbf{X}) = \frac{P(\textbf{X} |\theta) \times P(\theta )}{P(\textbf{X})}
+					\]
+					<aside class="notes">
+						Posterior is derived from the likelihood, the prior, and a marginal term
+					</aside>
+				</section> -->
+				<!-- Bayes' breakdown 1 -->
+				<section data-transition="none">
+					<p>How can observing <em>data</em> (<b>X</b>) change our belief in a <em>hypothesis</em> (<b>$\theta$</b>)?</p>
+					<video data-autoplay src="assets/phylo-intro/videos/3/BayesTheorem_0000_0writeTheorem.mp4"></video>
+					<aside class="notes">
+						Talk through posterior, model, prior, then marginal
+					</aside>
+				</section>
+				<section data-transition="none">
+					<p>How can observing <em>data</em> (<b>X</b>) change our belief in a <em>hypothesis</em>
+						(<b>$\theta$</b>)?</p>
+					<video data-autoplay src="assets/phylo-intro/videos/3/BayesTheorem_0001_1boxLikelihood.mp4"></video>
+					<aside class="notes">
+						This term is a constant, represents the probability of the data if we integrate over all possible hypotheses
+					</aside>
+				</section>
+				<section data-transition="none">
+					<p>How can observing <em>data</em> (<b>X</b>) change our belief in a <em>hypothesis</em>
+						(<b>$\theta$</b>)?</p>
+					<video data-autoplay src="assets/phylo-intro/videos/3/BayesTheorem_0002_2boxPrior.mp4"></video>
+					<aside class="notes">
+						This term is a constant, represents the probability of the data if we integrate over all possible hypotheses
+					</aside>
+				</section>
+				<section data-transition="none">
+					<p>How can observing <em>data</em> (<b>X</b>) change our belief in a <em>hypothesis</em>
+						(<b>$\theta$</b>)?</p>
+					<video data-autoplay src="assets/phylo-intro/videos/3/BayesTheorem_0003_3boxMarginal.mp4"></video>
+					<aside class="notes">
+						This term is a constant, represents the probability of the data if we integrate over all possible hypotheses
+					</aside>
+				</section>
+				<section data-transition="none">
+					<p>How can observing <em>data</em> (<b>X</b>) change our belief in a <em>hypothesis</em>
+						(<b>$\theta$</b>)?</p>
+					<video data-autoplay src="assets/phylo-intro/videos/3/BayesTheorem_0004_4boxPosterior.mp4"></video>
+					<aside class="notes">
+						This term is a constant, represents the probability of the data if we integrate over all possible hypotheses
+					</aside>
+				</section>
+				<!-- SEC: Bayesian phylogenetics -->
+				<section data-background-color="#268bd2">
+					<h1 style="color:#fdf6e3">How can we apply this framework to phylogenetic inference?</h1>
+					<aside class="notes"></aside>
+				</section>
+				<!-- Overview of the idea of Bayesian phylogenetics -->
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/monke.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>We have multiple competing hypotheses for how four organisms could be related</li>
+							<li>No reason to favor one over the other -> uninformative prior</li>
+							<li>We apply data in the form of sequence data in tree likelihood calculations</li>
+							<li>We end up with aposterior distribution of trees that is informed by the data</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Bayes' theorem reprise -->
+				<section>
+					\[
+					P(\theta|\textbf{X}) = \frac{P(\textbf{X} |\theta) \times P(\theta )}{P(\textbf{X})}
+					\]
+					<aside class="notes">
+						We are now going to just change the symbols we use to fit our purpose
+					</aside>
+				</section>
+				<!-- Bayes' theorem for phylogenies -->
+				<section>
+					 <p>The posterior probability of a phylogenetic tree, $\tau$:</p>
+					 <br>
+					\[
+					P(\tau|\textbf{X}) = \frac{P(\textbf{X} |\tau) \times P(\tau )}{P(\textbf{X})}
+					\]
+					<br>
+					<p>$\tau = $ phylogenetic hyopthesis (tree)</p>
+					<p>$\textbf{X} =$ genomic sequence data</p>
+					<aside class="notes">
+						Important! This is the same as before but we've just renamed the symbols
+						<ul>
+							<li>Interested in probability of a tree given sequence data</li>
+							<li>Likelihood: probability of data given the tree</li>
+							<li>Prior for the tree</li>
+							<li>Marginal is the probability of observing the data</li>
+						</ul>
+						<p>We will break down each of these parts</p>
+					</aside>
+				</section>
+				<!-- Likelihood calculation breakdown -->
+				<section>
+					<h4>Likelihood calculation</h4>
+					 <br>
+					\[
+					P(\tau|\textbf{X}) =
+					\frac{\begingroup \color{teal} P(\textbf{X} |\tau) \endgroup \times P(\tau )}{P(\textbf{X})}
+					\]
+
+					\[
+					\begingroup \color{teal} L(\tau,\nu,\Theta | x_1 \mathellipsis x_N) \endgroup
+					=
+					\prod_{i=1}^N Pr(x_i | \begingroup \color{darkmagenta} \tau \endgroup , \begingroup \color{darkblue} \nu \endgroup , \begingroup \color{mediumseagreen} \Theta \endgroup)
+					\]
+					<p>$\begingroup \color{darkmagenta} \tau = \text{tree topology} \endgroup, \begingroup \color{darkblue} \nu = \text{branch lengths} \endgroup, \atop \begingroup \color{mediumseagreen} \Theta = \text{model parameters} \endgroup, i \in \text{sites in genome}$</p>
+					<aside class="notes">
+						Let's break down the first term
+						<ul>
+							<li>Expand the likelihood to consist of four parts</li>
+							<ul>
+								<li>Tree topology (shape)</li>
+								<li>Branch lengths</li>
+								<li>Model parameters</li>
+								<li>Data observations at each of the N sites in the genome</li>
+							</ul>
+							<li>Because we assume sites are independent we can take the product of probabilities across all N sites</li>
+							<li>Calculated the same way as in ML</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Prior breakdown -->
+				<section>
+					<h4>Prior calculation</h4>
+					 <br>
+					\[
+					P(\tau|\textbf{X}) =
+					\frac{P(\textbf{X} |\tau) \times \begingroup \color{chocolate} P(\tau ) \endgroup}{P(\textbf{X})}
+					\]
+
+					\[
+					\begingroup \color{chocolate} P(\tau) \endgroup
+					= \frac{1}{\begingroup \color{crimson} B(s) \endgroup}
+					\]
+					<p>$\begingroup \color{crimson} B(s) = \text{number of possible topologies} \endgroup$</p>
+					<aside class="notes">
+						<ul>
+							<li>Uniform prior on tree shapes</li>
+							<li>If we have other parameters, they will also have priors that get multiplied here</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Marginal term breakdown -->
+				<section>
+					<h4>Marginal term calculation</h4>
+					 <br>
+					\[
+					P(\tau|\textbf{X}) =
+					\frac{P(\textbf{X} |\tau) \times P(\tau )}{\begingroup \color{goldenrod} P(\textbf{X}) \endgroup}
+					\]
+
+					\[
+					\begingroup \color{goldenrod} P(\textbf{X}) \endgroup
+					= \sum_{j=1}^{\begingroup \color{crimson} B(s) \endgroup} P(\textbf{X} | \tau_j) \times P(\tau_j)
+					\]
+					<p>To calculate this we need to sum the density across every possible tree...</p>
+					<aside class="notes">
+						<p>Recall: we are calculating the average probability of the data across all possible hypotheses.</p>
+						<p>This means we are essentially performing a discrete integral over every possible tree topology.</p>
+					</aside>
+				</section>
+				<!-- Topology space size with two subslides -->
+				<section>
+					<section>
+					<p>... but tree topology space is too big!</p>
+					\[\tiny
+					\begin{array}{cc}
+					\text{Num.~taxa} & \text{Num.~topologies:} \begingroup \color{crimson} B(s) \endgroup \\ \hline
+					1 & 1 \\
+					2 & 1 \\
+					3 & 3 \\
+					4 & 15 \\
+					5 & 105 \\
+					6 & 945 \\
+					7 & 10,395 \\
+					8 & 135,135 \\
+					9 & 2,027,025 \\
+					\vdots & \vdots \\
+					20 & 8,200,794,532,637,891,559,375 \\
+					\vdots & \vdots \\
+					769 & 3.753 \times 10^{2,110} \\
+					\end{array}
+					\]
+					<aside class="notes">
+						<ul>
+							<li>This should be familiar already</li>
+							<li>Number of topologies scales superfactorially with number of taxa</li>
+							<li>Number is intractable for even relatively small datasets</li>
+							<li>8 sextillion: on the same order as the number of grains of sand or number of possible udoku grids</li>
+						</ul>
+					</aside>
+					</section>
+					<section>
+						\[
+						3 \times 5 \times 7 \times \mathellipsis \times (2n-3)
+						=
+						\frac{(2n-3)!}{2^{n-1} \times (n-1)!}
+						\]
+						<aside class="notes">
+							We derive this by considering, for each topology of n-1 taxa, how many places we could add a new branch along a prexisting one
+						</aside>
+					</section>
+					<aside class="notes"></aside>
+				</section>
+				<!-- SEC: MCMC -->
+				<section data-background-color="#268bd2">
+					<h1 style="color:#fdf6e3">Markov chain Monte Carlo (MCMC)</h1>
+					<aside class="notes">We need a clever algorithm to perform these computations</aside>
+				</section>
+				<!-- Goal of MCMC -->
+				<section data-transition="none">
+					<h2>Markov chain Monte Carlo (MCMC) Sampling</h2>
+					<p>Posterior probabilities are difficult to calculate analytically. However, we can sample values from the posterior distribution with a frequency proportional to thir posterior probability by using MCMC.</p>
+					<aside class="notes">
+						We can numerically approximate the full calculation by taking samples from the posterior distribution. If those samples are taken proportional to their posterior probability then we can summarize the samples to summarize the posterior.
+					</aside>
+				</section>
+				<!-- ML hill climbing -->
+				<section data-transition="none">
+					<h2>Recall: ML optimization</h2>
+					<video data-autoplay src="assets/phylo-intro/videos/3/LikelihoodSurface_0000_0drawAxes.mp4"></video>
+					<aside class="notes">
+						ML uses a "hill climbing" algorithm to find the maximum likelihood, and only ever steps uphill. Downside: we don't know the shape of the distribution, and we may get caught in a local optimum
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h2>Recall: ML optimization</h2>
+					<video data-autoplay src="assets/phylo-intro/videos/3/LikelihoodSurface_0001_1labelX.mp4"></video>
+					<aside class="notes">
+						ML uses a "hill climbing" algorithm to find the maximum likelihood, and only ever steps uphill. Downside: we
+						don't know the shape of the distribution, and we may get caught in a local optimum
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h2>Recall: ML optimization</h2>
+					<video data-autoplay src="assets/phylo-intro/videos/3/LikelihoodSurface_0002_2labelY.mp4"></video>
+					<aside class="notes">
+						ML uses a "hill climbing" algorithm to find the maximum likelihood, and only ever steps uphill. Downside: we
+						don't know the shape of the distribution, and we may get caught in a local optimum
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h2>Recall: ML optimization</h2>
+					<video data-autoplay src="assets/phylo-intro/videos/3/LikelihoodSurface_0003_3labelZ.mp4"></video>
+					<aside class="notes">
+						ML uses a "hill climbing" algorithm to find the maximum likelihood, and only ever steps uphill. Downside: we
+						don't know the shape of the distribution, and we may get caught in a local optimum
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h2>Recall: ML optimization</h2>
+					<video data-autoplay src="assets/phylo-intro/videos/3/LikelihoodSurface_0004_4drawLikelihoodSurface.mp4"></video>
+					<aside class="notes">
+						ML uses a "hill climbing" algorithm to find the maximum likelihood, and only ever steps uphill. Downside: we
+						don't know the shape of the distribution, and we may get caught in a local optimum
+					</aside>
+				</section>
+				<section data-transition="none">
+					<h2>Recall: ML optimization</h2>
+					<video data-autoplay src="assets/phylo-intro/videos/3/LikelihoodSurface_0005_5walkUphill.mp4"></video>
+					<aside class="notes">
+						ML uses a "hill climbing" algorithm to find the maximum likelihood, and only ever steps uphill. Downside: we
+						don't know the shape of the distribution, and we may get caught in a local optimum
+					</aside>
+				</section>
+				<!-- MCMC leverages randomness -->
+				<section data-transition="none">
+					<h2>MCMC leverages randomness</h2>
+					<video data-autoplay src="assets/phylo-intro/videos/3/LikelihoodSurface_0006_6considerDownhill.mp4"></video>
+					<aside class="notes">
+						<ul>
+							<li>Consider the black dots now</li>
+							<li>Use randomness cleverly to allow steps "downhill", in such a way that we end up with samples that cover the distribution proportional to its height</li>
+							<li>Green: we can have many steps downhill, though it is unlikely</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- General idea of metropolis hastings algorithm -->
+				<section>
+					<h2>Metropolis-hastings algorithm</h2>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc1.png" width="100%">
+					<aside class="notes">
+						Core idea of the MH algorithm:
+						<ul>
+							<li>Start with a random state (calculate its likelihood)</li>
+							<li>Propose a random step from that state</li>
+							<li>Based on the likelihood at the new state, either accept or reject</li>
+							<li>Repeat (a lot)</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Metropolis hastings acceptance ratio -->
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc2.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Recall: our state tau=tree, nu=branch lengths, Theta=model parameters</li>
+							<li>The algorithm proposes a new, modified state Psi star</li>
+							<li>Calculate a ratio R:</li>
+							<ul>
+								<li>Ratio of posterior probabilities</li>
+								<li>Term "Hastings ratio" that accounts for potential asymmetry in proposals (ignore)</li>
+								<li>Expand posterior probabilities according to Bayes' theorem</li>
+								<li>Same problem as earlier, except that the marginal terms (B(s)) cancels out!</li>
+								<li>This is the crux of MCMC, because it allows us to never calculate the marginal term</li>
+								<li>The end result is a value between 0 and 1 that is proportional to the ratio of the likelihoods between Psi and Psi star</li>
+							</ul>
+							<li>Generate a random number uniformly between 0 and 1</li>
+							<li>If that value is less than the ratio R, we accept the new proposal</li>
+							<li>Takeaway: we always take a step up, we often take small steps down, we rarely (but sometimes) take big steps down</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Some bookkeeping -->
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc3.png" width="100%">
+					<aside class="notes">
+						Let's catch our breath for a minute
+						<ul>
+							<li>This process is repeated many many many times</li>
+							<li>All the samples that we keep describe the posterior distribution</li>
+							<li>EXPLAIN the trace plot</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- First live example -->
+				<section data-background-iframe="https://chi-feng.github.io/mcmc-demo/app.html" data-background-color="white" data-background-interactive data-preload>
+					<aside class="notes">
+						<ul>
+							<li>apologize for no Tom and Jerry</li>
+							<li>ORIENT WITH THE INTERFACE</li>
+							<li>RandomWalkMH</li>
+							<li>normal</li>
+							<li>autoplay off</li>
+							<li>autoplay delay 500</li>
+							<li>animate proposal</li>
+							<li>walk through how it works for a few steps, then animate, then speed up</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Transition kernels -->
+				<section>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc4.png" width="100%">
+					<aside class="notes">
+						Now we can talk about how the new states get proposed. Many names, a couple major categories.
+					</aside>
+				</section>
+				<!-- Operators -->
+				<section>
+					<h3>Operators</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc5.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Many ways to make new continuous proposals</li>
+							<li>Simplest example: uniform pick from a window</li>
+							<li>Tuning prameters are useful!</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Tuning and mixing -->
+				<section>
+					<h3>Tuning and mixing</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/tuningandmixing.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>We use the word "mixing" to describe how efficiently we are sampling from the posterior</li>
+							<li>We can look at the acceptance rate for the operator to see if our proposals are good</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Second live example -->
+				<section data-background-iframe="https://chi-feng.github.io/mcmc-demo/app.html" data-background-color="white" data-background-interactive data-preload>
+					<aside class="notes">
+						<ul>
+							<li>mess with sigma on multimodal</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Operators on trees -->
+				<section>
+					<h3>Operators on trees</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/mcmc6.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Narrow moves propose swaps between branches in a local area</li>
+							<li>Wide moves propose more global swaps</li>
+							<li>Important! These are the same moves used by ML optimization</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Break before looking into diagnostics -->
+				<section data-background-color="#268bd2">
+					<h1 style="color:#fdf6e3">MCMC diagnostics, summaries, and interpretation</h1>
+					<aside class="notes"></aside>
+				</section>
+				<!-- Downsampling -->
+				<section>
+					<h3>Downsampling</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/downsampling.png" width="100%">
+					<aside class="notes">
+						We downsample chains both because of the correlation between states and because of data storage practicality
+					</aside>
+				</section>
+				<!-- Stationarity -->
+				<section>
+					<h3>Stationarity</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/stationarity.png" width="100%">
+					<aside class="notes">
+						Burn in vs fuzzy caterpillar
+					</aside>
+				</section>
+				<!-- Multiple chain gif -->
+				<section data-background="https://revolution-computing.typepad.com/.a/6a010534b1db25970b019aff4a7bbc970d-pi" data-background-size="25em">
+					<aside class="notes">
+						Multiple chains help us determine if we've reached a local or global optimum
+					</aside>
+				</section>
+				<!-- Multiple chain convergence in traces -->
+				<section>
+					<h3>Convergence in multiple chains</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/coconvergence.png" width="100%">
+					<aside class="notes">
+						Compare left with right
+					</aside>
+				</section>
+				<!-- ESS -->
+				<section>
+					<section>
+						<h3>Effective sample size</h3>
+						<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/ess.png" width="100%">
+						<aside class="notes">
+							<ul>
+								<li>It is helpful to have an objective statistic for measuring how well the chain represents the posterior</li>
+							</ul>
+						</aside>
+					</section>
+					<!-- Autocorrelation -->
+					<section>
+						<h3>Autocorrelation within a chain</h3>
+						<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation1.png" width="100%">
+						<aside class="notes">
+							Autocorrelation in a chain is calculated using a "sliding window" approach, where values of the chain are compared across a window of a fixed length. This gets repeated across the whole chain.
+						</aside>
+					</section>
+					<!-- Variable window sizes -->
+					<section>
+						<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation2.png" width="100%">
+						<aside class="notes">
+							Autocorrelation in the chain can be measured using windows of varying widths
+						</aside>
+					</section>
+					<!-- Short windows -->
+					<section>
+						<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation3.png" width="100%">
+						<aside class="notes"></aside>
+					</section>
+					<!-- Wide windows -->
+					<section>
+						<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelation4.png" width="100%">
+						<aside class="notes"></aside>
+					</section>
+					<!-- ESS calculation -->
+					<section>
+						<h3>ESS Calculation</h3>
+						<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/autocorrelationtime.png" width="100%">
+						<aside class="notes">
+							<ul>
+								<li>Recall: we thin chains because two adjacent samples are extremely correlated</li>
+								<li>In general, we expect an inverse correlation between chain window lengh and degree of correlation</li>
+								<li>We can define the chain window length for which the autocorrelation drops below a given threshold as the "autocorrelation time"</li>
+								<li>ESS is calculated as total/a.c.t.</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<!-- How to we summarize and interpret? -->
+				<section>
+					<blockquote>How do we <em>summarize</em> and <em>interpret</em> the results of our Bayesian phylogenetic analysis?</blockquote>
+					<aside class="notes"></aside>
+				</section>
+				<!-- Cont. parameters -->
+				<section>
+					<h3>Summary of continuous parameters</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/wellmixedchain.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>For a well mixed chain we see that most of the samples (shown by density) lie closer to the mean and fewer are further away</li>
+							<li>We can imagine looking at this chain sideways and "collapsing" it</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Posterior for cont. parameter -->
+				<section>
+					<h3>Posterior distribution</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/posteriordensity.png" width="100%">
+					<aside class="notes">
+						When we do this, we get a posterior probability distribution for the parameter. The mean will often be close to the MLE estimate, but we also get a full distribution
+					</aside>
+				</section>
+				<!-- HPD -->
+				<section>
+					<h3>Credible intervals</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/hpd.png" width="100%">
+					<aside class="notes">
+						We usually report not only the parameter mean, but also the 95% HPD
+					</aside>
+				</section>
+				<!-- HPD calculation -->
+				<section>
+					<h3>Credible intervals</h3>
+					<img class="r-stretch" src="assets/2024-10-09-mcmc-intro/hpd2.png" width="100%">
+					<aside class="notes">
+						This is once again calculated using a sliding window approach
+					</aside>
+				</section>
+				<!-- Forest -->
+				<section>
+					<img src="assets/2024-10-09-mcmc-intro/forest.png" class="r-stretch" width="100%">
+					<aside class="notes">
+						We've discussed how to summarize continuous parameters, however we also want a way to summarize a posterior distribusion of <em>many discrete</em> trees.
+					</aside>
+				</section>
+				<!-- Consensus options -->
+				<section>
+					<h3>How do we choose a consensus?</h3>
+					<img src="assets/2024-10-09-mcmc-intro/consensustrees.png" class="r-stretch" width="100%">
+					<aside class="notes">
+						There are many ways of generating a consensus tree from a sample, with each having its own pros and cons.
+					</aside>
+				</section>
+				<!-- MCC -->
+				<section>
+					<h3>Maximum clade credibility (MCC) trees</h3>
+					<img src="assets/2024-10-09-mcmc-intro/trees.png" class="r-stretch" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>We frequently use MCC trees to represent a posterior distribution</li>
+							<li>MCC tree is a <em>tree from the posterior</em> that best represents the posterior (kind of like a mean)</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- MCC calculation -->
+				<section>
+					<h3>MCC calculation</h3>
+					<img src="assets/2024-10-09-mcmc-intro/mcctrees.png" class="r-stretch" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>We consider each clade (monophyletic subtree) that we observe</li>
+							<li>Calculate the proportion of posterior trees that clade appears in</li>
+							<li>We then take the product of all clade frequencies for all trees</li>
+							<li>The tree with the highest score is the MCC tree</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Convergence problems -->
+				<section>
+					<blockquote>My chain won't converge and I am confused and angry and a little bit scared. What can I do?</blockquote>
+					<aside class="notes">
+						In the course of running Bayesian phylogenetic analyses we are frequently frustrated by slow convergence and poor mixing.
+					</aside>
+				</section>
+				<!-- DON'T PANIC -->
+				<section>
+					<h1>DON'T PANIC</h1>
+					<aside class="notes">
+						DON'T PANIC
+					</aside>
+				</section>
+				<!-- Convergence solutions -->
+				<section>
+					<p>Some things might help:</p>
+					<ul>
+						<li>Wait; run more parallel chains (different seeds)</li>
+						<li>Retune parameters (target $10 \text{--} 70\%$ acceptance)</li>
+						<li>Propose changes to "difficult" parameters more often (operator weights)</li>
+						<li>Use different operators</li>
+						<li>Simplify or make the model more realistic (stronger priors)</li>
+					</ul>
+					<aside class="notes">
+						For this class we will focus on the first, but in research phylogenetics we have many tools in our toolbelt
+					</aside>
+				</section>
+				<section>
+					<h3>FIN</h3>
+					<aside class="notes">
+						Thanks!
+					</aside>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,351 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Phylodynamics</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Phylodynamics" />
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/solarized.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Chapter 0: title -->
+				<section data-background-color="#6c71c4">
+					<h2 style="color:#002b36">Phylogenetics IV</h2>
+					<h4 style="color:#002b36">Evolutionary rates, coalescent, and phylogeography</h4>
+					<p style="font-size:0.6em;color:#073642">Public Health Modeling Unit</p>
+					<p style="font-size:0.6em;color:#073642">2025-09-01</p>
+					<p style="font-size:0.6em;color:#073642">Barney Isaksen Potter</p>
+					<aside class="notes">
+						thanks all
+					</aside>
+				</section>
+				<section>
+					<h3>Series overview</h3>
+					<ol>
+						<li>Trees, tree likelihoods, and models of evolution</li>
+						<li>Rate heterogeneity and maximum likelihood</li>
+						<li>Bayesian phylogenetics, Markov chain Monte Carlo, and summary trees</li>
+						<li>Evolutionary rates, coalescent, and phylogeography</li>
+					</ol>
+					<aside class="notes">
+						please bear with me, timing may be off
+					</aside>
+				</section>
+				<!-- One tree -->
+				<section>
+					<h2>Phylodynamics</h2>
+					<p>The concurrent study of evolutionary and epidemiological dynamics which take place at the same time scale.</p>
+				</section>
+				<section>
+					<h3>Temporal Signal Analysis</h3>
+				</section>
+				<section>
+					<h3>Measurably evolving populations</h3>
+					<p>Populations for which we are able to observe the rate and magnitude of evolutionary processes through time.</p>
+					<ol>
+						<li class="fragment">Populations that evolve so rapidly relative to their sampling times that we can observe evolution at the time scale it takes place (e.g. RNA viruses).</li>
+						<li class="fragment">Populations that have been well enough preserved that we can sample them effectively through their evolutionary history</li>
+					</ol>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/phylo-intro/rise_and_fall.png" alt="">
+					<p>Science, vol 306, Nov 2004</p>
+				</section>
+				<section>
+					<h3>Why does this matter?</h3>
+					<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/time_scale.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>From genetic distance to clock distance</li>
+							<li>How long ago did two taxa share a common ancestor (and how long ago did they diverge)?</li>
+							<li>Leverage clock-like nature of mutation accumulation to date internal nodes</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0000_0.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0001_1.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0002_2.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0003_3.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0004_4.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0005_5.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0006_6.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0007_7.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/TemporalSignal_0008_8.mp4"></video>
+				</section>
+				<section>
+					<h3>How to add evolutionary rate information in the absence of temporal signal (priors)</h3>
+					<ul>
+						<li>Evolutionary rate prior taken from literature</li>
+						<li>Clade tMRCA calibration prior derived from the fossil record</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Kingman's coalescent</h3>
+				</section>
+				<section>
+					<h3>What is the coalescent?</h3>
+					<p>Population genetic model that relates the structure of a phylogeny with the underlying population's demographic structure/history.</p>
+				</section>
+				<section>
+					<h3>Idealized Wright-Fisher population:</h3>
+					<ul>
+						<li>Non-overlapping (discrete) generations</li>
+						<li>Constant population size through time</li>
+						<li>No selection</li>
+						<li>Panmixia</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Probability that two lineages coalesce</h3>
+					<br>
+					<p class="fragment">
+						\[
+						P_{coal} = \frac{1}{N}
+						\]
+					</p>
+					<p class="fragment">
+						\[
+						P_{coal}(t) = \left( 1 - \frac{1}{N} \right)^{t-1} \times \left( \frac{1}{N} \right)
+						\]
+					</p>
+					<br>
+					<p>Total population size: $N$</p>
+				</section>
+				<section>
+					<h3>Probability that two lineages coalesce</h3>
+					<br>
+					<p class="fragment">
+						\[
+						P_{coal}(t) = \frac{1}{N} e^{\frac{t-1}{N}}
+						\]
+					</p>
+					<p class="fragment">
+						\[
+						\implies \mathbb{E}(P_{coal}(t)) = N
+						\]
+					</p>
+					<br>
+					<p>When $N$ is large.</p>
+				</section>
+				<section data-transition="fade">
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/coal0.png" alt="">
+					<p>Idealized population over 10 generations; $N=10$.</p>
+				</section>
+				<section data-transition="fade">
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/coal1.png" alt="">
+					<p>Each individual "chooses" its ancestor at random.</p>
+				</section>
+				<section data-transition="fade">
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/coal2.png" alt="">
+					<p>(Sort things so they look nice)</p>
+				</section>
+				<section data-transition="fade">
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/coal3.png" alt="">
+					<p>Trace the ancestry of 4 taxa backwards in time.</p>
+				</section>
+				<section data-transition="fade">
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/coal4.png" alt="">
+					<p>This process yields a phylogeny.</p>
+				</section>
+				<section>
+					<p>Let's relax the assumption that the population size must be constant.</p>
+				</section>
+				<section>
+					<h3>Different population structures give rise to different tree shapes</h3>
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/total_coalescent.png" alt="">
+				</section>
+				<section>
+					<p>Now we can invert the process to infer demography <i>from</i> the phylogeny.</p>
+					<p>(skyline plots)</p>
+				</section>
+				<section>
+					<h3>Skyline inference</h3>
+					<br>
+					The rate of coalescence is given by:
+					<br>
+					\[
+					\lambda_n = \frac{\binom{n}{2}}{N}
+					\]
+					<br>
+					$n$ is the number of lineages present before coalescence.
+				</section>
+				<section>
+					<h3>Skyline inference</h3>
+					<br>
+					The waiting time until the next coalescence is exponentially distributed:
+					<br>
+					\[
+					P(w_n) = \lambda_n e^{-\lambda_n w_n}
+					\]
+				</section>
+				<section>
+					<h3>Skyline inference</h3>
+					<p>For a given tree, we can define a set of <i>intercoalescent intervals</i> $I_2, I_3, \dots, I_m$, where m is the number of lineages present in each interval.</p>
+				</section>
+				<section>
+					<h3>Skyline inference</h3>
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/skyline0.png" alt="">
+				</section>
+				<section>
+					<h3>Skyline inference</h3>
+					<br>
+					<p>The demographic history can be approximated as piecewise constant $M_2, M_3, \dots, M_m$:</p>
+					<br>
+					<p>
+					\[
+					\hat{M}_n = \hat{w}_n \frac{n(n-1)}{2}
+					\]
+					</p>
+					<br>
+					<p>where $\hat{w}_n$ is the width of the interval.</p>
+				</section>
+				<section data-transition="fade">
+					<h3>Skyline inference</h3>
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/skyline1.png" alt="">
+				</section>
+				<section data-transition="fade">
+					<h3>Skyline inference</h3>
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/skyline2.png" alt="">
+				</section>
+				<section data-transition="fade">
+					<h3>Skyline inference</h3>
+					<img class="r-stretch" src="assets/phylo-intro/coalescent/skyline3.png" alt="">
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/demographic_history.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Not just evol. characteristics, but also demographic and epidemiological ones</li>
+							<li>Use the phylogeny to infer effective population size through time</li>
+							<li>proxy for reproductive rate</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>(discrete) Phylogeography</h3>
+				</section>
+				<section>
+					<h3>Phylogenies help us understand spatiotemporal spread</h3>
+					<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/migration_history.png" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>Combine migration rates with a phylogenetic tree</li>
+							<li>Understand the number and timing of different migration events</li>
+							<ul>
+								<li>Short term: understand the drivers of a local epidemic</li>
+								<li>Long term: understand the complete evolutionary history of a virus in space and time</li>
+							</ul>
+						</ul>
+					</aside>
+				</section>
+				<section>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/GeoMSA_0000_0.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/GeoMSA_0001_1.mp4"></video>
+				</section>
+				<section data-transition="none">
+					<video data-autoplay src="assets/phylo-intro/videos/4/GeoMSA_0002_2.mp4"></video>
+				</section>
+				<section>
+					<h3>It is the same CTMC model!</h3>
+					<p class="fragment">(except now we typically call the rate matrix $\Lambda$)</p>
+					<p class="fragment">(also, this can be extraordinarily slow)</p>
+				</section>
+				<section>
+					<h3>Bayesian Stochastic Search Variable Selection (BSSVS)</h3>
+					<br>
+					\[
+						\Lambda=\{ \lambda_{ij} \} \rightarrow \{ \delta_{ij} \lambda_{ij} \}
+					\]
+					<br>
+					<p>where $\delta_{ij} \in \{ 0, 1 \}$.</p>
+				</section>
+				<section>
+					<h3>Phylogeographic GLM</h3>
+					<br>
+					<p>Useful for determining which potential predictors $k \in K$ best explain observed phylogeographic diffusion between locations $i,j \in N$.</p>
+				</section>
+				<section>
+					<h3>Phylogeographic GLM</h3>
+					<br>
+					<ul>
+						<li>$\mathbf{X}^{(k)}$: predictor matrix $k$</li>
+						<ul>
+							<li>E.g. distance, relative population</li>
+						</ul>
+						<li>$\delta^{(k)*}$: indicators for inclusion of predictor $k$</li>
+						<li>$\beta^{(k)}$: unknown coefficients for predictor $k$</li>
+						<li>$\epsilon_i$: location-specific effect for $i$</li>
+					</ul>
+					<p class="fragment">$*$ not the same $\delta$ as was used in BSSVS.</p>
+				</section>
+				<section>
+					<h3>Phylogeographic GLM</h3>
+					<br>
+					\[
+					log(\Lambda_{ij}) = \sum_{k \in K} \mathbf{X}_{ij}^{(k)} \delta^{(k)} \beta^{(k)} + \epsilon_i + \epsilon_j
+					\]
+				</section>
+				<section>
+					<h3>FIN</h3>
+					<aside class="notes">
+						Thanks!
+					</aside>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>

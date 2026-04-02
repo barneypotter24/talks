@@ -1,0 +1,548 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>TB Vilnius Univ.</title>
+		<meta name="author" content="Barney Isaksen Potter">
+		<meta name="description" content="Evolution and Rapid Spread of a Highly Transmissible M.tuberculosis Lineage" />
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- BEGIN SLIDES -->
+				<!-- Title slide -->
+				<section data-background-color="#00356B">
+					<br>
+					<h2 style="color:#ffffff">Evolution and Rapid Spread of a Highly Transmissible M.tuberculosis Lineage</h2>
+					<h4 style="color:#ffffff">Barney Isaksen Potter</h4>
+					<p style="font-size:0.6em;color:#8e9389">Yale School of Public Health</p>
+					<p style="font-size:0.6em;color:#8e9389">2025-12-02</p>
+					<p style="font-size:0.6em;color:#8e9389">Life Sciences Center, Vilnius University</p>
+					<img class="r-stretch" src="assets/share/yale-logo-white.svg" width="10%" alt="EIDs" />
+					<aside class="notes">
+						Great to be back, its been almost three years to the day since I gave a talk to this same group.
+					</aside>
+				</section>
+
+				<!-- EID slide -->
+				<section>
+					<img class="r-stretch" src="assets/doctoral-defense/eid.jpg" alt="EIDs" />
+					<div id="leftSource">Source: Morens & Fauci (2020) <em>Cell</em></div>
+					<aside class="notes">
+						<ul>
+							<li>Infectious diseases can be caused by all sorts of pathogens: parasites (Malaria), bacteria (TB), viruses
+							</li>
+							<li>Many diseases have emerged recently</li>
+							<li>Diseases such as West African Ebola, Zika in the Americias, SARS-CoV-2 have all emerged very recently
+							</li>
+							<li>Even the influenza viruses that affect global health today have emerged in the last hundred years</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- INTRO -->
+				<!-- TB introduction -->
+				<section>
+					<h3>Tuberculosis</h3>
+					<div id="left">
+						<ul>
+							<li>Slow developing, primarily respiratory wasting disease,</li>
+							<li>Aerosol droplet transmission,</li>
+							<li>Most deadly infectious disease in the (history of the) world,</li>
+							<li>Infected humans for millennia.</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/tb-vilnius/mummy.jpg" width="100%">
+					</div>
+					<div id="rightSource">Source: Klafubra via Wikipedia</div>
+					<aside class="notes">
+						<ul>
+							<li>10-20 per cent of cases are extramulmonary</li>
+							<li>Even today TB causes over 10million new infections and over 1million deaths annually</li>
+							<li>Responsible for up to a quarter of deaths in pre-antibiotic Europe!</li>
+							<ul>
+								<li>Mention: very effectively treated by antibiotics</li>
+								<li>Unfortunately: has a tendency to develop drug resistance</li>
+							</ul>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/tb-vilnius/owid-mtb-global.png" alt="EIDs" />
+					<div id="leftSource">Source: Our World in Data</div>
+					<aside class="notes">
+						Most of the burden of disease falls on less economically developed countries that cannot afford access to second and third line antibiotics.
+					</aside>
+				</section>
+				<!-- Mtb introduction -->
+				<section>
+					<h3>Mycobacterium tuberculosis</h3>
+					<div id="left">
+						<ul>
+							<li>Aerobic, slow-growing bacteria,</li>
+							<li>Does not undergo recombination or contain a large accessory genome,</li>
+							<li>4.4 mebabase genome.</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/tb-vilnius/mtb-wiki.jpg" width="100%">
+					</div>
+					<div id="rightSource">Source: CDC/Dr. George Kubica</div>
+				</section>
+				<section>
+					<img class="r-stretch" src="assets/tb-vilnius/tb-global-gagneaux.jpg" alt="EIDs" />
+					<div id="leftSource">Source: Gagneux & Small (2007) <em>The Lancet</em></div>
+					<aside class="notes">
+						All of the major lineages of TB are globalized, however the two largest are so-called Beijing sublineage 2 (Global East), and the Ural sublineage of lineage 4 (Europe/central asia). This talk focuses on this Ural sublineage
+					</aside>
+				</section>
+
+
+
+				<!-- Epidemic trajectory -->
+				<section>
+					<div class="r-stack">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi1.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi2.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi3.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi4.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi5.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi6.png">
+						<img class="fragment current-visible" src="assets/share/phylogeo_intro/gruvbox_dark/epi7.png">
+						<img class="fragment" src="assets/share/phylogeo_intro/gruvbox_dark/epi8.png">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>"I'm gong to walk through how an idealized epidemic happens, and how phylogenetic trees are a natural
+								way to describe them"</li>
+							<li>First: how epidemic process leads to phylogenetic trees</li>
+							<li>walk through figure</li>
+							<li>phylogeny represents a hypothesis of the shared evolutionary, and therefore transmission, history</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Phylogeny explanation slide -->
+				<section data-transition="fade">
+					<h3>What can this tell us?</h3>
+					<div id="left">
+						<ul>
+							<li>Topology</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+							<li style="opacity:.5">Population size</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/phylogeny.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Which things are most related to one another</li>
+							<li>What are the patterns of shared ancestry?</li>
+							<li>How diverged two different taxa are (genetic distance)</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Evolutionary rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can this tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Topology</li>
+							<li>Evolutionary rate</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+							<li style="opacity:.5">Population size</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/time_scale.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>From genetic distance to clock distance</li>
+							<li>How long ago did two taxa share a common ancestor (and how long ago did they diverge)?</li>
+							<li>Leverage clock-like nature of mutation accumulation to date internal nodes</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Migration rate explanation slide -->
+				<section data-transition="fade">
+					<h3>What can this tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Topology</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li>Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+							<li style="opacity:.5">Population size</li>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/migration_rates.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Similar to substitution rates, we can infer migration rates</li>
+							<li>Here we treat location as discrete</li>
+							<li>Help us understand which locations may be sources or sinks for viral spread</li>
+						</ul>
+					</aside>
+				</section>
+				<!-- Migration rate history slide -->
+				<section data-transition="fade">
+					<h3>What can this tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Topology</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li>Migration history</li>
+							<li style="opacity:.5">Population size</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/migration_history.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Combine migration rates with a phylogenetic tree</li>
+							<li>Understand the number and timing of different migration events</li>
+							<ul>
+								<li>Short term: understand the drivers of a local epidemic</li>
+								<li>Long term: understand the complete evolutionary history of a virus in space and time</li>
+							</ul>
+						</ul>
+					</aside>
+				</section>
+				<!-- Demographic parameters explanation slide -->
+				<section data-transition="fade">
+					<h3>What can this tell us?</h3>
+					<div id="left">
+						<ul>
+							<li style="opacity:.5">Topology</li>
+							<li style="opacity:.5">Evolutionary rate</li>
+							<li style="opacity:.5">Migration rates</li>
+							<li style="opacity:.5">Migration history</li>
+							<li>Population size</li>
+						</ul>
+					</div>
+					<div id="right">
+						<img class="r-stretch" src="assets/share/what_can_phylogeo/gb_dark/demographic_history.png" width="100%">
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Not just evol. characteristics, but also demographic and epidemiological ones</li>
+							<li>Use the phylogeny to infer effective population size through time</li>
+							<li>proxy for reproductive rate</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<img src="assets/doctoral-defense/treeDiagram.png" alt="treeDiagram" class="r-stretch" width="100%">
+					<aside class="notes">
+						<ul>
+							<li>read from right to left</li>
+							<li>tips/taxa/sequences</li>
+							<li>internal nodes represent shared common ancestors</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- BODY -->
+				<section>
+					<h3><em>M.tuberculosis</em> in Moldova</h3>
+					<ul>
+						<li>Countrywide analysis of ALL culture-positive <em>M.tb</em> cases in Moldova (2018-2019).</li>
+						<li>2770 diagnosed, 1834 complete genomes.</li>
+						<li>Two major sublineages in the country: Beijing (2.2.1), Ural (4.2).
+					</ul>
+					<img src="assets/tb-vilnius/melanie.jpg" alt="treeDiagram" class="r-stretch" width="30%">
+					<aside class="notes">
+						How can we go about this? How can we...
+					</aside>
+				</section>
+				<section>
+					<img src="assets/tb-vilnius/chitwood-ural-beijing-tb.png" alt="treeDiagram" class="r-stretch" width="100%">
+					<div id="leftSource">Source: Chitwood et al. (2024) <em>Nature Communications</em></div>
+					<aside class="notes">
+						<ul>
+							<li>Only using moldovan sequences</li>
+							<li>There is a large, recently emerged Ural A clade whose genotype suggests multidrug resistance</li>
+							<ul>
+								<li>isoniazid</li>
+								<li>rifampin</li>
+							</ul>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>This study</h3>
+					<ul>
+						<li>Added sequence data from European Nucleotide Archive;</li>
+						<li>Full dataset of <em>M.tb</em> lineage 4.2 isolates:</li>
+						<ul>
+							<li>5909 total samples,</li>
+							<li>Country,</li>
+							<li>Sampling date.</li>
+						</ul>
+					</ul>
+				</section>
+				<section>
+					<h3>The game plan</h3>
+					<ol>
+						<li class="fragment" data-fragment-index="1">Maximum likelihood phylogenetic inference;</li>
+						<li class="fragment" data-fragment-index="2">Time-calibrate the phylogeny:</li>
+						<ul class="fragment" data-fragment-index="2">
+							<li>Fixed clock model,</li>
+							<li>0.5 SNPs/genome/year;</li>
+						</ul>
+						<li class="fragment" data-fragment-index="3">Infer geographic spread:</li>
+						<ul class="fragment" data-fragment-index="3">
+							<li>SAASI.</li>
+						</ul>
+					</ol>
+				</section>
+				<section>
+					<h4>Maximum likelihood phylogeny</h4>
+					<img src="assets/tb-vilnius/ml_div_clade_3.png" alt="mldiv3" class="r-stretch" width="100%">
+				</section>
+				<section>
+					<h4>Time-calibrated ML phylogeny</h4>
+					<img src="assets/tb-vilnius/time_with_map.png" alt="treeDiagram" class="r-stretch" width="100%">
+					<aside class="notes">
+						notes
+					</aside>
+				</section>
+				<section>
+					<h4>Epidemic Clade 1 (EC1)</h4>
+					<img src="assets/tb-vilnius/coi_with_map.jpg" alt="treeDiagram" class="r-stretch" width="100%">
+					<aside class="notes">
+						notes
+					</aside>
+				</section>
+				<section>
+					<h4>Comparison clades</h4>
+					<img src="assets/tb-vilnius/ml_div_clade_2.png" alt="treeDiagram" class="r-stretch" width="100%">
+					<aside class="notes">
+						notes
+					</aside>
+				</section>
+				<section>
+					<h4>Local Branching Index supports increased fitness</h4>
+					<img src="assets/tb-vilnius/LBIresult.jpg" alt="treeDiagram" class="r-stretch" width="100%">
+					<aside class="notes">
+						notes
+					</aside>
+				</section>
+				<section>
+					<h4>Where did EC1 originate?</h4>
+					<img src="assets/tb-vilnius/SAASIresult.jpg" alt="treeDiagram" class="r-stretch" width="100%">
+					<aside class="notes">
+						notes
+					</aside>
+				</section>
+				<section>
+					<h4>EC1 has repeatedly acquired AMR mutations</h4>
+					<img src="assets/tb-vilnius/Figure4.png" alt="treeDiagram" class="r-stretch" width="100%">
+					<aside class="notes">
+						notes
+					</aside>
+				</section>
+
+				<!-- OUTRO -->
+				<section>
+					<h3>Conclusions</h3>
+					<ul>
+						<li>A clade of <em>M.tb</em> Ural lineage 4.2 arose in the last 50 years,</li>
+						<li>This clade appears highly fit, and has acquired numerous drug-resistance conferring mutations,</li>
+						<li>EC1 may have its origins in Russia, or another former Soviet Republic.</li>
+					</ul>
+				</section>
+				<section>
+					<h3>What's next?</h3>
+					<ul>
+						<li>Retrospective sequncing of Moldovan tuberculosis cases going back to 2004,</li>
+						<li>Bayesian phylogenetic/phylogeographic inference,</li>
+						<li>Incorporate a more unbiased sampling of the regional burden of tuberculosis.</li>
+					</ul>
+				</section>
+
+
+				<!-- baltic bit -->
+				<section>
+					<section>
+						<h3 class="fragment" data-fragment-index="3">(Backronymed)</h3>
+						<h3 class="fragment" data-fragment-index="2">Adaptable</h3>
+						<h3 class="fragment" data-fragment-index="1">Lightweight</h3>
+						<h3>Tree</h3>
+						<h3>Import</h3>
+						<h3>Code</h3>
+					</section>
+					<section>
+						<h3>B</h3>
+						<h3>A</h3>
+						<h3>L</h3>
+						<h3>T</h3>
+						<h3>I</h3>
+						<h3>C</h3>
+					</section>
+					<section data-transition="fade">
+						<img src="assets/bt-vilnius/threeTrees0.png" class="r-stretch" width="100%">
+					</section>
+					<section data-transition="fade">
+						<img src="assets/bt-vilnius/threeTrees1.png" class="r-stretch" width="100%">
+					</section>
+					<section data-transition="fade">
+						<img src="assets/bt-vilnius/threeTrees2.png" class="r-stretch" width="100%">
+					</section>
+					<section data-transition="fade">
+						<img src="assets/bt-vilnius/threeTrees.png" class="r-stretch" width="100%">
+					</section>
+					<section data-transition="fade">
+						<img src="assets/bt-vilnius/threeTreesColor.png" class="r-stretch" width="100%">
+					</section>
+					<section>
+						<blockquote>
+							baltic is a Python library based on matplotlib for the parsing and visualization of phylogenetic trees and their associated analyses.
+						</blockquote>
+					</section>
+					<section>
+						<h3>Key features of baltic</h3>
+						<ol>
+							<li>Simple API,</li>
+							<li>Efficient parsing and visualization of large tree files,</li>
+							<li>Full suite of tree manipulation features,</li>
+							<li>Low-level implementation for power users,</li>
+							<li>High-level function wrapping,</li>
+							<li>Minimalist default design choice.</li>
+						</ol>
+					</section>
+					<section>
+						<h3>Plotting the <i>n=20</i> tree</h3>
+						<img src="assets/bt-vilnius/threeTrees.png" class="r-stretch" width="100%">
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							```python [1-2|4-5|7|8|10]
+							import baltic as bt
+							import matplotlib.pyplot as plt
+
+							fig, ax = plt.subplots(1,1)
+							ax.set_title("$n=20$")
+
+							ll=bt.load_newick("data/tree20.nwk")
+							ll.plot_tree(ax, widthFxn=lambda k: .3)
+
+							plt.savefig("tree20.png")
+							```
+						</textarea>
+					</section>
+					<section>
+						<h3>Tree manipulation features</h3>
+						<ul>
+							<li>Automated MRCA search,</li>
+							<li>Rerooting (algorithmic or manual),</li>
+							<li>Metadata integration,</li>
+							<li>Clade collpse, reticulation, and tree abstraction,</li>
+							<li><em>Posterior distribution summariazation.</em></li>
+						</ul>
+					</section>
+					<section>
+						<img src="assets/bt-vilnius/collapse.png" class="r-stretch" width="100%">
+					</section>
+					<section>
+						<img src="assets/bt-vilnius/reticulate.png" class="r-stretch" width="100%">
+					</section>
+					<section>
+						<img src="assets/bt-vilnius/tangle.png" class="r-stretch" width="100%">
+					</section>
+					<section>
+						<img src="assets/bt-vilnius/tangleCirc.png" class="r-stretch" width="100%">
+					</section>
+					<section>
+						<img src="assets/bt-vilnius/exploded.png" class="r-stretch" width="100%">
+					</section>
+					<section>
+						<img src="assets/bt-vilnius/hbvd.jpeg" class="r-stretch" width="100%">
+					</section>
+					<section>
+						<img src="assets/bt-vilnius/b1619.jpeg" class="r-stretch" width="100%">
+					</section>
+					<section>
+						<h3>Coming soon:</h3>
+						<ol>
+							<li>Documentation and a wiki,</li>
+							<li>Full tutorials,</li>
+							<li>Nextstrain JSON import,</li>
+							<li>baltic full release.</li>
+						</ol>
+					</section>
+					<section>
+						<h3>Check it out!</h3>
+						<p>(work in progress)</p>
+						<p>https://github.com/evogytis/baltic/tree/dev-main</p>
+					</section>
+
+				</section>
+
+
+				<!-- Acknowledgements slide -->
+				<section>
+					<h3>Thanks to:</h3>
+					<div id="left">
+						<u style="font-size:.9em; "><b>Yale School of Public Health</b></u>
+						<p style="font-size:.7em; ">Melanie Chitwood</p>
+						<p style="font-size:.7em; ">Isabel Rancu</p>
+						<p style="font-size:.7em; ">Yi Ting Chew</p>
+
+						<b style="font-size:.9em; "><u>Simon Fraser University, CA</u></b>
+						<p style="font-size:.74em; ">Caroline Colijn</p>
+					</div>
+					<div id="right">
+						<b style="font-size:.9em; "><u>Phthisiopneumology Institute, MD</u></b>
+						<p style="font-size:.7em; ">Valeriu Crudu</p>
+
+						<b style="font-size:.9em; "><u>University College of London</u></b>
+						<p style="font-size:.7em; ">Benjamin Sobkowiak</p>
+					</div>
+				</section>
+				<section data-background-color="#8e9389">
+					<h3 style="color:#00356B">Questions?</h3>
+					<img src="assets/tb-vilnius/munch-the-sick-child.jpg" alt="treeDiagram" class="r-stretch" width="100%">
+					<div id="leftSource">Source: Edvard Munch via Wikipedia</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+		 Reveal.initialize({
+			    controls: true,
+				hash: true,
+				slideNumber: true,
+				hashOneBasedIndex: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, ]
+			});
+		</script>
+	</body>
+</html>
